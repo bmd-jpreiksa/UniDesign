@@ -49,7 +49,7 @@ pybind11_add_module(${PYBIND11_TARGET_NAME} MODULE
     src/python/bindings.cpp
 )
 
-set_target_properties(${PYBIND11_TARGET_NAME} PROPERTIES OUTPUT_NAME "unidesign")
+set_target_properties(${PYBIND11_TARGET_NAME} PROPERTIES OUTPUT_NAME "_core")
 target_link_libraries(${PYBIND11_TARGET_NAME} PRIVATE unidesign)
 target_include_directories(${PYBIND11_TARGET_NAME}
     PRIVATE

@@ -38,6 +38,25 @@ All protein design tasks are conducted with UniDesign command <i><b>ProteinDesig
 ## Installation, Usage and Tutorial
 Please refer to the <a href=https://github.com/tommyhuangthu/UniDesign/blob/master/manual.docx>manual.docx</a> for details.
 
+## Python packaging, build, and test workflow
+The repository includes a Python package that exposes the pybind11 bindings and a minimal
+pytest-based validation suite. The recommended commands are:
+
+```bash
+# Build a wheel in an isolated environment (creates dist/unidesign-*.whl)
+pip wheel .
+
+# Install the project in editable mode during development
+pip install -e .[test]
+
+# Execute the validation tests
+pytest
+```
+
+All commands can be run from the repository root. The tests exercise the
+`ComputeStructureStability` workflow against bundled fixture inputs to verify that the
+compiled extension is working correctly.
+
 ## Managed C++ helpers for Structure and Sequence
 Repeated manual calls to `StructureCreate`/`StructureDestroy` and `SequenceCreate`/`SequenceDestroy` (for example, the loops in `src/ProteinDesign.cpp` that rebuild temporary sequences) can now be replaced with RAII helpers declared in `src/ManagedTypes.hpp`. The `StructureHandle` and `SequenceHandle` classes automatically invoke the appropriate `Create` routine on construction, perform `Copy` on copy/move, and guarantee `Destroy` is executed exactly once, preventing double frees.
 

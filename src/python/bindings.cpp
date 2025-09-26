@@ -1,10 +1,12 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
+#include "AtomParamsSet.h"
 #include "ManagedTypes.hpp"
 #include "ProgramFunction.h"
 #include "EnergyFunction.h"
 #include "Structure.h"
+#include "ResidueTopology.h"
 #include "Sequence.h"
 #include "ErrorTracker.h"
 #include "Utility.h"
@@ -430,6 +432,36 @@ std::vector<std::string> ListKeys(const std::unordered_map<std::string, IntConfi
   return keys;
 }
 
+struct AtomParamsSetGuard
+{
+  AtomParamsSetGuard()
+  {
+    ThrowIfFailed(AtomParamsSetCreate(&value), "AtomParamsSetCreate");
+  }
+
+  ~AtomParamsSetGuard()
+  {
+    AtomParamsSetDestroy(&value);
+  }
+
+  AtomParamsSet value{};
+};
+
+struct ResiTopoSetGuard
+{
+  ResiTopoSetGuard()
+  {
+    ThrowIfFailed(ResiTopoSetCreate(&value), "ResiTopoSetCreate");
+  }
+
+  ~ResiTopoSetGuard()
+  {
+    ResiTopoSetDestroy(&value);
+  }
+
+  ResiTopoSet value{};
+};
+
 std::vector<double> ComputeStructureStabilityFromConfig(StructureHandle& structure)
 {
   std::array<double, MAX_ENERGY_TERM> energyTerms{};
@@ -451,9 +483,38 @@ void ProteinDesignFromConfig()
   throw std::runtime_error("ProteinDesign workflow is not yet exposed through the Python module");
 }
 
+std::vector<char> MakeBuffer(const std::string& value)
+{
+  std::vector<char> buffer(value.begin(), value.end());
+  buffer.push_back('\0');
+  return buffer;
+}
+
+void LoadStructureFromPdb(StructureHandle& structure, const std::string& pdbPath)
+{
+  AtomParamsSetGuard atomParams;
+  ResiTopoSetGuard resiTopo;
+
+  auto atomParamFile = MakeBuffer(FILE_ATOMPARAM);
+  ThrowIfFailed(AtomParameterRead(&atomParams.value, atomParamFile.data()), "AtomParameterRead");
+
+  auto topoFile = MakeBuffer(FILE_TOPO);
+  ThrowIfFailed(ResiTopoSetRead(&resiTopo.value, topoFile.data()), "ResiTopoSetRead");
+
+  auto pdbFile = MakeBuffer(pdbPath);
+  ThrowIfFailed(StructureReadPDB(structure.get(), pdbFile.data(), &atomParams.value, &resiTopo.value), "StructureReadPDB");
+  ThrowIfFailed(StructureCalcPhiPsi(structure.get()), "StructureCalcPhiPsi");
+}
+
+void LoadEnergyWeights()
+{
+  auto weightFile = MakeBuffer(FILE_WEIGHT_READ);
+  ThrowIfFailed(EnergyWeightRead(weightFile.data()), "EnergyWeightRead");
+}
+
 } // namespace
 
-PYBIND11_MODULE(unidesign, m)
+PYBIND11_MODULE(_core, m)
 {
   m.doc() = "Python bindings for the UniDesign core library";
 
@@ -494,4 +555,10 @@ PYBIND11_MODULE(unidesign, m)
   m.def("list_flags", [] { return ListKeys(GetBoolEntries()); }, "List available boolean configuration keys.");
   m.def("list_cutoffs", [] { return ListKeys(GetDoubleEntries()); }, "List available floating-point configuration keys.");
   m.def("list_integers", [] { return ListKeys(GetIntEntries()); }, "List available integer configuration keys.");
+
+  m.def("load_structure_from_pdb", &LoadStructureFromPdb, py::arg("structure"), py::arg("pdb_path"),
+    "Populate a structure handle by reading the provided PDB file using the active parameter and topology files.");
+
+  m.def("load_energy_weights", &LoadEnergyWeights,
+    "Load energy weighting factors from the configured weight file.");
 }
