@@ -2,6 +2,13 @@
 
 from __future__ import annotations
 
+from .config import (
+    CommandConfig,
+    ComputeBindingConfig,
+    ComputeStabilityConfig,
+    MakeLigParamConfig,
+    ProteinDesignConfig,
+)
 from .exceptions import BinaryDiscoveryError, UniDesignError
 from .paths import discover_binary
 from .runner import UniDesignRunResult, UniDesignRunner
@@ -12,4 +19,9 @@ __all__ = [
     "UniDesignError",
     "UniDesignRunner",
     "UniDesignRunResult",
+    "CommandConfig",
+    "ProteinDesignConfig",
+    "ComputeStabilityConfig",
+    "ComputeBindingConfig",
+    "MakeLigParamConfig",
 ]
