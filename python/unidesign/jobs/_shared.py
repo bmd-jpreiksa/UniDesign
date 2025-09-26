@@ -8,44 +8,49 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Mapping
 
+from ..artifacts import UniDesignArtifact
+
+
+ArtifactFactory = Callable[[Path, str, str], UniDesignArtifact]
+
 
 @dataclass(slots=True)
-class JobArtifact:
-    """Representation of a generated UniDesign file."""
+class ArtifactSpec:
+    """Description of a potential UniDesign artifact."""
 
-    path: Path
+    relative_path: Path
+    factory: ArtifactFactory
 
-    def read_text(self, encoding: str = "utf-8") -> str:
-        """Read the artifact as text using the provided encoding."""
+    @classmethod
+    def from_type(
+        cls, relative_path: Path, artifact_type: type[UniDesignArtifact]
+    ) -> ArtifactSpec:
+        """Convenience constructor for simple artifact factories."""
 
-        return self.path.read_text(encoding=encoding)
+        def _factory(path: Path, prefix: str, logical_name: str) -> UniDesignArtifact:
+            return artifact_type(path=path, prefix=prefix, logical_name=logical_name)
 
-    def read_bytes(self) -> bytes:
-        """Read the artifact in binary mode."""
-
-        return self.path.read_bytes()
-
-    def open(self, mode: str = "r", *args, **kwargs):
-        """Open the underlying file handle."""
-
-        return self.path.open(mode, *args, **kwargs)
+        return cls(relative_path=relative_path, factory=_factory)
 
 
-def _existing_artifacts(workdir: Path, candidates: Mapping[str, Path]) -> dict[str, Path]:
-    existing: dict[str, Path] = {}
-    for name, relative_path in candidates.items():
-        candidate = workdir / relative_path
+def _existing_artifacts(
+    workdir: Path, candidates: Mapping[str, ArtifactSpec]
+) -> dict[str, tuple[Path, ArtifactSpec]]:
+    existing: dict[str, tuple[Path, ArtifactSpec]] = {}
+    for name, spec in candidates.items():
+        candidate = workdir / spec.relative_path
         if candidate.exists():
-            existing[name] = candidate
+            existing[name] = (candidate, spec)
     return existing
 
 
 def relocate_artifacts(
     workdir: Path,
-    candidates: Mapping[str, Path],
+    candidates: Mapping[str, ArtifactSpec],
     *,
     keep_workspace: bool,
-) -> tuple[Path, dict[str, JobArtifact], Callable[[], None]]:
+    prefix: str,
+) -> tuple[Path, dict[str, UniDesignArtifact], Callable[[], None]]:
     """Relocate generated files based on caller preferences.
 
     Parameters
@@ -53,7 +58,8 @@ def relocate_artifacts(
     workdir:
         Temporary directory that holds the UniDesign execution artefacts.
     candidates:
-        Mapping of artifact names to paths relative to ``workdir``.
+        Mapping of artifact names to :class:`ArtifactSpec` entries describing
+        potential files.
     keep_workspace:
         Whether the caller wants to retain the original ``workdir``.
 
@@ -64,7 +70,8 @@ def relocate_artifacts(
         ``False`` a new directory is created and populated with only the
         generated artefacts.
     artifacts:
-        Mapping of artifact names to :class:`JobArtifact` instances.
+        Mapping of artifact names to concrete :class:`~unidesign.artifacts.UniDesignArtifact`
+        instances.
     cleanup:
         Callable that removes ``workspace`` when invoked.
     """
@@ -72,14 +79,17 @@ def relocate_artifacts(
     existing = _existing_artifacts(workdir, candidates)
 
     if keep_workspace:
-        artifacts = {name: JobArtifact(path=path) for name, path in existing.items()}
+        artifacts = {
+            name: spec.factory(path=path, prefix=prefix, logical_name=name)
+            for name, (path, spec) in existing.items()
+        }
         cleanup = lambda: shutil.rmtree(workdir, ignore_errors=True)
         return workdir, artifacts, cleanup
 
     destination = Path(tempfile.mkdtemp(prefix="unidesign_artifacts_"))
-    relocated: dict[str, JobArtifact] = {}
+    relocated: dict[str, UniDesignArtifact] = {}
 
-    for name, source in existing.items():
+    for name, (source, spec) in existing.items():
         try:
             relative = source.relative_to(workdir)
         except ValueError:
@@ -87,11 +97,11 @@ def relocate_artifacts(
         target = destination / relative
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, target)
-        relocated[name] = JobArtifact(path=target)
+        relocated[name] = spec.factory(path=target, prefix=prefix, logical_name=name)
 
     shutil.rmtree(workdir, ignore_errors=True)
     cleanup = lambda: shutil.rmtree(destination, ignore_errors=True)
     return destination, relocated, cleanup
 
 
-__all__ = ["JobArtifact", "relocate_artifacts"]
+__all__ = ["ArtifactSpec", "relocate_artifacts"]

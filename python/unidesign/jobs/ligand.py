@@ -6,9 +6,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Mapping
 
+from ..artifacts import LigandParameters, LigandTopology
 from ..config import MakeLigParamConfig
 from ..runner import UniDesignRunner, UniDesignRunResult
-from ._shared import JobArtifact, relocate_artifacts
+from ._shared import ArtifactSpec, relocate_artifacts
 
 
 @dataclass(slots=True)
@@ -17,8 +18,8 @@ class LigandParameterizationResult:
 
     run: UniDesignRunResult
     workspace: Path
-    parameter_file: JobArtifact | None
-    topology_file: JobArtifact | None
+    parameter_file: LigandParameters | None
+    topology_file: LigandTopology | None
     cleanup: Callable[[], None] | None
 
     def close(self) -> None:
@@ -44,11 +45,18 @@ class LigandParameterizationJob:
             self._config.to_cli_args(), env=env, persist_workdir=True
         )
         candidates = {
-            "parameter_file": Path(self._config.ligand_parameter_path),
-            "topology_file": Path(self._config.ligand_topology_path),
+            "parameter_file": ArtifactSpec.from_type(
+                Path(self._config.ligand_parameter_path), LigandParameters
+            ),
+            "topology_file": ArtifactSpec.from_type(
+                Path(self._config.ligand_topology_path), LigandTopology
+            ),
         }
         workspace, artifacts, cleanup = relocate_artifacts(
-            run_result.workdir, candidates, keep_workspace=keep_workspace
+            run_result.workdir,
+            candidates,
+            keep_workspace=keep_workspace,
+            prefix=run_result.prefix,
         )
         run_result.workdir = workspace
         return LigandParameterizationResult(

@@ -6,9 +6,10 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable, Mapping
 
+from ..artifacts import RotamerList
 from ..config import ComputeBindingConfig, ComputeStabilityConfig
 from ..runner import UniDesignRunner, UniDesignRunResult
-from ._shared import JobArtifact, relocate_artifacts
+from ._shared import ArtifactSpec, relocate_artifacts
 
 
 @dataclass(slots=True)
@@ -17,7 +18,7 @@ class StabilityComputationResult:
 
     run: UniDesignRunResult
     workspace: Path
-    rotamer_list: JobArtifact | None
+    rotamer_list: RotamerList | None
     cleanup: Callable[[], None] | None
 
     def close(self) -> None:
@@ -43,10 +44,15 @@ class StabilityComputationJob:
             self._config.to_cli_args(), env=env, persist_workdir=True
         )
         candidates = {
-            "rotamer_list": Path(f"{run_result.prefix}_rotlist.txt"),
+            "rotamer_list": ArtifactSpec.from_type(
+                Path(f"{run_result.prefix}_rotlist.txt"), RotamerList
+            ),
         }
         workspace, artifacts, cleanup = relocate_artifacts(
-            run_result.workdir, candidates, keep_workspace=keep_workspace
+            run_result.workdir,
+            candidates,
+            keep_workspace=keep_workspace,
+            prefix=run_result.prefix,
         )
         run_result.workdir = workspace
 
@@ -89,7 +95,10 @@ class BindingComputationJob:
             self._config.to_cli_args(), env=env, persist_workdir=True
         )
         workspace, _, cleanup = relocate_artifacts(
-            run_result.workdir, {}, keep_workspace=keep_workspace
+            run_result.workdir,
+            {},
+            keep_workspace=keep_workspace,
+            prefix=run_result.prefix,
         )
         run_result.workdir = workspace
         return BindingComputationResult(
