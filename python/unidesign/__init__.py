@@ -10,6 +10,17 @@ from .config import (
     ProteinDesignConfig,
 )
 from .exceptions import BinaryDiscoveryError, UniDesignError
+from .jobs import (
+    BindingComputationJob,
+    BindingComputationResult,
+    JobArtifact,
+    LigandParameterizationJob,
+    LigandParameterizationResult,
+    ProteinDesignJob,
+    ProteinDesignResult,
+    StabilityComputationJob,
+    StabilityComputationResult,
+)
 from .paths import discover_binary
 from .runner import UniDesignRunResult, UniDesignRunner
 
@@ -24,4 +35,13 @@ __all__ = [
     "ComputeStabilityConfig",
     "ComputeBindingConfig",
     "MakeLigParamConfig",
+    "ProteinDesignJob",
+    "ProteinDesignResult",
+    "StabilityComputationJob",
+    "StabilityComputationResult",
+    "BindingComputationJob",
+    "BindingComputationResult",
+    "LigandParameterizationJob",
+    "LigandParameterizationResult",
+    "JobArtifact",
 ]

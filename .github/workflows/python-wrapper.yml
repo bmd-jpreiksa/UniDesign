@@ -1,0 +1,39 @@
+name: Python Wrapper
+
+on:
+  push:
+    paths:
+      - 'python/**'
+      - 'docs/python-wrapper/**'
+      - 'examples/python/**'
+      - 'tests/**'
+      - 'requirements-test.txt'
+      - 'pytest.ini'
+      - '.github/workflows/python-wrapper.yml'
+  pull_request:
+    paths:
+      - 'python/**'
+      - 'docs/python-wrapper/**'
+      - 'examples/python/**'
+      - 'tests/**'
+      - 'requirements-test.txt'
+      - 'pytest.ini'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-test.txt
+      - name: Validate documentation presence
+        run: python -c "from pathlib import Path; assert Path('docs/python-wrapper/README.md').exists()"
+      - name: Compile wrapper sources
+        run: python -m compileall python/unidesign
+      - name: Run tests
+        run: pytest
