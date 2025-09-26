@@ -1,0 +1,4 @@
+docs/_build/
+__pycache__/
+.python-version
+.pytest_cache/
