@@ -1,0 +1,40 @@
+name: Python wrapper
+
+on:
+  push:
+    paths:
+      - 'python/**'
+      - 'examples/python/**'
+      - 'docs/python-wrapper/**'
+      - '.github/workflows/python-wrapper.yml'
+  pull_request:
+    paths:
+      - 'python/**'
+      - 'examples/python/**'
+      - 'docs/python-wrapper/**'
+      - '.github/workflows/python-wrapper.yml'
+
+jobs:
+  tests-and-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest sphinx
+
+      - name: Run python wrapper tests
+        run: |
+          pytest python/tests
+
+      - name: Build wrapper documentation
+        run: |
+          sphinx-build -b html docs/python-wrapper docs/_build/python-wrapper

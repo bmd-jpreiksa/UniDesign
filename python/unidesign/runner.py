@@ -8,8 +8,8 @@ import subprocess
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
-from tempfile import TemporaryDirectory
-from typing import Mapping, MutableMapping, Sequence
+from tempfile import TemporaryDirectory, mkdtemp
+from typing import Mapping, MutableMapping, Protocol, Sequence
 
 from . import paths
 
@@ -35,6 +35,23 @@ class UniDesignRunResult:
 
     prefix: str
     """Prefix automatically injected into CLI arguments for unique output names."""
+
+
+class _TempDirLike(Protocol):
+    name: str
+
+    def cleanup(self) -> None:
+        ...
+
+
+class _PersistentTempDir:
+    """No-op cleanup manager for persisted working directories."""
+
+    def __init__(self, name: str) -> None:
+        self.name = name
+
+    def cleanup(self) -> None:  # pragma: no cover - nothing to clean
+        return None
 
 
 class UniDesignRunner:
@@ -82,12 +99,14 @@ class UniDesignRunner:
             else:
                 shutil.copy2(source, target)
 
-    def _prepare_workdir(self, persist: bool) -> tuple[TemporaryDirectory, Path]:
-        tmp_dir = TemporaryDirectory(
-            prefix="unidesign_",
-            dir=str(self._base_working_dir) if self._base_working_dir else None,
-            delete=not persist,
-        )
+    def _prepare_workdir(self, persist: bool) -> tuple[_TempDirLike, Path]:
+        base_dir = str(self._base_working_dir) if self._base_working_dir else None
+        if persist:
+            tmp_dir: _TempDirLike = _PersistentTempDir(
+                mkdtemp(prefix="unidesign_", dir=base_dir)
+            )
+        else:
+            tmp_dir = TemporaryDirectory(prefix="unidesign_", dir=base_dir)
         workdir = Path(tmp_dir.name)
         for name, source in self._STATIC_RESOURCES:
             self._ensure_resource(workdir, name, source)
