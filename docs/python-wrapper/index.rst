@@ -138,6 +138,63 @@ Ligand parameterisation is handled by
 into parameter and topology artefacts, persisting them to the chosen output
 location.
 
+Running other ligand workflows
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Only a subset of the UniDesign ligand pipeline currently has dedicated
+high-level jobs. Commands such as ``MakeLigPoses`` and ``ScreenLigPoses`` are
+still accessible through :class:`unidesign.UniDesignRunner` by passing the raw
+CLI arguments. The runner automatically injects the scratch prefix and keeps
+track of the working directory so that generated pose files can be collected.
+
+.. code-block:: python
+
+   from unidesign import UniDesignRunner, discover_binary
+
+   runner = UniDesignRunner(discover_binary())
+
+   # Generate ligand poses.
+   pose_result = runner.run(
+       [
+           "--command", "MakeLigPoses",
+           "--pdb", "enzyme.pdb",
+           "--mol2", "LIG.mol2",
+           "--resfile", "RESFILE.txt",
+           "--lig_param", "LIG_PARAM.prm",
+           "--lig_topo", "LIG_TOPO.inp",
+           "--lig_catacons", "LIG_CATACONS.txt",
+           "--lig_placing", "LIG_PLACING.txt",
+           "--write_lig_poses", "LIG_POSES.pdb",
+       ],
+       persist_workdir=True,
+   )
+   poses = pose_result.workdir / f"{pose_result.prefix}_LIG_POSES.pdb"
+
+   # Screen poses by orientation.
+   screen_result = runner.run(
+       [
+           "--command", "ScreenLigPoses",
+           "--pdb", "enzyme.pdb",
+           "--mol2", "LIG.mol2",
+           "--resfile", "RESFILE.txt",
+           "--lig_param", "LIG_PARAM.prm",
+           "--lig_topo", "LIG_TOPO.inp",
+           "--read_lig_poses", poses.name,
+           "--write_lig_poses", "LIG_POSES_ORNT1.pdb",
+           "--screen_by_ornt", "SCREEN_RULE1.txt",
+       ],
+       workdir=pose_result.workdir,
+       persist_workdir=True,
+   )
+
+Passing ``workdir=pose_result.workdir`` reuses the poses generated in the
+previous step, while ``persist_workdir=True`` ensures the intermediate
+directories are not deleted once the subprocess finishes. The
+:class:`unidesign.UniDesignRunResult` objects expose the arguments,
+captured output and resolved working directory, which makes it straightforward
+to daisy-chain additional pose filters or other CLI utilities that do not have
+bespoke Python wrappers yet.
+
 Temporary workspace behaviour
 ------------------------------
 
