@@ -24,6 +24,9 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <stdlib.h>
 #include "SmallMolParAndTopo.h"
 
+#define STR_VALUE(x) #x
+#define STR(x) STR_VALUE(x)
+
 
 int FindAtomC(Atom* pAtomD, AtomArray* pAtomArray, IntArray* icFlags, IntArray* bondsFromToAndType, AtomArray* pAtomCArray)
 {
@@ -172,9 +175,12 @@ int GenerateSmallMolParameterAndTopologyFromMol2(char* mol2file, char* parfile, 
     if (readingAtom == TRUE)
     {
       int atomId;
-      char subst_name[MAX_LEN_RES_NAME + 1];
+      char atomNameBuf[MAX_LEN_ATOM_NAME + 1];
+      char atomTypeBuf[MAX_LEN_ATOM_TYPE + 1];
+      char subst_name[32];
       // the subst_id in field 7 of TRIPOS mol2 is used as the posInChain of the ligand
-      int count = sscanf(line, "%d %s %lf %lf %lf %s %d %s %lf", &atomId, atom.name, &atom.xyz.X, &atom.xyz.Y, &atom.xyz.Z, atom.type, &atom.posInChain, subst_name, &atom.charge);
+      int count = sscanf(line, "%d %" STR(MAX_LEN_ATOM_NAME) "s %lf %lf %lf %" STR(MAX_LEN_ATOM_TYPE) "s %d %31s %lf",
+        &atomId, atomNameBuf, &atom.xyz.X, &atom.xyz.Y, &atom.xyz.Z, atomTypeBuf, &atom.posInChain, subst_name, &atom.charge);
       if (count < 9)
       {
         char errMsg[MAX_LEN_ERR_MSG + 1];
@@ -182,9 +188,14 @@ int GenerateSmallMolParameterAndTopologyFromMol2(char* mol2file, char* parfile, 
         TraceError(errMsg, FormatError);
         exit(FormatError);
       }
+      strncpy(atom.name, atomNameBuf, MAX_LEN_ATOM_NAME);
+      atom.name[MAX_LEN_ATOM_NAME] = '\0';
+      strncpy(atom.type, atomTypeBuf, MAX_LEN_ATOM_TYPE);
+      atom.type[MAX_LEN_ATOM_TYPE] = '\0';
       if (strcmp(resiName, "") == 0)
       {
-        strcpy(resiName, subst_name);
+        strncpy(resiName, subst_name, MAX_LEN_RES_NAME);
+        resiName[MAX_LEN_RES_NAME] = '\0';
         if (strlen(resiName) > 3) resiName[3] = '\0';
         if (strcmp(resiName, "***") == 0) strcpy(resiName, "LIG");
         if (LigandResidueNameConflictWithAminoAcid(resiName)) strcpy(resiName, "LIG");
@@ -208,7 +219,7 @@ int GenerateSmallMolParameterAndTopologyFromMol2(char* mol2file, char* parfile, 
     {
       int id;
       char type[5];
-      sscanf(line, "%d %d %d %s", &id, &bonds[bondNum][0], &bonds[bondNum][1], type);
+      sscanf(line, "%d %d %d %4s", &id, &bonds[bondNum][0], &bonds[bondNum][1], type);
       IntArrayAppend(&bondsFromToAndType, bonds[bondNum][0] - 1);
       IntArrayAppend(&bondsFromToAndType, bonds[bondNum][1] - 1);
       bondNum++;
