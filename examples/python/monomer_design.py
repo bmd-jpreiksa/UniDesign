@@ -35,12 +35,9 @@ def main() -> None:
     result = job.run(keep_workspace=False)
 
     try:
+        print(f"Prefix: {result.run.prefix}")
         print(f"Return code: {result.run.returncode}")
-        print(f"Prefix: {result.prefix}")
-        if result.best_structure:
-            print("Best structure:", result.best_structure.path)
-        if result.best_sequences:
-            print("Best sequences:", result.best_sequences.path)
+        print(f"Stdout:\n{result.run.stdout}")
     finally:
         result.close()
 
