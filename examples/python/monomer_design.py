@@ -35,6 +35,7 @@ def main() -> None:
     result = job.run(keep_workspace=True)
 
     try:
+        print(f"Prefix: {result.run.prefix}")
         print(f"Return code: {result.run.returncode}")
         print(f"Prefix: {result.run.prefix}")
         print(f"Return code: {result.run.returncode}")
