@@ -32,11 +32,13 @@ def main() -> None:
     )
 
     job = ProteinDesignJob(runner, config)
-    result = job.run(keep_workspace=False)
+    result = job.run(keep_workspace=True)
 
     try:
         print(f"Return code: {result.run.returncode}")
-        print(f"Prefix: {result.prefix}")
+        print(f"Prefix: {result.run.prefix}")
+        print(f"Return code: {result.run.returncode}")
+        print(f"Stdout:\n{result.run.stdout}")
         if result.best_structure:
             print("Best structure:", result.best_structure.path)
         if result.best_sequences:
