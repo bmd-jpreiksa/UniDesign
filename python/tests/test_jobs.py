@@ -8,6 +8,7 @@ import subprocess
 import pytest
 
 from unidesign import (
+    BuildMutantConfig,
     ComputeBindingConfig,
     ComputeStabilityConfig,
     MakeLigParamConfig,
@@ -16,6 +17,7 @@ from unidesign import (
 from unidesign.jobs import (
     BindingComputationJob,
     LigandParameterizationJob,
+    MutantModelingJob,
     ProteinDesignJob,
     StabilityComputationJob,
 )
@@ -59,6 +61,18 @@ def runner_with_fake_binary(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
             topo_path = Path(argv[argv.index("--lig_topo") + 1])
             (workdir / param_path).write_text("PARAMS")
             (workdir / topo_path).write_text("TOPO")
+        elif command == "BuildMutant":
+            mutant_file = Path(argv[argv.index("--mutant_file") + 1])
+            definitions = [
+                line for line in mutant_file.read_text().splitlines() if line.strip()
+            ]
+            for idx, _ in enumerate(definitions, start=1):
+                (workdir / f"{prefix}_Model_{idx:04d}.pdb").write_text(
+                    f"MODEL {idx}\n"
+                )
+                (workdir / f"{prefix}_Model_{idx:04d}_WT.pdb").write_text(
+                    f"WT {idx}\n"
+                )
         # ComputeBinding does not write additional artefacts in this smoke test.
 
         calls.append((command, workdir))
@@ -156,5 +170,29 @@ def test_ligand_parameter_job_handles_outputs(runner_with_fake_binary, tmp_path:
         assert result.topology_file is not None
         assert result.topology_file.read_text() == "TOPO"
         assert any(cmd == "MakeLigParamAndTopo" for cmd, _ in calls)
+    finally:
+        result.close()
+
+
+def test_mutant_modeling_job_produces_models(runner_with_fake_binary, tmp_path: Path):
+    runner, calls = runner_with_fake_binary
+
+    pdb_path = tmp_path / "mutant_input.pdb"
+    _create_minimal_pdb(pdb_path)
+    config = BuildMutantConfig(
+        pdb_path=pdb_path,
+        mutants=[{"A": ["H18F", "Q22D"]}, {"A": "QA22D", "B": ["M20A"]}],
+    )
+
+    job = MutantModelingJob(runner, config)
+    result = job.run()
+    try:
+        assert result.run.returncode == 0
+        assert len(result.mutant_models) == 2
+        assert result.mutant_models[0].mutant_index == 1
+        assert result.mutant_models[0].read_text().startswith("MODEL")
+        assert any(cmd == "BuildMutant" for cmd, _ in calls)
+        original_workdir = next(work for cmd, work in calls if cmd == "BuildMutant")
+        assert not original_workdir.exists()
     finally:
         result.close()

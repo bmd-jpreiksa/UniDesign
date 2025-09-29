@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable, Literal, Protocol, Sequence
+import re
+from typing import Iterable, Literal, Mapping, Protocol, Sequence
 
 
 def _as_path(value: str | Path) -> str:
@@ -325,6 +326,60 @@ def _normalise_atom_triplet(atoms: Sequence[str]) -> tuple[str, str, str]:
     return tuple(atoms)  # type: ignore[return-value]
 
 
+_MUTATION_WITH_CHAIN = re.compile(r"^(?P<from>[A-Za-z])(?P<chain>[A-Za-z])(?P<pos>\d+)(?P<to>[A-Za-z])$")
+_MUTATION_WITHOUT_CHAIN = re.compile(r"^(?P<from>[A-Za-z])(?P<pos>\d+)(?P<to>[A-Za-z])$")
+
+
+def _normalise_single_mutation(chain: str, mutation: str) -> str:
+    token = mutation.strip().rstrip(";")
+    if not token:
+        raise ValueError("Mutation entries must not be empty")
+
+    match = _MUTATION_WITH_CHAIN.fullmatch(token)
+    if match:
+        parsed_chain = match.group("chain").upper()
+        expected_chain = chain.upper()
+        if parsed_chain != expected_chain:
+            raise ValueError(
+                f"Mutation '{token}' does not match declared chain '{chain}'"
+            )
+        return (
+            f"{match.group('from').upper()}{parsed_chain}"
+            f"{match.group('pos')}{match.group('to').upper()}"
+        )
+
+    match = _MUTATION_WITHOUT_CHAIN.fullmatch(token)
+    if match:
+        if not chain:
+            raise ValueError(
+                "Chain identifier must be provided when mutation omits the chain"
+            )
+        parsed_chain = chain.upper()
+        return (
+            f"{match.group('from').upper()}{parsed_chain}"
+            f"{match.group('pos')}{match.group('to').upper()}"
+        )
+
+    raise ValueError(
+        "Mutation entries must follow the FoldX convention: "
+        "{orig}{chain}{position}{mutant}"
+    )
+
+
+def _format_mutant_entry(mutant: Mapping[str, Sequence[str] | str]) -> str:
+    entries: list[str] = []
+    for chain, raw_mutations in mutant.items():
+        if isinstance(raw_mutations, str):
+            values = [raw_mutations]
+        else:
+            values = list(raw_mutations)
+        for mutation in values:
+            entries.append(_normalise_single_mutation(chain, mutation))
+    if not entries:
+        raise ValueError("Each mutant specification must contain at least one mutation")
+    return ",".join(entries) + ";"
+
+
 @dataclass(slots=True)
 class MakeLigParamConfig:
     """Configuration for the ``MakeLigParamAndTopo`` command.
@@ -366,11 +421,72 @@ class MakeLigParamConfig:
         ]
 
 
+@dataclass(slots=True)
+class BuildMutantConfig:
+    """Configuration for the ``BuildMutant`` command."""
+
+    pdb_path: str | Path
+    """Input structure supplied through ``--pdb``."""
+
+    mutants: Sequence[Mapping[str, Sequence[str] | str]]
+    """Structured mutant definitions grouped by chain identifier."""
+
+    use_bbdep_rotlib: bool | None = None
+    """Optional override for ``--bbdep`` (defaults to backbone-dependent rotamers)."""
+
+    rotamer_library: str | None = None
+    """Backbone-independent library name forwarded via ``--rotlib`` when provided."""
+
+    weight_file: str | Path | None = None
+    """Energy weight override for ``--wread`` (defaults to ``wread/weight_all1.wgt``)."""
+
+    max_optimisation_runs: int | None = None
+    """Number of optimisation iterations supplied through ``--num_of_runs``."""
+
+    mutant_file_path: str | Path | None = None
+    """Path to the generated mutant definition file consumed via ``--mutant_file``."""
+
+    def mutant_file_contents(self) -> str:
+        """Render the mutant specification file expected by UniDesign."""
+
+        lines = [_format_mutant_entry(mutant) for mutant in self.mutants]
+        return "\n".join(lines) + ("\n" if lines else "")
+
+    def to_cli_args(self) -> list[str]:
+        if self.mutant_file_path is None:
+            raise ValueError(
+                "mutant_file_path must be set before rendering CLI arguments"
+            )
+
+        args: list[str] = [
+            "--command",
+            "BuildMutant",
+            "--pdb",
+            _as_path(self.pdb_path),
+            "--mutant_file",
+            _as_path(self.mutant_file_path),
+        ]
+
+        if self.use_bbdep_rotlib is not None:
+            args.extend(("--bbdep", _format_bool(self.use_bbdep_rotlib)))
+        if self.rotamer_library is not None:
+            args.extend(("--rotlib", self.rotamer_library))
+        if self.weight_file is not None:
+            args.extend(("--wread", _as_path(self.weight_file)))
+        if self.max_optimisation_runs is not None:
+            if self.max_optimisation_runs <= 0:
+                raise ValueError("max_optimisation_runs must be positive")
+            args.extend(("--num_of_runs", str(self.max_optimisation_runs)))
+
+        return args
+
+
 __all__ = [
     "CommandConfig",
     "ProteinDesignConfig",
     "ComputeStabilityConfig",
     "ComputeBindingConfig",
     "MakeLigParamConfig",
+    "BuildMutantConfig",
 ]
 
