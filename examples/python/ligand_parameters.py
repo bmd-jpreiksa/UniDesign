@@ -34,6 +34,11 @@ def main() -> None:
 
     job = LigandParameterizationJob(runner, config)
     result = job.run(keep_workspace=True)
+    
+    print("Return code:", result.run.returncode)
+    print("Stdout:\n", result.run.stdout)
+    print("Stderr:\n", result.run.stderr)
+    print("Workspace:", result.workspace)
     try:
         print("Parameter file:", result.parameter_file.path if result.parameter_file else "<missing>")
         print("Topology file:", result.topology_file.path if result.topology_file else "<missing>")
