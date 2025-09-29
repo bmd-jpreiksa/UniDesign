@@ -8,6 +8,7 @@ from .energy import (
     StabilityComputationResult,
 )
 from .ligand import LigandParameterizationJob, LigandParameterizationResult
+from .mutant import MutantModelingJob, MutantModelingResult
 
 __all__ = [
     "ProteinDesignJob",
@@ -18,4 +19,6 @@ __all__ = [
     "BindingComputationResult",
     "LigandParameterizationJob",
     "LigandParameterizationResult",
+    "MutantModelingJob",
+    "MutantModelingResult",
 ]

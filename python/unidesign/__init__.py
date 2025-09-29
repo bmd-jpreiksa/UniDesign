@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .config import (
+    BuildMutantConfig,
     CommandConfig,
     ComputeBindingConfig,
     ComputeStabilityConfig,
@@ -15,6 +16,8 @@ from .jobs import (
     BindingComputationResult,
     LigandParameterizationJob,
     LigandParameterizationResult,
+    MutantModelingJob,
+    MutantModelingResult,
     ProteinDesignJob,
     ProteinDesignResult,
     StabilityComputationJob,
@@ -34,6 +37,7 @@ __all__ = [
     "ComputeStabilityConfig",
     "ComputeBindingConfig",
     "MakeLigParamConfig",
+    "BuildMutantConfig",
     "ProteinDesignJob",
     "ProteinDesignResult",
     "StabilityComputationJob",
@@ -42,4 +46,6 @@ __all__ = [
     "BindingComputationResult",
     "LigandParameterizationJob",
     "LigandParameterizationResult",
+    "MutantModelingJob",
+    "MutantModelingResult",
 ]

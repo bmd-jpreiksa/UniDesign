@@ -152,6 +152,17 @@ class LigandTopology(UniDesignArtifact):
         return super().default_filename()
 
 
+@dataclass(slots=True)
+class MutantStructureModel(UniDesignArtifact):
+    """PDB structure corresponding to a generated mutant."""
+
+    mutant_index: int
+
+    def __post_init__(self) -> None:
+        if self.mutant_index <= 0:
+            raise ValueError("mutant_index must be positive")
+
+
 __all__ = [
     "UniDesignArtifact",
     "SelfEnergyReport",
@@ -163,4 +174,5 @@ __all__ = [
     "LigandPoseEnsemble",
     "LigandParameters",
     "LigandTopology",
+    "MutantStructureModel",
 ]
