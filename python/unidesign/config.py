@@ -251,6 +251,34 @@ class ProteinDesignConfig:
 
 
 @dataclass(slots=True)
+class BuildMutantConfig:
+    """Configuration for the ``BuildMutant`` command.
+
+    The command expects an input structure provided through ``--pdb`` and a mutant
+    manifest supplied via ``--mutant_file``. The job helper automatically writes the
+    manifest when operating on structured mutation specifications.
+    """
+
+    pdb_path: str | Path
+    """Path to the input structure passed via ``--pdb``."""
+
+    mutant_file: str | Path | None = None
+    """Path to the mutant specification forwarded with ``--mutant_file``."""
+
+    def to_cli_args(self) -> list[str]:
+        if self.mutant_file is None:
+            raise ValueError("mutant_file must be provided before generating CLI arguments")
+        return [
+            "--command",
+            "BuildMutant",
+            "--pdb",
+            _as_path(self.pdb_path),
+            "--mutant_file",
+            _as_path(self.mutant_file),
+        ]
+
+
+@dataclass(slots=True)
 class ComputeStabilityConfig:
     """Configuration for the ``ComputeStability`` command.
 
@@ -369,6 +397,7 @@ class MakeLigParamConfig:
 __all__ = [
     "CommandConfig",
     "ProteinDesignConfig",
+    "BuildMutantConfig",
     "ComputeStabilityConfig",
     "ComputeBindingConfig",
     "MakeLigParamConfig",

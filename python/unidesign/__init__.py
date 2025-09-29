@@ -7,6 +7,7 @@ from .config import (
     ComputeBindingConfig,
     ComputeStabilityConfig,
     MakeLigParamConfig,
+    BuildMutantConfig,
     ProteinDesignConfig,
 )
 from .exceptions import BinaryDiscoveryError, UniDesignError
@@ -15,6 +16,8 @@ from .jobs import (
     BindingComputationResult,
     LigandParameterizationJob,
     LigandParameterizationResult,
+    MutantStructureBuildJob,
+    MutantStructureBuildResult,
     ProteinDesignJob,
     ProteinDesignResult,
     StabilityComputationJob,
@@ -31,6 +34,7 @@ __all__ = [
     "UniDesignRunResult",
     "CommandConfig",
     "ProteinDesignConfig",
+    "BuildMutantConfig",
     "ComputeStabilityConfig",
     "ComputeBindingConfig",
     "MakeLigParamConfig",
@@ -42,4 +46,6 @@ __all__ = [
     "BindingComputationResult",
     "LigandParameterizationJob",
     "LigandParameterizationResult",
+    "MutantStructureBuildJob",
+    "MutantStructureBuildResult",
 ]
