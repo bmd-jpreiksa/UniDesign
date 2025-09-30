@@ -8,6 +8,7 @@ import subprocess
 import pytest
 
 from unidesign import (
+    BuildMutantConfig,
     ComputeBindingConfig,
     ComputeStabilityConfig,
     MakeLigParamConfig,
@@ -16,6 +17,7 @@ from unidesign import (
 from unidesign.jobs import (
     BindingComputationJob,
     LigandParameterizationJob,
+    MutantStructureBuildJob,
     ProteinDesignJob,
     StabilityComputationJob,
 )
@@ -39,7 +41,7 @@ def runner_with_fake_binary(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
 
     monkeypatch.setattr(UniDesignRunner, "_STATIC_RESOURCES", tuple(resources))
     runner = UniDesignRunner(binary)
-    calls: list[tuple[str | None, Path]] = []
+    calls: list[tuple[str | None, Path, dict[str, object]]] = []
 
     def fake_run(argv, cwd, env, check, capture_output, text):
         workdir = Path(cwd)
@@ -47,6 +49,8 @@ def runner_with_fake_binary(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
         command = None
         if "--command" in argv:
             command = argv[argv.index("--command") + 1]
+
+        metadata: dict[str, object] = {}
 
         if command == "ProteinDesign":
             (workdir / f"{prefix}_selfenergy.txt").write_text("energy")
@@ -59,9 +63,20 @@ def runner_with_fake_binary(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
             topo_path = Path(argv[argv.index("--lig_topo") + 1])
             (workdir / param_path).write_text("PARAMS")
             (workdir / topo_path).write_text("TOPO")
+        elif command == "BuildMutant":
+            pdb_path = Path(argv[argv.index("--pdb") + 1])
+            mutant_file = Path(argv[argv.index("--mutant_file") + 1])
+            lines = mutant_file.read_text(encoding="utf-8").splitlines()
+            metadata["mutant_lines"] = lines
+            generated: list[str] = []
+            for index, _ in enumerate(lines, start=1):
+                filename = f"{pdb_path.stem}_Model_{index:04d}.pdb"
+                (workdir / filename).write_text(f"MODEL {index}\n")
+                generated.append(filename)
+            metadata["generated_files"] = generated
         # ComputeBinding does not write additional artefacts in this smoke test.
 
-        calls.append((command, workdir))
+        calls.append((command, workdir, metadata))
         return subprocess.CompletedProcess(argv, 0, stdout=f"{command} stdout", stderr="")
 
     monkeypatch.setattr(subprocess, "run", fake_run)
@@ -128,7 +143,7 @@ def test_energy_jobs_cover_rotamer_and_binding(runner_with_fake_binary, tmp_path
     try:
         assert stability_result.rotamer_list is not None
         assert stability_result.rotamer_list.read_text() == "rotamer"
-        assert calls and any(cmd == "ComputeStability" for cmd, _ in calls)
+        assert calls and any(entry[0] == "ComputeStability" for entry in calls)
     finally:
         stability_result.close()
 
@@ -136,9 +151,53 @@ def test_energy_jobs_cover_rotamer_and_binding(runner_with_fake_binary, tmp_path
     binding_result = binding_job.run()
     try:
         assert binding_result.run.returncode == 0
-        assert any(cmd == "ComputeBinding" for cmd, _ in calls)
+        assert any(entry[0] == "ComputeBinding" for entry in calls)
     finally:
         binding_result.close()
+
+
+def test_mutant_structure_job_generates_named_models(
+    runner_with_fake_binary, tmp_path: Path
+):
+    runner, calls = runner_with_fake_binary
+
+    pdb_path = tmp_path / "mutant_input.pdb"
+    _create_minimal_pdb(pdb_path)
+
+    config = BuildMutantConfig(pdb_path=pdb_path)
+    job = MutantStructureBuildJob(runner, config)
+    mutants = [
+        {"A": "Q22D"},
+        {"A": ["H18F", "Q22D"]},
+        {"A": ["H18F"], "B": ["M20A"]},
+    ]
+
+    result = job.run(mutants)
+    try:
+        expected_labels = ["QA22D", "HA18F,QA22D", "HA18F,MB20A"]
+        assert list(result.mutant_models.keys()) == expected_labels
+        expected_files = {
+            "QA22D": "QA22D.pdb",
+            "HA18F,QA22D": "HA18F_QA22D.pdb",
+            "HA18F,MB20A": "HA18F_MB20A.pdb",
+        }
+        assert {
+            label: artifact.path.name for label, artifact in result.mutant_models.items()
+        } == expected_files
+
+        command, _, metadata = next(entry for entry in calls if entry[0] == "BuildMutant")
+        assert command == "BuildMutant"
+        assert metadata.get("mutant_lines") == [f"{label};" for label in expected_labels]
+        assert metadata.get("generated_files") == [
+            f"{pdb_path.stem}_Model_{index:04d}.pdb" for index in range(1, 4)
+        ]
+
+        for artifact in result.mutant_models.values():
+            assert artifact.path.exists()
+            assert artifact.path.parent == result.workspace
+    finally:
+        result.close()
+        assert not result.workspace.exists()
 
 
 def test_ligand_parameter_job_handles_outputs(runner_with_fake_binary, tmp_path: Path):
@@ -155,6 +214,6 @@ def test_ligand_parameter_job_handles_outputs(runner_with_fake_binary, tmp_path:
         assert result.parameter_file.read_text() == "PARAMS"
         assert result.topology_file is not None
         assert result.topology_file.read_text() == "TOPO"
-        assert any(cmd == "MakeLigParamAndTopo" for cmd, _ in calls)
+        assert any(entry[0] == "MakeLigParamAndTopo" for entry in calls)
     finally:
         result.close()
