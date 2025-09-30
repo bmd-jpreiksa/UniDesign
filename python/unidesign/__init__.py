@@ -11,6 +11,7 @@ from .config import (
     ProteinDesignConfig,
 )
 from .exceptions import BinaryDiscoveryError, UniDesignError
+from .resfile import Resfile, ResfileEntry
 from .jobs import (
     BindingComputationJob,
     BindingComputationResult,
@@ -38,6 +39,8 @@ __all__ = [
     "ComputeStabilityConfig",
     "ComputeBindingConfig",
     "MakeLigParamConfig",
+    "Resfile",
+    "ResfileEntry",
     "ProteinDesignJob",
     "ProteinDesignResult",
     "StabilityComputationJob",
