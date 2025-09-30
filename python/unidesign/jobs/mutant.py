@@ -168,7 +168,7 @@ class MutantStructureBuildJob:
         pdb_stem = Path(config.pdb_path).stem
         candidates: dict[str, ArtifactSpec] = {}
         for index, label in enumerate(labels, start=1):
-            expected_name = f"{pdb_stem}_Model_{index:04d}.pdb"
+            expected_name = f"pdb_Model_{index:04d}.pdb"
             sanitised = _sanitise_label(label)
 
             def factory(path: Path, prefix: str, logical_name: str, *, _sanitised=sanitised) -> StructureModel:
