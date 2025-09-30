@@ -70,7 +70,8 @@ def runner_with_fake_binary(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
             metadata["mutant_lines"] = lines
             generated: list[str] = []
             for index, _ in enumerate(lines, start=1):
-                filename = f"{pdb_path.stem}_Model_{index:04d}.pdb"
+                #filename = f"{pdb_path.stem}_Model_{index:04d}.pdb"
+                filename = f"pdb_Model_{index:04d}.pdb"
                 (workdir / filename).write_text(f"MODEL {index}\n")
                 generated.append(filename)
             metadata["generated_files"] = generated
@@ -189,7 +190,7 @@ def test_mutant_structure_job_generates_named_models(
         assert command == "BuildMutant"
         assert metadata.get("mutant_lines") == [f"{label};" for label in expected_labels]
         assert metadata.get("generated_files") == [
-            f"{pdb_path.stem}_Model_{index:04d}.pdb" for index in range(1, 4)
+            f"pdb_Model_{index:04d}.pdb" for index in range(1, 4)
         ]
 
         for artifact in result.mutant_models.values():
