@@ -13,6 +13,8 @@ from unidesign import (
     ComputeStabilityConfig,
     MakeLigParamConfig,
     ProteinDesignConfig,
+    Resfile,
+    ResfileEntry,
 )
 from unidesign.jobs import (
     BindingComputationJob,
@@ -56,6 +58,10 @@ def runner_with_fake_binary(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
             (workdir / f"{prefix}_selfenergy.txt").write_text("energy")
             (workdir / f"{prefix}_bestseqs").write_text("SEQ\n")
             (workdir / f"{prefix}_beststruct").write_text("MODEL\n")
+            if "--resfile" in argv:
+                resfile_path = Path(argv[argv.index("--resfile") + 1])
+                metadata["resfile_path"] = resfile_path
+                metadata["resfile_contents"] = resfile_path.read_text(encoding="utf-8")
         elif command == "ComputeStability":
             (workdir / f"{prefix}_rotlist.txt").write_text("rotamer")
         elif command == "MakeLigParamAndTopo":
@@ -131,6 +137,31 @@ def test_protein_design_job_end_to_end(runner_with_fake_binary, tmp_path: Path):
     finally:
         result.close()
         assert not result.workspace.exists()
+
+
+def test_protein_design_job_writes_resfile(runner_with_fake_binary, tmp_path: Path):
+    runner, calls = runner_with_fake_binary
+
+    pdb_path = tmp_path / "resfile_input.pdb"
+    _create_minimal_pdb(pdb_path)
+    resfile = Resfile(
+        design=(ResfileEntry("A", 1, "AC"),),
+        repack=(ResfileEntry("A", 2),),
+        catalytic=(ResfileEntry("A", 3, ("S", "T")),),
+    )
+
+    config = ProteinDesignConfig(pdb_path=pdb_path, design_chains="A", resfile_path=resfile)
+    job = ProteinDesignJob(runner, config)
+    result = job.run()
+
+    try:
+        metadata = next(entry[2] for entry in calls if entry[0] == "ProteinDesign")
+        resfile_path = metadata.get("resfile_path")
+        assert resfile_path is not None
+        assert metadata.get("resfile_contents") == resfile.to_text()
+        assert not Path(resfile_path).exists()
+    finally:
+        result.close()
 
 
 def test_energy_jobs_cover_rotamer_and_binding(runner_with_fake_binary, tmp_path: Path):

@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+import os
+from dataclasses import dataclass, replace
 from pathlib import Path
+from tempfile import mkstemp
 from typing import Callable, Mapping
 
 from ..artifacts import (
@@ -16,6 +18,7 @@ from ..artifacts import (
     StructureModel,
 )
 from ..config import ProteinDesignConfig
+from ..resfile import Resfile
 from ..runner import UniDesignRunner, UniDesignRunResult
 from ._shared import ArtifactSpec, relocate_artifacts
 
@@ -95,9 +98,24 @@ class ProteinDesignJob:
     ) -> ProteinDesignResult:
         """Execute the UniDesign ``ProteinDesign`` command."""
 
-        run_result = self._runner.run(
-            self._config.to_cli_args(), env=env, persist_workdir=True
-        )
+        temp_resfile_path: Path | None = None
+        config = self._config
+        try:
+            if isinstance(config.resfile_path, Resfile):
+                resfile_text = config.resfile_path.to_text()
+                fd, name = mkstemp(prefix="unidesign_resfile_", suffix=".txt")
+                os.close(fd)
+                temp_resfile_path = Path(name)
+                temp_resfile_path.write_text(resfile_text, encoding="utf-8")
+                config = replace(config, resfile_path=temp_resfile_path)
+
+            run_result = self._runner.run(
+                config.to_cli_args(), env=env, persist_workdir=True
+            )
+        finally:
+            if temp_resfile_path is not None and temp_resfile_path.exists():
+                temp_resfile_path.unlink()
+
         workspace, artifacts, cleanup = relocate_artifacts(
             run_result.workdir,
             self._candidate_files(run_result.prefix),
