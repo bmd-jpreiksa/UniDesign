@@ -26,6 +26,7 @@ int PrintVersion();
 int PrintOutProgramInformation();
 
 int ComputeStructureStability(Structure* pStructure, AAppTable* pAAppTable, RamaTable* pRama, double energyTerms[MAX_ENERGY_TERM]);
+int ComputeStructureStabilitySilent(Structure* pStructure, AAppTable* pAAppTable, RamaTable* pRama, double energyTerms[MAX_ENERGY_TERM]);
 int ComputeStructureStabilityByBBdepRotLib(Structure* pStructure, AAppTable* pAAppTable, RamaTable* pRama, BBdepRotamerLib* pRotLib, double energyTerms[MAX_ENERGY_TERM]);
 int ComputeStructureStabilityByBBdepRotLib2(Structure* pStructure, AAppTable* pAAppTable, RamaTable* pRama, char* dunlibfile, double energyTerms[MAX_ENERGY_TERM]);
 

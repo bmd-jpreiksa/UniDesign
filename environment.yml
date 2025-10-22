@@ -1,0 +1,18 @@
+name: unidesign_py
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.9
+  - pip
+  - cmake
+  - ninja
+  - pybind11>=2.11
+  - numpy
+  - setuptools
+  - cxx-compiler
+  - make
+  - pkg-config
+  - pip:
+      - build
+      - wheel

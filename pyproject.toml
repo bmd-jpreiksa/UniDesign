@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=69", "setuptools_scm>=8", "wheel", "pybind11>=2.11"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unidesign"
+version = "0.1.0"
+description = "Python bindings and API for the UniDesign protein design toolkit"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "license" }
+authors = [
+  { name = "UniDesign Team" }
+]
+keywords = ["protein design", "computational biology", "pybind11"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: C++",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "License :: OSI Approved :: MIT License"
+]
+dependencies = [
+  "numpy>=1.23",
+]
+
+[project.urls]
+Homepage = "https://github.com/tommyhuangthu/UniDesign"
+Documentation = "https://github.com/tommyhuangthu/UniDesign"
+
+[tool.setuptools.package-dir]
+"" = "python"
+
+[tool.setuptools.packages.find]
+where = ["python"]
+exclude = ["tests"]
+
+[tool.setuptools.package-data]
+"unidesign" = ["py.typed", "data/**/*"]
+
+[tool.setuptools]
+include-package-data = true

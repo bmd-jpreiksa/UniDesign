@@ -190,7 +190,7 @@ int PrintOutProgramInformation()
 }
 
 
-int ComputeStructureStability(Structure* pStructure, AAppTable* pAAppTable, RamaTable* pRama, double energyTerms[MAX_ENERGY_TERM])
+static int ComputeStructureStabilityInternal(Structure* pStructure, AAppTable* pAAppTable, RamaTable* pRama, double energyTerms[MAX_ENERGY_TERM], BOOL showDetails)
 {
   for (int i = 0; i < StructureGetChainCount(pStructure); i++)
   {
@@ -242,10 +242,23 @@ int ComputeStructureStability(Structure* pStructure, AAppTable* pAAppTable, Rama
   }
 
   EnergyTermWeighting(energyTerms);
-  printf("\nStructure energy details:\n");
-  EnergyTermShowComplex(energyTerms);
+  if (showDetails)
+  {
+    printf("\nStructure energy details:\n");
+    EnergyTermShowComplex(energyTerms);
+  }
 
   return Success;
+}
+
+int ComputeStructureStability(Structure* pStructure, AAppTable* pAAppTable, RamaTable* pRama, double energyTerms[MAX_ENERGY_TERM])
+{
+  return ComputeStructureStabilityInternal(pStructure, pAAppTable, pRama, energyTerms, TRUE);
+}
+
+int ComputeStructureStabilitySilent(Structure* pStructure, AAppTable* pAAppTable, RamaTable* pRama, double energyTerms[MAX_ENERGY_TERM])
+{
+  return ComputeStructureStabilityInternal(pStructure, pAAppTable, pRama, energyTerms, FALSE);
 }
 
 
@@ -2380,4 +2393,3 @@ int SelectResiduesInRange(Structure* pStructure)
 
   return Success;
 }
-
