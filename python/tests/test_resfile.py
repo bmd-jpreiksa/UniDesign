@@ -27,6 +27,7 @@ def test_resfile_to_text_round_trip(tmp_path: Path) -> None:
     )
 
     text = resfile.to_text()
+    print('\n', text)
     assert text.startswith("SITES_DESIGN_START\n")
     assert "A  782" in text
     assert "A  785   ACF" in text
