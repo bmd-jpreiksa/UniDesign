@@ -14,6 +14,7 @@ _TOPOLOGY_RELATIVE = Path("toppar") / "top_polh19.inp"
 _WEIGHT_RELATIVE = Path("wread") / "weight_all1.wgt"
 _AAPP_RELATIVE = Path("eterms") / "aapropensity.nrg"
 _RAMA_RELATIVE = Path("eterms") / "ramachandran.nrg"
+_ROTLIB_RELATIVE = Path("rotlib") / "ALLbbdep.bin"
 
 ENERGY_TERM_NAMES: Dict[int, str] = {
     0: "total",
@@ -122,7 +123,56 @@ def _resolve_data_file(
     if env_path:
         return env_path
 
-    return _resource_path(relative, stack)
+    try:
+        return _resource_path(relative, stack)
+    except FileNotFoundError:
+        repo_root = Path(__file__).resolve().parents[3]
+        candidate = (repo_root / relative).resolve()
+        if candidate.exists():
+            return candidate
+        raise
+
+
+def _resolve_rotlib_file(stack: ExitStack, explicit: str | Path | None = None) -> Path:
+    if explicit is not None:
+        path = Path(explicit).expanduser().resolve()
+        if not path.exists():
+            raise FileNotFoundError(path)
+        return path
+
+    env = os.environ.get("UNIDESIGN_LIBRARY_PATH")
+    if env:
+        base = Path(env).expanduser().resolve()
+        for rel in (_ROTLIB_RELATIVE, Path("library") / _ROTLIB_RELATIVE):
+            candidate = (base / rel).resolve()
+            if candidate.exists():
+                return candidate
+
+    resource_candidates = (
+        Path("rotlib") / _ROTLIB_RELATIVE.name,
+        Path("library") / _ROTLIB_RELATIVE,
+    )
+    for rel in resource_candidates:
+        try:
+            candidate = _resource_path(rel, stack)
+        except FileNotFoundError:
+            candidate = None
+        if candidate is not None and candidate.exists():
+            return candidate
+
+    repo_root = Path(__file__).resolve().parents[3]
+    for rel in (
+        _ROTLIB_RELATIVE,
+        Path("library") / _ROTLIB_RELATIVE,
+    ):
+        candidate = (repo_root / rel).resolve()
+        if candidate.exists():
+            return candidate
+    fallback = (repo_root / "library" / "rotlib" / _ROTLIB_RELATIVE.name).resolve()
+    if fallback.exists():
+        return fallback
+
+    raise FileNotFoundError("Unable to locate ALLbbdep.bin rotamer library")
 
 
 class NativeBacked:
@@ -160,6 +210,8 @@ class Atom(NativeBacked):
 
     @name.setter
     def name(self, value: str) -> None:
+        if len(value) > 5:
+            value = value[:5]
         self._handle.name = value
 
     @property
@@ -225,6 +277,34 @@ class Residue(NativeBacked):
     def atom_names(self) -> List[str]:
         return list(self._handle.atom_names())
 
+    def _assert_support(self, attr: str) -> None:
+        if not hasattr(self._handle, attr):
+            raise RuntimeError(
+                f"Residue handle missing '{attr}'. Rebuild the UniDesign extension to enable programmatic builders."
+            )
+
+    @property
+    def design_type(self) -> _core.ResidueDesignType:
+        self._assert_support("design_type")
+        return self._handle.design_type
+
+    @design_type.setter
+    def design_type(self, value: _core.ResidueDesignType) -> None:
+        self._assert_support("design_type")
+        self._handle.design_type = value
+
+    def copy_from(self, other: "Residue") -> None:
+        self._assert_support("copy_from")
+        self._handle.copy_from(other.handle)
+
+    def add_atom(self, atom: "Atom") -> None:
+        self._assert_support("add_atom")
+        self._handle.add_atom(atom.handle)
+
+    def atoms(self) -> List["Atom"]:
+        self._assert_support("atoms")
+        return [Atom(handle=atom) for atom in self._handle.atoms()]
+
 
 class Chain(NativeBacked):
     def __init__(
@@ -264,6 +344,13 @@ class Chain(NativeBacked):
     def residues(self) -> List[Residue]:
         return [Residue(handle=self._handle.residue(i)) for i in range(self.residue_count())]
 
+    def copy_from(self, other: "Chain") -> None:
+        if not hasattr(self._handle, "copy_from"):
+            raise RuntimeError(
+                "Chain handle missing 'copy_from'. Rebuild the UniDesign extension to enable programmatic builders."
+            )
+        self._handle.copy_from(other.handle)
+
 
 class Structure(NativeBacked):
     def __init__(self, name: str | None = None, handle: _core.Structure | None = None) -> None:
@@ -291,6 +378,61 @@ class Structure(NativeBacked):
 
     def add_chain(self, chain: Chain) -> None:
         self._handle.add_chain(chain.handle)
+
+    def recalc_phi_psi(self) -> None:
+        if not hasattr(self._handle, "calc_phi_psi"):
+            raise RuntimeError("calc_phi_psi requires the compiled UniDesign extension")
+        self._handle.calc_phi_psi()
+
+    def reset_energy_terms(self) -> None:
+        if not hasattr(self._handle, "reset_energy_terms"):
+            raise RuntimeError("reset_energy_terms requires the compiled UniDesign extension")
+        self._handle.reset_energy_terms()
+
+    def prepare_propensity(
+        self,
+        *,
+        aapp_file: str | Path | None = None,
+        rama_file: str | Path | None = None,
+        reset: bool = False,
+    ) -> None:
+        if not hasattr(self._handle, "calc_propensity"):
+            raise RuntimeError("calc_propensity requires the compiled UniDesign extension")
+        if reset:
+            self.reset_energy_terms()
+        with ExitStack() as stack:
+            aapp_path = _resolve_data_file(_AAPP_RELATIVE, stack, aapp_file)
+            rama_path = _resolve_data_file(_RAMA_RELATIVE, stack, rama_file)
+            self._handle.calc_propensity(str(aapp_path), str(rama_path))
+
+    def prepare_dunbrack(
+        self,
+        *,
+        rotlib_file: str | Path | None = None,
+        reset: bool = False,
+    ) -> None:
+        if not hasattr(self._handle, "calc_dunbrack"):
+            raise RuntimeError("calc_dunbrack requires the compiled UniDesign extension")
+        if reset:
+            self.reset_energy_terms()
+        with ExitStack() as stack:
+            rotlib_path = _resolve_rotlib_file(stack, rotlib_file)
+            self._handle.calc_dunbrack(str(rotlib_path))
+
+    def clone(self) -> "Structure":
+        clone = Structure()
+        if hasattr(clone._handle, "copy_from"):
+            clone._handle.copy_from(self._handle)
+        else:
+            try:
+                clone.name = self.name
+            except RuntimeError:
+                pass
+            for chain in self.chains():
+                new_chain = Chain()
+                new_chain.copy_from(chain)
+                clone.add_chain(new_chain)
+        return clone
 
     @classmethod
     def from_pdb(
@@ -358,6 +500,7 @@ class Structure(NativeBacked):
         weight_file: str | Path | None = None,
         aapp_file: str | Path | None = None,
         rama_file: str | Path | None = None,
+        rotlib_file: str | Path | None = None,
     ) -> "StabilityResult":
         if not hasattr(self._handle, "compute_stability"):
             raise RuntimeError("compute_stability requires the compiled UniDesign extension")
@@ -366,13 +509,35 @@ class Structure(NativeBacked):
             weight_path = _resolve_data_file(_WEIGHT_RELATIVE, stack, weight_file)
             aapp_path = _resolve_data_file(_AAPP_RELATIVE, stack, aapp_file)
             rama_path = _resolve_data_file(_RAMA_RELATIVE, stack, rama_file)
+            rotlib_path = _resolve_rotlib_file(stack, rotlib_file)
 
             raw_terms = list(
-                self._handle.compute_stability(str(weight_path), str(aapp_path), str(rama_path))
+                self._handle.compute_stability(
+                    str(weight_path), str(aapp_path), str(rama_path), str(rotlib_path)
+                )
             )
 
         per_term = {name: raw_terms[index] for index, name in ENERGY_TERM_NAMES.items()}
         return StabilityResult(total=raw_terms[0], terms=per_term, raw=raw_terms)
+
+    def compute_binding(
+        self,
+        *,
+        weight_file: str | Path | None = None,
+        split1: str | None = None,
+        split2: str | None = None,
+    ) -> None:
+        if not hasattr(self._handle, "compute_binding"):
+            raise RuntimeError("compute_binding requires the compiled UniDesign extension")
+        if (split1 is None) ^ (split2 is None):
+            raise ValueError("split1 and split2 must both be provided or both omitted")
+        with ExitStack() as stack:
+            weight_path = _resolve_data_file(_WEIGHT_RELATIVE, stack, weight_file)
+            try:
+                self._handle.compute_binding(str(weight_path), split1, split2)
+            except ValueError as exc:
+                # Recast C++ invalid_argument into a Python ValueError with context.
+                raise ValueError(str(exc)) from None
 
 
 @dataclass(frozen=True)
