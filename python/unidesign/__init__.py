@@ -2,6 +2,7 @@
 
 from . import _core
 from .api import Atom, Chain, Residue, StabilityResult, Structure
+from .api.design import DesignDomain, DesignProtein
 
 ChainType = _core.ChainType
 try:
@@ -15,6 +16,8 @@ __all__ = [
     "Residue",
     "Chain",
     "Structure",
+    "DesignDomain",
+    "DesignProtein",
     "StabilityResult",
     "ChainType",
     "ResidueDesignType",

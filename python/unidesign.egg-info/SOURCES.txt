@@ -145,6 +145,7 @@ python/unidesign.egg-info/top_level.txt
 python/unidesign/__pycache__/__init__.cpython-314.pyc
 python/unidesign/_bindings/module.cpp
 python/unidesign/api/__init__.py
+python/unidesign/api/design.py
 python/unidesign/api/entities.py
 python/unidesign/api/__pycache__/__init__.cpython-314.pyc
 python/unidesign/api/__pycache__/entities.cpython-314.pyc
@@ -179,6 +180,8 @@ python/unidesign/data/wread/weight_ddg.wgt
 python/unidesign/data/wread/weight_honig984.wgt
 python/unidesign/data/wread/weight_initial.wgt
 python/unidesign/data/wread/weight_one.wgt
+python_examples/design_monomer.py
+python_examples/design_monomer_domain.py
 python_examples/structure_chain_count.py
 src/Atom.cpp
 src/Atom.h
@@ -219,6 +222,8 @@ src/ProgramPreprocess.cpp
 src/ProgramPreprocess.h
 src/ProteinDesign.cpp
 src/ProteinDesign.h
+src/PyDesign.cpp
+src/PyDesign.h
 src/Residue.cpp
 src/Residue.h
 src/ResidueTopology.cpp

@@ -42,6 +42,7 @@ Within each translation unit:
 - Functions that act on pointers (e.g. `StructureReadPDB`) become instance methods on the owning Python class to keep the API object-oriented.
 - `Structure.read_pdb(...)` underpins the high-level `Structure.from_pdb` helper; the binding now recomputes backbone torsions (`StructureCalcPhiPsi`) so energy tables match CLI behaviour.
 - `Structure.compute_stability(...)` loads packaged reference tables and the Dunbrack BB-dependent library (when available) before delegating to the native scorer; results now match `UniDesign --command=ComputeStability` bit-for-bit.
+- `Structure.run_monomer_design(...)` executes the monomer workflow completely in-memory (no CLI shell-out), wiring the native rotamer builders, simulated annealing loop, and best-decoy extraction into a single call that returns the final sequence/energy summary plus optional structure snapshots.
 - Chains and residues expose `copy_from`, `design_type`, and `atoms()/add_atom()` utilities so new structures can be assembled programmatically; `Structure.clone()` builds deep copies from Python.
 - Heavy I/O helpers returning status codes surface as methods returning `(ok, message)` tuples to keep error handling pythonic while preserving original semantics.
 - `ChainType` and `ResidueDesignType` enums are exported alongside the structural handles for convenient use in Python.
@@ -49,6 +50,8 @@ Within each translation unit:
 - Python examples:
   - `python_examples/stability.py` runs `Structure.compute_stability()` on 1igd using the packaged data files and reports the same totals as `UniDesign --command=ComputeStability`.
   - `python_examples/binding_energy.py` demonstrates calling `Structure.compute_binding` on the 1e44 and 1ay7 complexes (with optional chain splitting). Invalid chain identifiers now raise a `ValueError`, which the example reports before continuing.
+  - `python_examples/design_monomer.py` exercises the binding-driven `DesignProtein` façade (which delegates to `Structure.run_monomer_design`) to reproduce the `MonomerDesign/1agy` reference trajectory without spawning the CLI binary.
+  - `python_examples/design_monomer_domain.py` shows how to build a `DesignDomain` in Python, mixing fully flexible sites with amino-acid-restricted positions (e.g., limiting chain A position 35 to `AVIL`) before running the in-memory workflow.
 
 All bindings importable through `unidesign._core`, while a thin, user-friendly Python façade will live inside `python/unidesign/api/` for higher-level workflows (`ProteinDesigner`, `EnergyScorer`, etc.).
 
@@ -59,7 +62,7 @@ All bindings importable through `unidesign._core`, while a thin, user-friendly P
 | `AtomHandle` | Name/chain/position setters, cartesian coordinates, B-factor accessors | ✅ implemented |
 | `ResidueHandle` | Name/chain/position setters, design type enum, `copy_from`, `add_atom`, `atoms()`, atom listing | ✅ implemented |
 | `ChainHandle` | Name/type setters, `append_residue`, residue lookup, `copy_from` | ✅ implemented |
-| `StructureHandle` | Name setter, chain management, `read_pdb` (phi/psi recomputation), `compute_stability` (weights, tables, rotlib), `compute_binding` (optional weight/splitting), `calc_phi_psi`, `calc_propensity`, `calc_dunbrack`, `reset_energy_terms`, `copy_from` | ✅ implemented |
+| `StructureHandle` | Name setter, chain management, `read_pdb` (phi/psi recomputation), `compute_stability` (weights, tables, rotlib), `compute_binding` (optional weight/splitting), `run_monomer_design` (full native workflow with optional resfile/domains), `calc_phi_psi`, `calc_propensity`, `calc_dunbrack`, `reset_energy_terms`, `copy_from` | ✅ implemented |
 | Enums | `ChainType`, `ResidueDesignType` | ✅ implemented |
 | Functions | `print_version` passthrough | ✅ implemented |
 | Energy helpers | `ComputeStructureStabilitySilent`, `ComputeStructureStabilityByBBdepRotLib2` (invoked internally) | ✅ leveraged |

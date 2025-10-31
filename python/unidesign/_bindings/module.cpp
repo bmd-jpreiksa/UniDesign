@@ -2,6 +2,8 @@
 #include <pybind11/stl.h>
 
 #include <cctype>
+#include <cstdio>
+#include <memory>
 #include <stdexcept>
 #include <string>
 #include <unordered_set>
@@ -16,6 +18,7 @@
 #include "ResidueTopology.h"
 #include "Structure.h"
 #include "Utility.h"
+#include "PyDesign.h"
 
 namespace py = pybind11;
 
@@ -33,6 +36,122 @@ inline std::vector<char> make_buffer(const std::string& value) {
   std::vector<char> buffer(value.begin(), value.end());
   buffer.push_back('\0');
   return buffer;
+}
+
+Type_ResidueDesignType parse_design_type(const py::handle& handle,
+                                         Type_ResidueDesignType fallback) {
+  if (handle.is_none()) {
+    return fallback;
+  }
+  std::string raw = py::cast<std::string>(handle);
+  std::string upper;
+  upper.reserve(raw.size());
+  for (char ch : raw) {
+    upper.push_back(static_cast<char>(std::toupper(static_cast<unsigned char>(ch))));
+  }
+  if (upper == "FIXED") {
+    return Type_DesType_Fixed;
+  }
+  if (upper == "MUTABLE") {
+    return Type_DesType_Mutable;
+  }
+  if (upper == "REPACKABLE") {
+    return Type_DesType_Repackable;
+  }
+  if (upper == "SMALL_MOLECULE" || upper == "SMALLMOLECULE") {
+    return Type_DesType_SmallMol;
+  }
+  if (upper == "CATALYTIC") {
+    return Type_DesType_Catalytic;
+  }
+  if (upper == "NATROT") {
+    return Type_DesType_NatRot;
+  }
+  return fallback;
+}
+
+PyDesignSiteSpec parse_site_spec(const py::handle& obj, Type_ResidueDesignType fallback) {
+  PyDesignSiteSpec spec;
+  py::dict mapping = py::cast<py::dict>(obj);
+  if (!mapping.contains("chain") || !mapping.contains("position")) {
+    throw std::invalid_argument("design/repack site requires 'chain' and 'position'");
+  }
+  spec.chain = py::cast<std::string>(mapping["chain"]);
+  spec.position = py::cast<int>(mapping["position"]);
+  spec.allowed = mapping.contains("allowed") && !mapping["allowed"].is_none()
+                     ? py::cast<std::string>(mapping["allowed"])
+                     : std::string();
+  if (mapping.contains("design_type")) {
+    spec.design_type = parse_design_type(mapping["design_type"], fallback);
+  } else {
+    spec.design_type = fallback;
+  }
+  return spec;
+}
+
+PyMonomerDesignOptions parse_monomer_options(const py::dict& kwargs) {
+  auto require_string = [&](const char* key) -> std::string {
+    if (!kwargs.contains(key)) {
+      throw std::invalid_argument(std::string("Missing required option '") + key + "'");
+    }
+    return py::cast<std::string>(kwargs[key]);
+  };
+
+  auto optional_string = [&](const char* key, const std::string& fallback) -> std::string {
+    if (!kwargs.contains(key) || kwargs[key].is_none()) {
+      return fallback;
+    }
+    return py::cast<std::string>(kwargs[key]);
+  };
+
+  PyMonomerDesignOptions opts{};
+  opts.program_path = optional_string("program_path", ".");
+  opts.working_directory = optional_string("working_directory", opts.program_path);
+  opts.atom_params_path = require_string("atom_params");
+  opts.topology_path = require_string("topology");
+  opts.weight_file = require_string("weight_file");
+  opts.aapp_file = require_string("aapp_file");
+  opts.rama_file = require_string("rama_file");
+  opts.rotlib_bin = require_string("rotlib_bin");
+  opts.resfile_contents = optional_string("resfile_text", "");
+  opts.design_chains = optional_string("design_chains", "");
+
+  opts.profile_weight =
+      kwargs.contains("profile_weight") ? py::cast<double>(kwargs["profile_weight"]) : 1.0;
+  opts.binding_weight =
+      kwargs.contains("binding_weight") ? py::cast<double>(kwargs["binding_weight"]) : 1.0;
+  opts.trajectories =
+      kwargs.contains("trajectories") ? py::cast<int>(kwargs["trajectories"]) : 1;
+
+  opts.interface_only =
+      kwargs.contains("interface_only") ? py::cast<bool>(kwargs["interface_only"]) : false;
+  opts.design_from_native =
+      kwargs.contains("design_from_native") ? py::cast<bool>(kwargs["design_from_native"]) : false;
+  opts.use_input_sc =
+      kwargs.contains("use_input_sc") ? py::cast<bool>(kwargs["use_input_sc"]) : true;
+  opts.rotate_hydroxyl =
+      kwargs.contains("rotate_hydroxyl") ? py::cast<bool>(kwargs["rotate_hydroxyl"]) : true;
+  opts.exclude_cys_rotamers = kwargs.contains("exclude_cys_rotamers")
+                                  ? py::cast<bool>(kwargs["exclude_cys_rotamers"])
+                                  : false;
+  opts.wildtype_only =
+      kwargs.contains("wildtype_only") ? py::cast<bool>(kwargs["wildtype_only"]) : false;
+
+  opts.design_sites.clear();
+  if (kwargs.contains("design_sites") && !kwargs["design_sites"].is_none()) {
+    for (const py::handle& entry : py::cast<py::iterable>(kwargs["design_sites"])) {
+      opts.design_sites.push_back(parse_site_spec(entry, Type_DesType_Mutable));
+    }
+  }
+
+  opts.repack_sites.clear();
+  if (kwargs.contains("repack_sites") && !kwargs["repack_sites"].is_none()) {
+    for (const py::handle& entry : py::cast<py::iterable>(kwargs["repack_sites"])) {
+      opts.repack_sites.push_back(parse_site_spec(entry, Type_DesType_Repackable));
+    }
+  }
+
+  return opts;
 }
 
 struct AtomHandle {
@@ -508,7 +627,7 @@ PYBIND11_MODULE(_core, m) {
              const std::string& pdb_path,
              const std::string& atom_param_path,
              const std::string& topo_path) {
-            check_status([&]() { return StructureDestroy(&self.value); }, "StructureDestroy");
+           check_status([&]() { return StructureDestroy(&self.value); }, "StructureDestroy");
             check_status([&]() { return StructureCreate(&self.value); }, "StructureCreate");
 
             struct AtomParamGuard {
@@ -540,7 +659,90 @@ PYBIND11_MODULE(_core, m) {
           },
           py::arg("pdb_path"),
           py::arg("atom_params"),
-          py::arg("topology"));
+          py::arg("topology"))
+      .def(
+          "write_pdb",
+          [](StructureHandle& self, const std::string& output_path) {
+            FILE* file = fopen(output_path.c_str(), "w");
+            if (file == nullptr) {
+              throw std::runtime_error("Failed to open PDB path for writing: " + output_path);
+            }
+            std::unique_ptr<FILE, decltype(&fclose)> guard(file, fclose);
+            check_status([&]() { return StructureShowInPDBFormat(&self.value, file); }, "StructureShowInPDBFormat");
+          },
+          py::arg("output_path"))
+      .def(
+          "run_monomer_design",
+          [](StructureHandle& self, const py::dict& options) {
+            PyMonomerDesignOptions native_options = parse_monomer_options(options);
+            PyMonomerDesignResult native_result;
+            int status = RunMonomerDesignWorkflow(&self.value, native_options, &native_result);
+            if (FAILED(status)) {
+              throw std::runtime_error("Monomer design failed with code " + std::to_string(status));
+            }
+
+            py::dict payload;
+            payload["sequence_string"] = native_result.sequence_string;
+            payload["trajectory_index"] = native_result.trajectory_index;
+            payload["sequence_identity"] = native_result.sequence_identity;
+            payload["energy_total"] = native_result.energy_total;
+            payload["energy_evolution"] = native_result.energy_evolution;
+            payload["energy_physical"] = native_result.energy_physical;
+            payload["energy_binding"] = native_result.energy_binding;
+            payload["unsatisfied_constraints"] = native_result.unsatisfied_constraints;
+
+            if (native_result.has_best_structure) {
+              StructureHandle best;
+              check_status(
+                  [&]() { return StructureDestroy(&best.value); }, "StructureDestroy(best_structure)");
+              check_status(
+                  [&]() { return StructureCreate(&best.value); }, "StructureCreate(best_structure)");
+              check_status(
+                  [&]() { return StructureCopy(&best.value, &native_result.best_structure); },
+                  "StructureCopy(best_structure)");
+              payload["best_structure"] = best;
+            } else {
+              payload["best_structure"] = py::none();
+            }
+
+            if (native_result.has_best_sites_structure) {
+              StructureHandle best_sites;
+              check_status(
+                  [&]() { return StructureDestroy(&best_sites.value); },
+                  "StructureDestroy(best_sites_structure)");
+              check_status(
+                  [&]() { return StructureCreate(&best_sites.value); },
+                  "StructureCreate(best_sites_structure)");
+              check_status(
+                  [&]() { return StructureCopy(&best_sites.value, &native_result.best_sites_structure); },
+                  "StructureCopy(best_sites_structure)");
+              payload["best_sites_structure"] = best_sites;
+            } else {
+              payload["best_sites_structure"] = py::none();
+            }
+
+            if (native_result.has_best_mutable_sites_structure) {
+              StructureHandle best_mutable_sites;
+              check_status(
+                  [&]() { return StructureDestroy(&best_mutable_sites.value); },
+                  "StructureDestroy(best_mutable_sites_structure)");
+              check_status(
+                  [&]() { return StructureCreate(&best_mutable_sites.value); },
+                  "StructureCreate(best_mutable_sites_structure)");
+              check_status(
+                  [&]() {
+                    return StructureCopy(&best_mutable_sites.value,
+                                         &native_result.best_mutable_sites_structure);
+                  },
+                  "StructureCopy(best_mutable_sites_structure)");
+              payload["best_mutable_sites_structure"] = best_mutable_sites;
+            } else {
+              payload["best_mutable_sites_structure"] = py::none();
+            }
+
+            return payload;
+          },
+          py::arg("options"));
 
   m.def(
       "print_version",
