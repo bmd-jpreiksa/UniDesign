@@ -14,9 +14,11 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "Atom.h"
 #include "AtomParamsSet.h"
 #include "DesignSite.h"
 #include "EnergyMatrix.h"
+#include "Residue.h"
 #include "ResidueTopology.h"
 #include "RotamerBuilder.h"
 #include "Sequence.h"
@@ -40,6 +42,7 @@ extern BOOL FLAG_RESFILE;
 extern BOOL FLAG_DESIGN_FROM_NATAA;
 extern BOOL FLAG_READ_HYDROGEN;
 extern BOOL FLAG_WRITE_HYDROGEN;
+extern BOOL FLAG_LIG_POSES;
 
 extern int NTRAJ;
 extern int NTRAJ_START_NDX;
@@ -64,6 +67,9 @@ extern char FILE_BESTSEQS[MAX_LEN_FILE_NAME + 1];
 extern char FILE_BESTSTRUCT[MAX_LEN_FILE_NAME + 1];
 extern char FILE_BEST_ALL_SITES[MAX_LEN_FILE_NAME + 1];
 extern char FILE_BEST_MUT_SITES[MAX_LEN_FILE_NAME + 1];
+extern char FILE_BEST_LIG_MOL2[MAX_LEN_FILE_NAME + 1];
+extern char FILE_LIG_POSES_IN[MAX_LEN_FILE_NAME + 1];
+extern char FILE_LIG_POSES_OUT[MAX_LEN_FILE_NAME + 1];
 extern char DES_CHAINS[10];
 
 namespace {
@@ -86,6 +92,7 @@ struct GlobalDesignStateGuard {
   BOOL flag_design_from_nataa;
   BOOL flag_read_hydrogen;
   BOOL flag_write_hydrogen;
+  BOOL flag_lig_poses;
 
   int ntraj;
   int ntraj_start_ndx;
@@ -110,6 +117,9 @@ struct GlobalDesignStateGuard {
   char file_beststruct_copy[MAX_LEN_FILE_NAME + 1];
   char file_bestsites_copy[MAX_LEN_FILE_NAME + 1];
   char file_bestmutsites_copy[MAX_LEN_FILE_NAME + 1];
+  char file_bestlig_copy[MAX_LEN_FILE_NAME + 1];
+  char file_lig_pose_in_copy[MAX_LEN_FILE_NAME + 1];
+  char file_lig_pose_out_copy[MAX_LEN_FILE_NAME + 1];
   char des_chains_copy[sizeof(DES_CHAINS)];
 
   GlobalDesignStateGuard() {
@@ -130,6 +140,7 @@ struct GlobalDesignStateGuard {
     flag_design_from_nataa = FLAG_DESIGN_FROM_NATAA;
     flag_read_hydrogen = FLAG_READ_HYDROGEN;
     flag_write_hydrogen = FLAG_WRITE_HYDROGEN;
+    flag_lig_poses = FLAG_LIG_POSES;
 
     ntraj = NTRAJ;
     ntraj_start_ndx = NTRAJ_START_NDX;
@@ -154,6 +165,9 @@ struct GlobalDesignStateGuard {
     strcpy(file_beststruct_copy, FILE_BESTSTRUCT);
     strcpy(file_bestsites_copy, FILE_BEST_ALL_SITES);
     strcpy(file_bestmutsites_copy, FILE_BEST_MUT_SITES);
+    strcpy(file_bestlig_copy, FILE_BEST_LIG_MOL2);
+    strcpy(file_lig_pose_in_copy, FILE_LIG_POSES_IN);
+    strcpy(file_lig_pose_out_copy, FILE_LIG_POSES_OUT);
     strcpy(des_chains_copy, DES_CHAINS);
   }
 
@@ -175,6 +189,7 @@ struct GlobalDesignStateGuard {
     FLAG_DESIGN_FROM_NATAA = flag_design_from_nataa;
     FLAG_READ_HYDROGEN = flag_read_hydrogen;
     FLAG_WRITE_HYDROGEN = flag_write_hydrogen;
+    FLAG_LIG_POSES = flag_lig_poses;
 
     NTRAJ = ntraj;
     NTRAJ_START_NDX = ntraj_start_ndx;
@@ -199,6 +214,9 @@ struct GlobalDesignStateGuard {
     strcpy(FILE_BESTSTRUCT, file_beststruct_copy);
     strcpy(FILE_BEST_ALL_SITES, file_bestsites_copy);
     strcpy(FILE_BEST_MUT_SITES, file_bestmutsites_copy);
+    strcpy(FILE_BEST_LIG_MOL2, file_bestlig_copy);
+    strcpy(FILE_LIG_POSES_IN, file_lig_pose_in_copy);
+    strcpy(FILE_LIG_POSES_OUT, file_lig_pose_out_copy);
     strcpy(DES_CHAINS, des_chains_copy);
   }
 };
@@ -434,6 +452,8 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
   std::string ligand_topology_path;
   std::string ligand_mol2_path;
   std::string ligand_conformer_path;
+  std::string ligand_pose_in_path;
+  std::string ligand_pose_out_path;
 
   auto cleanup = [&](int status) {
     RemoveIfExists(resfile_path);
@@ -443,6 +463,12 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
     RemoveIfExists(aapp_path);
     RemoveIfExists(rama_path);
     RemoveIfExists(rotlib_path);
+    RemoveIfExists(ligand_param_path);
+    RemoveIfExists(ligand_topology_path);
+    RemoveIfExists(ligand_mol2_path);
+    RemoveIfExists(ligand_conformer_path);
+    RemoveIfExists(ligand_pose_in_path);
+    RemoveIfExists(ligand_pose_out_path);
     RemoveIfExists(FILE_SELF_ENERGY);
     RemoveIfExists(FILE_ROTLIST);
     RemoveIfExists(FILE_ROTLIST_SEC);
@@ -506,12 +532,19 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
     if (FAILED(code)) {
       return cleanup(code);
     }
+    ligand_pose_in_path = temp_path + "/ligand_poses_in.pdb";
+    ligand_pose_out_path = temp_path + "/ligand_poses_out.pdb";
+    AssignPath(FILE_LIG_POSES_IN, sizeof(FILE_LIG_POSES_IN), ligand_pose_in_path);
+    AssignPath(FILE_LIG_POSES_OUT, sizeof(FILE_LIG_POSES_OUT), ligand_pose_out_path);
+    FLAG_LIG_POSES = TRUE;
     if (!options.ligand_conformers.empty()) {
-      ligand_conformer_path = temp_path + "/ligand_conformers.pdb";
+      ligand_conformer_path = ligand_pose_in_path;
       code = CopyFileTo(options.ligand_conformers, ligand_conformer_path);
       if (FAILED(code)) {
         return cleanup(code);
       }
+    } else {
+      ligand_conformer_path.clear();
     }
   }
 
@@ -533,11 +566,12 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
   snprintf(FILE_BESTSTRUCT, sizeof(FILE_BESTSTRUCT), "%s_beststruct", prefix.c_str());
   snprintf(FILE_BEST_ALL_SITES, sizeof(FILE_BEST_ALL_SITES), "%s_bestsites", prefix.c_str());
   snprintf(FILE_BEST_MUT_SITES, sizeof(FILE_BEST_MUT_SITES), "%s_bestmutsites", prefix.c_str());
+  snprintf(FILE_BEST_LIG_MOL2, sizeof(FILE_BEST_LIG_MOL2), "%s_bestlig", prefix.c_str());
 
-  FLAG_MONOMER = TRUE;
-  FLAG_PPI = FALSE;
   FLAG_PROT_LIG = options.has_ligand ? TRUE : FALSE;
   FLAG_ENZYME = FALSE;
+  FLAG_PPI = FALSE;
+  FLAG_MONOMER = options.has_ligand ? FALSE : TRUE;
   FLAG_PHYSICS = TRUE;
   FLAG_EVOLUTION = FALSE;
   FLAG_EVOPHIPSI = FALSE;
@@ -665,6 +699,43 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
   }
   if (FAILED(code)) {
     return cleanup(code);
+  }
+
+  if (options.has_ligand && (FLAG_PROT_LIG == TRUE || FLAG_ENZYME == TRUE)) {
+    bool ligand_rotamers_loaded = false;
+    if (FLAG_LIG_POSES && !ligand_pose_in_path.empty()) {
+      code = StructureReadSmallMolRotamers(&working_structure, &resi_topos,
+                                           const_cast<char*>(ligand_pose_in_path.c_str()));
+      if (!FAILED(code)) {
+        printf("read ligand poses from %s\n", ligand_pose_in_path.c_str());
+        ligand_rotamers_loaded = true;
+      }
+    }
+    if (!ligand_rotamers_loaded) {
+      printf("use the ligand pose in mol2 file for design\n");
+      FILE* ligand_pose_out = fopen(ligand_pose_out_path.c_str(), "w");
+      if (ligand_pose_out == nullptr) {
+        return cleanup(IOError);
+      }
+      Model(1, ligand_pose_out);
+      Residue* small_molecule = nullptr;
+      int sm_status = StructureFindSmallMol(&working_structure, &small_molecule);
+      if (FAILED(sm_status) || small_molecule == nullptr) {
+        fclose(ligand_pose_out);
+        return cleanup(sm_status);
+      }
+      char atom_header[] = "ATOM";
+      AtomArrayShowInPDBFormat(ResidueGetAllAtoms(small_molecule), atom_header,
+                               ResidueGetName(small_molecule), ResidueGetChainName(small_molecule), 1,
+                               ResidueGetPosInChain(small_molecule), ligand_pose_out);
+      EndModel(ligand_pose_out);
+      fclose(ligand_pose_out);
+      code = StructureReadSmallMolRotamers(&working_structure, &resi_topos,
+                                           const_cast<char*>(ligand_pose_out_path.c_str()));
+      if (FAILED(code)) {
+        return cleanup(code);
+      }
+    }
   }
 
   StructureShowDesignSites(&working_structure);

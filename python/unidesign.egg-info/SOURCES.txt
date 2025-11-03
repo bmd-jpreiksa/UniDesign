@@ -1,5 +1,6 @@
 .~lock.manual.docx#
 AGENTS.md
+LIG_POSES2.pdb
 README.md
 UniDesign
 UniDesign.exe
@@ -48,6 +49,7 @@ example/ProteinLigandInteraction/1r091_BS01_JEN/1r091_lig_topo.inp
 example/ProteinLigandInteraction/1r091_BS01_JEN/LIGAND_CONFORMERS.pdb
 example/ProteinLigandInteraction/1r091_BS01_JEN/README.txt
 example/ProteinLigandInteraction/1r091_BS01_JEN/lig_charge.mol2
+example/ProteinLigandInteraction/1r091_BS01_JEN/lig_charge_fixed.mol2
 example/ProteinLigandInteraction/1r091_BS01_JEN/rec_ITASSER.pdb
 example/ProteinLigandInteraction/1r091_BS01_JEN/rec_native.pdb
 example/ProteinLigandInteraction/1r091_BS01_JEN/rec_native_bestlig0001.mol2
@@ -154,8 +156,10 @@ python/unidesign/api/entities.py
 python/unidesign/api/ligand.py
 python/unidesign/api/__pycache__/__init__.cpython-311.pyc
 python/unidesign/api/__pycache__/__init__.cpython-314.pyc
+python/unidesign/api/__pycache__/design.cpython-311.pyc
 python/unidesign/api/__pycache__/entities.cpython-311.pyc
 python/unidesign/api/__pycache__/entities.cpython-314.pyc
+python/unidesign/api/__pycache__/ligand.cpython-311.pyc
 python/unidesign/data/__init__.py
 python/unidesign/data/__pycache__/__init__.cpython-311.pyc
 python/unidesign/data/__pycache__/__init__.cpython-314.pyc
@@ -190,6 +194,7 @@ python/unidesign/data/wread/weight_one.wgt
 python_examples/binding_energy.py
 python_examples/design_monomer.py
 python_examples/design_monomer_domain.py
+python_examples/protein_ligand_design.py
 python_examples/rebuild_structure.py
 python_examples/stability.py
 python_examples/structure_chain_count.py
@@ -258,6 +263,8 @@ src/Utility.cpp
 src/Utility.h
 src/WeightOpt.cpp
 src/WeightOpt.h
+temp_native_run/gen_param_topo.log
+temp_native_run/native_run.log
 wread/weight_all1.wgt
 wread/weight_all2.wgt
 wread/weight_all3.wgt

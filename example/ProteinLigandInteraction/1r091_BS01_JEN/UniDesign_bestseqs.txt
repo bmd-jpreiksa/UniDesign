@@ -1,0 +1,10 @@
+# Comment lines start with '#'. Each designer sequence is recorded in one line with a few columns
+# 1st column: the lowest-energy sequence
+# 2nd column: the index of the independent trajectory
+# 3rd column: the ratio of designable positions recapitulated to be the native amino acid
+# 4th column: the weighted total energy (= sum of Columns 5-7)
+# 5th column: the unweighted evolutionary energy; weight = 1.00
+# 6th column: the unweighted physical energy without binding; weight = 1.00
+# 7th column: the unweighted binding energy; weight = 1.00
+# 8th column: the number of unsatisfied catalytic constriants for enzyme design (for non-enzyme design, number = 0); weight = 5.00
+TVASISSGPKHTQKVPILTANETGATMPVLPSDSIETRTTYMHFNGSETDVECFLGRAACVHVTEIQNKDATGIDNHREAKLFNDWKINLSSLVQLRKKMELFTYLRFDSEFTILATASQPDSANYSSNLVVQAMYVPPGAPNPKEWDDYTWQSASNPSVFFKVGDTSRFSVPYNGLASAYFQFYDGYSHDDAETQYGITVLQHYGSMAFRIVNEHDEHKTLVKIRVYHRAKHVEAWIPRAPRALPYTSIGRTNYPKNTEPVIKKRKGDIKSY                       UniDesign_beststruct0001.pdb      0.578947   -647.830960      0.000000   -594.896251    -52.934709             0
