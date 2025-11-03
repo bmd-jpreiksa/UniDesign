@@ -18,6 +18,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "Structure.h"
 #include <string.h>
+#include <stdlib.h>
 
 //#define DEBUGGING_STRUCTURE
 
@@ -846,21 +847,57 @@ int StructureCalcPhiPsi(Structure* pStructure)
 
 int StructureCopy(Structure* pThis, Structure* pOther)
 {
-  for (int i = 0;i < StructureGetChainCount(pOther);i++)
+  if (pThis == NULL || pOther == NULL)
   {
-    //Chain tempChain;
-    //ChainCreate(&tempChain);
-    //ChainCopy(&tempChain,&pOther->chains[i]);
+    return ValueError;
+  }
+
+  StructureDestroy(pThis);
+  StructureCreate(pThis);
+
+  for (int i = 0; i < StructureGetChainCount(pOther); ++i)
+  {
     StructureAddChain(pThis, &pOther->chains[i]);
-    //ChainDestroy(&tempChain);
   }
-  pThis->chainNum = pOther->chainNum;
-  pThis->desSiteCount = pOther->desSiteCount;
   strcpy(pThis->name, pOther->name);
-  for (int i = 0;i < pOther->desSiteCount;i++)
+
+  pThis->desSiteCount = pOther->desSiteCount;
+  if (pThis->desSiteCount > 0)
   {
-    DesignSiteCopy(&pThis->designSites[i], &pOther->designSites[i]);
+    pThis->designSites = (DesignSite*)malloc(sizeof(DesignSite) * pThis->desSiteCount);
+    if (pThis->designSites == NULL)
+    {
+      pThis->desSiteCount = 0;
+      return IOError;
+    }
+    for (int i = 0; i < pThis->desSiteCount; ++i)
+    {
+      DesignSiteCreate(&pThis->designSites[i]);
+      DesignSiteCopy(&pThis->designSites[i], &pOther->designSites[i]);
+      if (pThis->designSites[i].chnNdx >= 0 && pThis->designSites[i].chnNdx < pThis->chainNum)
+      {
+        Chain* pChain = StructureGetChain(pThis, pThis->designSites[i].chnNdx);
+        if (pChain != NULL && pThis->designSites[i].resNdx >= 0 &&
+            pThis->designSites[i].resNdx < ChainGetResidueCount(pChain))
+        {
+          pThis->designSites[i].pRes = ChainGetResidue(pChain, pThis->designSites[i].resNdx);
+        }
+        else
+        {
+          pThis->designSites[i].pRes = NULL;
+        }
+      }
+      else
+      {
+        pThis->designSites[i].pRes = NULL;
+      }
+    }
   }
+  else
+  {
+    pThis->designSites = NULL;
+  }
+
   return Success;
 }
 

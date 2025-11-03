@@ -55,6 +55,12 @@ struct PyMonomerDesignOptions {
   bool exclude_cys_rotamers;
   bool wildtype_only;
 
+  bool has_ligand = false;
+  std::string ligand_mol2;
+  std::string ligand_parameters;
+  std::string ligand_topology;
+  std::string ligand_conformers;
+
   std::vector<PyDesignSiteSpec> design_sites;
   std::vector<PyDesignSiteSpec> repack_sites;
 };
@@ -86,4 +92,3 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
                              PyMonomerDesignResult* result);
 
 #endif /* PY_DESIGN_H */
-

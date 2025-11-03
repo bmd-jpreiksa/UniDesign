@@ -52,6 +52,18 @@ Within each translation unit:
   - `python_examples/binding_energy.py` demonstrates calling `Structure.compute_binding` on the 1e44 and 1ay7 complexes (with optional chain splitting). Invalid chain identifiers now raise a `ValueError`, which the example reports before continuing.
   - `python_examples/design_monomer.py` exercises the binding-driven `DesignProtein` façade (which delegates to `Structure.run_monomer_design`) to reproduce the `MonomerDesign/1agy` reference trajectory without spawning the CLI binary.
   - `python_examples/design_monomer_domain.py` shows how to build a `DesignDomain` in Python, mixing fully flexible sites with amino-acid-restricted positions (e.g., limiting chain A position 35 to `AVIL`) before running the in-memory workflow.
+- Ligand bindings are **not** exposed yet. The current Python façade cannot create or parameterise small-molecule residues, and `DesignProtein` rejects ligand payloads. The native workflow still expects pre-generated parameter/topology snippets on disk.
+
+### Ligand workflow status
+
+- ✅ Native C++ now deep-copies design sites correctly (`StructureCopy` rebinds design-site residue pointers), eliminating crashes when the CLI handles ligand jobs.
+- ⚠️ Missing pybind surface: there is no `Ligand` handle/class in `_core`, so Python users cannot supply MOL2/parameter/topology data programmatically.
+- ⚠️ `Structure.run_monomer_design` ignores ligand-related options because `PyMonomerDesignOptions` does not carry ligand payloads into `RunMonomerDesignWorkflow`.
+- ⚠️ Example gap: `python_examples/protein_ligand_design.py` cannot be executed; it imports a non-existent `Ligand` helper and therefore fails before reaching the workflow.
+- 📋 To finish ligand exposure we need:
+  1. A `LigandHandle` binding (MOL2 ingestion, parameter/topology setters, conformer loading).
+  2. Extended `PyMonomerDesignOptions`/`RunMonomerDesignWorkflow` to persist ligand data into the temporary working directory and enable the `FLAG_PROT_LIG` code path.
+  3. A high-level `Ligand` façade in `python/unidesign/api/` plus documentation/tests, after which `python_examples/protein_ligand_design.py` can be re-enabled.
 
 All bindings importable through `unidesign._core`, while a thin, user-friendly Python façade will live inside `python/unidesign/api/` for higher-level workflows (`ProteinDesigner`, `EnergyScorer`, etc.).
 

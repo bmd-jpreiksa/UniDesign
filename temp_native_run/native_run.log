@@ -1,0 +1,126 @@
+#############################################################################################################
+                                       UniDesign (Version 20230524)
+  A command-line-based tool featuring protein structure modeling and protein design, including:
+
+    *) de novo protein sequence design and protein sequence redesign (ProteinDesign)
+       can be used to design monomer proteins, protein-protein interactions, protein-ligand interactions, 
+       protein-nucleic acid interactions, and enzymes
+    *) protein side-chain packing (ProteinDesign in conjuncion with the option --wildtype_only)
+    *) calculate protein fold stability score (ComputeStability)
+    *) calculate protein-protein binding energy score (ComputeBinding)
+    *) repair missing protein side chains (RepairStructure)
+    *) protein structure energy minimization (Minimize)
+    *) build mutant strucure models (BuildMutant)
+    *) add polar hydrogen atoms (AddPolarHydrogen)
+    *) optimize hydrogen's position to maximize hydrogen bonding networks (OptimizeHydrogen)
+
+  Copyright (c) Xiaoqiang Huang
+  Contact: xiaoqiah@outlook.com
+############################################################################################################
+
+command 'ProteinDesign' is supported
+unknown option -- lig_atomparam
+Usage: UniDesign [OPTIONS]
+
+OPTIONS:
+   -v              print version
+   --version       print version
+   -h              print help message
+   -?              print help message
+   --help          print help message
+   --command=arg   choose your command:
+                   [Energy calculation module]
+                     ComputeStability
+                     ComputeBinding
+                     ComputeEvolutionScore
+                     ComputeResiEnergy
+                     ComputeRotamersEnergy
+                   [Structure modeling module]
+                     RepairStructure
+                     Minimize
+                     BuildMutant
+                     AddPolarHydrogen
+                     OptimizeHydrogen
+                     ProteinDesign
+                   [ProteinDesign and side-chain packing module]
+                     monomer design: ProteinDesign --monomer
+                     PPI design    : ProteinDesign --ppint
+                     PLI design    : ProteinDesign --protlig
+                     enzyme design : ProteinDesign --enzyme
+                     packing       : ProteinDesign --wildtype_only
+                   [Enzyme and PLI design module]
+                     MakeLigParamAndTopo
+                     MakeLigPoses
+                     AnalyzeLigPoses
+                     ScreenLigPoses
+                   [Structure checking and assessment module]
+                     CheckClash0
+                     CheckClash1
+                     CheckClash2
+                     CheckResiInRotLib
+                     CompareSideChain
+                     FindCoreResidue
+                     FindInterfaceResidue
+                     FindIntermediateResidue
+                     FindSurfaceResidue
+                     GetPhiPsi
+                     GetResiMinRMSD
+                     GetResiBfactor
+                     ShowResiComposition
+                   [Sequence-based feature prediction module]
+                     PhiPsiPred
+                     SSPred
+                     SAPred
+                   [Other modules]
+                     OptimizeWeight
+
+command can be used in conjunction with one or more following options:
+
+   --pdb=arg                 arg is a standard readable PDB file
+   --split_chains=arg        arg specifies chain splitting for ComputeBinding with >=3 protein chains (e.g. AB,C or AB,CDE)
+   --mutant_file=arg         arg is a file recording one or more mutants
+   --bbdep=arg               arg = yes/no, turning on/off the flag for using bb-dep rotamer library (default: yes)
+   --use_input_sc            use input protein structure's side chains as rotamers
+   --ppi_shell1=arg          arg is the distance cutoff for the 1st shell of PPI (default: 5.0 Angstroms)
+   --ppi_shell2=arg          arg is the distance cutoff for the 2nd shell of PPI (default: 8.0 Angstroms)
+   --evolution               protein design using both physics and evolution scores
+   --physics                 protein design using physical scoring function (EvoEF) only (default)
+   --monomer                 the designing protein is treated as a monomer
+   --ppint                   protein-protein interaction design
+   --protlig                 protein-ligand interaction design
+   --enzyme                  enzyme design (extended version of PLI design) with catalytic constraints
+   --design_chains=arg       arg is the designing chain(s)'s identifier (e.g. A, or AB)
+   --mol2=arg                arg is a standard readable mol2 file, atomic charge should be included
+   --rotate_hydroxyl=arg     arg = yes/no, turning on/off the flag for rotating Ser, Thr, and Tyr hydroxyl hydrogen (default: on)
+   --xdeviation=arg          arg is a float value cutoff for side-chain Chi angle deviation
+   --wread=arg               arg is a energy-weight file
+   --pdblist=arg             arg is a file recording a list of PDB IDs, each in one line
+   --wildtype_only
+   --rotlib=arg              arg is the name of a rotamer lib
+   --pdb2=arg                arg is the 2nd PDB file for comparing side-chains by command CompareSideChain
+                             this flag makes design very slow (default: turned off)
+   --pli_shell1=arg          arg is the distance cutoff for the 1st shell of protein-ligand interaction (default: 5.0 Angstroms)
+   --pli_shell2=arg          arg is the distance cutoff for the 2nd shell of protein-ligand interaction (default: 8.0 Angstroms)
+   --clash_ratio=arg         arg is a float value cutoff for the command CheckClash[0-2] (default: 0.6)
+   --ntraj=arg               arg is an integer for the number of independent protein design trajectories (default: 1)
+   --excl_low_prob=arg       arg is a flat value cutoff for excluding low-probability rotamers (default: 0.03), 0~0.05 suggested
+   --interface_only
+   --seq=arg                 arg is a single-line plain-text FASTA protein sequence file
+   --evo_allterms            turn on the flag for using all-term evolution (including PSSM, SA, SS, and psi-phi) for protein design
+   --wprof=arg               arg is a float value (default: 1.0)
+   --resfile=arg             arg is the name of residue-restriction file
+   --seed_from_nat           turn on the flag for using native sequence as a starting point for protein design
+   --excl_rot_cys            exclude the Cystenine rotamers for protein design
+   --show_hydrogen=arg       arg = yes, save the coordinates of polar hydrogens to PDB file
+                             arg = no, do not write hydrogens into PDB
+   --ncut_cb_core=arg        arg is an integer cutoff value for the number of CB atoms for a CORE (buried) residue (default: 20)
+   --ncut_cb_surf=arg        arg is an integer cutoff value for the number of CB atoms for a SURFACE (exposed) residue (default: 15)
+   --init_3atoms=arg         arg is the name of three atoms divided by commas (e.g. C1,C2,C3)
+                             this option is only used with the command GenLigParamAndTopo
+   --read_lig_poses=arg      read ligand poses from the file arg, a PDB file recording multiple ligand poses
+   --write_lig_poses=arg     write ligand poses to the file arg, a PDB file for recording multiple ligand poses
+   --scrn_by_orientation=arg        screen ligand poses using the rule defined in the arg file
+   --scrn_by_vdw=arg      screen ligand poses with both internalVDW and backboneVDW ranked in a low percentile, e.g. 25%
+   --scrn_by_rmsd=arg        screen ligand poses using an RMSD cutoff value (default: 1.0)
+
+

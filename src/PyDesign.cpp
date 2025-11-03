@@ -420,7 +420,7 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
   int code = Success;
   bool rotamer_lib_created = false;
 
-  TempDirectory temp_dir(options.working_directory, "unidesign_py_");
+  TempDirectory temp_dir(options.working_directory, "ud_");
   const std::string temp_path = temp_dir.path();
 
   std::string resfile_path;
@@ -430,6 +430,10 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
   std::string aapp_path;
   std::string rama_path;
   std::string rotlib_path;
+  std::string ligand_param_path;
+  std::string ligand_topology_path;
+  std::string ligand_mol2_path;
+  std::string ligand_conformer_path;
 
   auto cleanup = [&](int status) {
     RemoveIfExists(resfile_path);
@@ -486,6 +490,31 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
     return cleanup(code);
   }
 
+  if (options.has_ligand) {
+    ligand_mol2_path = temp_path + "/ligand.mol2";
+    code = CopyFileTo(options.ligand_mol2, ligand_mol2_path);
+    if (FAILED(code)) {
+      return cleanup(code);
+    }
+    ligand_param_path = temp_path + "/ligand.prm";
+    code = CopyFileTo(options.ligand_parameters, ligand_param_path);
+    if (FAILED(code)) {
+      return cleanup(code);
+    }
+    ligand_topology_path = temp_path + "/ligand.top";
+    code = CopyFileTo(options.ligand_topology, ligand_topology_path);
+    if (FAILED(code)) {
+      return cleanup(code);
+    }
+    if (!options.ligand_conformers.empty()) {
+      ligand_conformer_path = temp_path + "/ligand_conformers.pdb";
+      code = CopyFileTo(options.ligand_conformers, ligand_conformer_path);
+      if (FAILED(code)) {
+        return cleanup(code);
+      }
+    }
+  }
+
   AssignPath(PROGRAM_PATH, sizeof(PROGRAM_PATH), temp_path);
   AssignPath(FILE_ATOMPARAM, sizeof(FILE_ATOMPARAM), atom_param_path);
   AssignPath(FILE_TOPO, sizeof(FILE_TOPO), topology_path);
@@ -507,7 +536,7 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
 
   FLAG_MONOMER = TRUE;
   FLAG_PPI = FALSE;
-  FLAG_PROT_LIG = FALSE;
+  FLAG_PROT_LIG = options.has_ligand ? TRUE : FALSE;
   FLAG_ENZYME = FALSE;
   FLAG_PHYSICS = TRUE;
   FLAG_EVOLUTION = FALSE;
@@ -538,10 +567,22 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
   strncpy(DES_CHAINS, design_chains.c_str(), sizeof(DES_CHAINS) - 1);
 
   code = AtomParameterRead(&atom_params, FILE_ATOMPARAM);
+  if (options.has_ligand) {
+    code = AtomParameterRead(&atom_params, const_cast<char*>(ligand_param_path.c_str()));
+    if (FAILED(code)) {
+      return cleanup(code);
+    }
+  }
   if (FAILED(code)) {
     return cleanup(code);
   }
   code = ResiTopoSetRead(&resi_topos, FILE_TOPO);
+  if (options.has_ligand) {
+    code = ResiTopoSetRead(&resi_topos, const_cast<char*>(ligand_topology_path.c_str()));
+    if (FAILED(code)) {
+      return cleanup(code);
+    }
+  }
   if (FAILED(code)) {
     return cleanup(code);
   }

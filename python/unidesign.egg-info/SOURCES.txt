@@ -1,5 +1,7 @@
+.~lock.manual.docx#
 AGENTS.md
 README.md
+UniDesign
 UniDesign.exe
 build.sh
 environment.yml
@@ -135,6 +137,7 @@ library/toppar/top_polh19_v20220211.inp
 library/toppar/top_polh19_v20220506.inp
 library/toppar/top_polh19_v20220817.inp
 python/unidesign/__init__.py
+python/unidesign/_core.cpython-311-x86_64-linux-gnu.so
 python/unidesign/_core.cpython-314-x86_64-linux-gnu.so
 python/unidesign/py.typed
 python/unidesign.egg-info/PKG-INFO
@@ -142,12 +145,16 @@ python/unidesign.egg-info/SOURCES.txt
 python/unidesign.egg-info/dependency_links.txt
 python/unidesign.egg-info/requires.txt
 python/unidesign.egg-info/top_level.txt
+python/unidesign/__pycache__/__init__.cpython-311.pyc
 python/unidesign/__pycache__/__init__.cpython-314.pyc
 python/unidesign/_bindings/module.cpp
 python/unidesign/api/__init__.py
 python/unidesign/api/design.py
 python/unidesign/api/entities.py
+python/unidesign/api/ligand.py
+python/unidesign/api/__pycache__/__init__.cpython-311.pyc
 python/unidesign/api/__pycache__/__init__.cpython-314.pyc
+python/unidesign/api/__pycache__/entities.cpython-311.pyc
 python/unidesign/api/__pycache__/entities.cpython-314.pyc
 python/unidesign/data/__init__.py
 python/unidesign/data/__pycache__/__init__.cpython-311.pyc
@@ -180,8 +187,11 @@ python/unidesign/data/wread/weight_ddg.wgt
 python/unidesign/data/wread/weight_honig984.wgt
 python/unidesign/data/wread/weight_initial.wgt
 python/unidesign/data/wread/weight_one.wgt
+python_examples/binding_energy.py
 python_examples/design_monomer.py
 python_examples/design_monomer_domain.py
+python_examples/rebuild_structure.py
+python_examples/stability.py
 python_examples/structure_chain_count.py
 src/Atom.cpp
 src/Atom.h
