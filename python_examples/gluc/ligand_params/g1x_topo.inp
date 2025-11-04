@@ -1,0 +1,79 @@
+!this is an automatically generated topology file for residue G1X
+RESI G1X
+ATOM  C1
+ATOM  O1
+ATOM  C2
+ATOM  O2
+ATOM  C3
+ATOM  O3
+ATOM  C4
+ATOM  O4
+ATOM  C5
+ATOM  O5
+ATOM  C6
+ATOM  O6
+ATOM  H1
+ATOM  H2
+ATOM  H3
+ATOM  H4
+ATOM  H5
+ATOM  H6
+ATOM  H7
+ATOM  H8
+ATOM  H9
+ATOM  H10
+ATOM  H11
+ATOM  H12
+BOND  C1 O1
+BOND  C1 C2
+BOND  C1 H1
+BOND  C2 O2
+BOND  C2 C3
+BOND  C2 H2
+BOND  O2 H3
+BOND  C3 O3
+BOND  C3 C4
+BOND  C3 H4
+BOND  O3 H5
+BOND  C4 O4
+BOND  C4 C5
+BOND  C4 H6
+BOND  O4 H7
+BOND  C5 O5
+BOND  C5 C6
+BOND  C5 H8
+BOND  O5 H9
+BOND  C6 O6
+BOND  C6 H10
+BOND  C6 H11
+BOND  O6 H12
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Internal Coordinates (ICs) are associated with ligand placement for enzyme design
+! The IC orders depend on three initial atoms on the ligand. If the three atoms
+! were not provided by user, they will be chosen automatically based on bond connection
+! Anyway, it is very important to check the ICs manually!
+! The format of an IC entry is: 
+! IC atomA atomB  atomC atomD distAB angleABC angleABCD angleBCD distCD    or:
+! IC atomA atomB *atomC atomD distAC angleACB angleABCD angleBCD distCD
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+IC   C3      C2       C1      O1          1.543   113.307  -178.370   110.491     1.445
+IC   C3      C1      *C2      O2          1.543   113.307   126.717   103.853     1.462
+IC   C1      C2       C3      O3          1.522   113.307    74.359   114.749     1.529
+IC   C2      O3      *C3      C4          1.543   114.749  -113.366   114.920     1.593
+IC   C2      C3       C4      O4          1.543    98.641   -80.076   111.006     1.450
+IC   C3      O4      *C4      C5          1.593   111.006   114.883   105.787     1.516
+IC   C3      C4       C5      O5          1.593   106.288    46.153   104.030     1.395
+IC   C4      O5      *C5      C6          1.516   104.030   117.442   108.892     1.497
+IC   C4      C5       C6      O6          1.516   110.152   158.135   114.468     1.410
+IC   C2      O1      *C1      H1          1.522   110.491   179.977   124.790     1.090
+IC   C1      O2      *C2      H2          1.522   103.853  -121.781   110.365     1.090
+IC   C1      C2       O2      H3          1.522   103.853   136.467   109.495     0.960
+IC   C2      O3      *C3      H4          1.543   114.749   123.433    99.153     1.090
+IC   C2      C3       O3      H5          1.543   114.749    18.467   109.431     0.960
+IC   C3      O4      *C4      H6          1.593   111.006  -121.113   109.855     1.090
+IC   C3      C4       O4      H7          1.593   111.006   172.471   109.513     0.960
+IC   C4      O5      *C5      H8          1.516   104.030  -122.508   113.615     1.090
+IC   C4      C5       O5      H9          1.516   104.030   130.484   109.567     0.960
+IC   C5      O6      *C6      H10         1.497   114.468   117.399   106.464     1.090
+IC   C5      O6      *C6      H11         1.497   114.468  -120.837   108.269     1.089
+IC   C5      C6       O6      H12         1.497   114.468   133.852   109.515     0.960
