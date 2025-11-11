@@ -54,6 +54,7 @@ struct PyMonomerDesignOptions {
   bool rotate_hydroxyl;
   bool exclude_cys_rotamers;
   bool wildtype_only;
+  bool quiet_output;
 
   bool has_ligand = false;
   std::string ligand_mol2;
@@ -63,6 +64,13 @@ struct PyMonomerDesignOptions {
 
   std::vector<PyDesignSiteSpec> design_sites;
   std::vector<PyDesignSiteSpec> repack_sites;
+};
+
+struct PyResidueSelfEnergy {
+  std::string chain_name;
+  int position;
+  double self_energy;
+  double binding_energy;
 };
 
 struct PyMonomerDesignResult {
@@ -82,6 +90,7 @@ struct PyMonomerDesignResult {
   Structure best_structure;
   Structure best_sites_structure;
   Structure best_mutable_sites_structure;
+  std::vector<PyResidueSelfEnergy> residue_self_energies;
 
   PyMonomerDesignResult();
   ~PyMonomerDesignResult();
@@ -90,5 +99,39 @@ struct PyMonomerDesignResult {
 int RunMonomerDesignWorkflow(Structure* input_structure,
                              const PyMonomerDesignOptions& options,
                              PyMonomerDesignResult* result);
+
+struct PyMinimizeOptions {
+  std::string program_path;
+  std::string working_directory;
+  std::string atom_params_path;
+  std::string topology_path;
+  std::string rotlib_bin;
+  std::string weight_file;
+
+  bool use_input_sc;
+  bool rotate_hydroxyl;
+  bool quiet_output;
+  bool respect_design_types;
+
+  bool has_ligand = false;
+  std::string ligand_mol2;
+  std::string ligand_parameters;
+  std::string ligand_topology;
+
+  std::vector<PyDesignSiteSpec> design_sites;
+  std::vector<PyDesignSiteSpec> repack_sites;
+};
+
+struct PyMinimizeResult {
+  bool has_structure;
+  Structure minimized_structure;
+
+  PyMinimizeResult();
+  ~PyMinimizeResult();
+};
+
+int RunMinimizeWorkflow(Structure* input_structure,
+                        const PyMinimizeOptions& options,
+                        PyMinimizeResult* result);
 
 #endif /* PY_DESIGN_H */

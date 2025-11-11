@@ -38,7 +38,7 @@ int BuildMutantByBBdepRotLib(Structure* pStructure, char* mutantfile, BBdepRotam
 
 int RepairStructure(Structure* pStructure, BBindRotamerLib* rotlib, AtomParamsSet* atomParams, ResiTopoSet* resiTopos, char* pdbid);
 int RepairStructureByBBdepRotLib(Structure* pStructure, BBdepRotamerLib* pBBdepRotLib, AtomParamsSet* atomParams, ResiTopoSet* resiTopos, char* pdbid);
-int EnergyMinimizationByBBdepRotLib(Structure* pStructure, BBdepRotamerLib* pBBdepRotLib, AtomParamsSet* atomParams, ResiTopoSet* resiTopos, char* pdbid);
+int EnergyMinimizationByBBdepRotLib(Structure* pStructure, BBdepRotamerLib* pBBdepRotLib, AtomParamsSet* atomParams, ResiTopoSet* resiTopos, char* pdbid, bool respect_design_types);
 
 int AddPolarHydrogen(Structure* pStructure, char* pdbid);
 int OptimizeHydrogen(Structure* pStructure, AtomParamsSet* atomParams, ResiTopoSet* resiTopos, char* pdbid);

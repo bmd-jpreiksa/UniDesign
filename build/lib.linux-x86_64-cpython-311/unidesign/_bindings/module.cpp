@@ -166,6 +166,47 @@ PyMonomerDesignOptions parse_monomer_options(const py::dict& kwargs) {
   return opts;
 }
 
+PyMinimizeOptions parse_minimize_options(const py::dict& kwargs) {
+  auto require_string = [&](const char* key) -> std::string {
+    if (!kwargs.contains(key)) {
+      throw std::invalid_argument(std::string("Missing required option '") + key + "'");
+    }
+    return py::cast<std::string>(kwargs[key]);
+  };
+
+  auto optional_string = [&](const char* key, const std::string& fallback) -> std::string {
+    if (!kwargs.contains(key) || kwargs[key].is_none()) {
+      return fallback;
+    }
+    return py::cast<std::string>(kwargs[key]);
+  };
+
+  PyMinimizeOptions opts{};
+  opts.program_path = optional_string("program_path", ".");
+  opts.working_directory = optional_string("working_directory", opts.program_path);
+  opts.atom_params_path = require_string("atom_params");
+  opts.topology_path = require_string("topology");
+  opts.rotlib_bin = require_string("rotlib_bin");
+  opts.weight_file = require_string("weight_file");
+  opts.use_input_sc =
+      kwargs.contains("use_input_sc") ? py::cast<bool>(kwargs["use_input_sc"]) : true;
+  opts.rotate_hydroxyl =
+      kwargs.contains("rotate_hydroxyl") ? py::cast<bool>(kwargs["rotate_hydroxyl"]) : true;
+
+  opts.has_ligand = kwargs.contains("has_ligand");
+  if (opts.has_ligand) {
+    opts.ligand_mol2 = optional_string("ligand_mol2", "");
+    opts.ligand_parameters = optional_string("ligand_params", "");
+    opts.ligand_topology = optional_string("ligand_topology", "");
+    if (opts.ligand_mol2.empty() || opts.ligand_parameters.empty() || opts.ligand_topology.empty()) {
+      throw std::invalid_argument(
+          "Ligand minimization requires 'ligand_mol2', 'ligand_params', and 'ligand_topology'");
+    }
+  }
+
+  return opts;
+}
+
 struct AtomHandle {
   AtomHandle() { check_status([&]() { return AtomCreate(&value); }, "AtomCreate"); }
   AtomHandle(const AtomHandle& other) {
@@ -796,6 +837,30 @@ PYBIND11_MODULE(_core, m) {
               payload["best_mutable_sites_structure"] = best_mutable_sites;
             } else {
               payload["best_mutable_sites_structure"] = py::none();
+            }
+
+            return payload;
+          },
+          py::arg("options"))
+      .def(
+          "run_minimization",
+          [](StructureHandle& self, const py::dict& options) {
+            PyMinimizeOptions native_options = parse_minimize_options(options);
+            PyMinimizeResult native_result;
+            int status = RunMinimizeWorkflow(&self.value, native_options, &native_result);
+            if (FAILED(status)) {
+              throw std::runtime_error("Minimization failed with code " + std::to_string(status));
+            }
+
+            py::dict payload;
+            if (native_result.has_structure) {
+              StructureHandle minimized;
+              check_status(
+                  [&]() { return StructureCopy(&minimized.value, &native_result.minimized_structure); },
+                  "StructureCopy(minimized_structure)");
+              payload["structure"] = minimized;
+            } else {
+              payload["structure"] = py::none();
             }
 
             return payload;

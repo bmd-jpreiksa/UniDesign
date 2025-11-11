@@ -1,0 +1,230 @@
+{
+  "A": {
+    "energy": {
+      "total": -8692.162251,
+      "physical": -8692.162251,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 9.834283000000141,
+      "physical": 9.834283000000141,
+      "binding": 0.0
+    }
+  },
+  "C": {
+    "energy": {
+      "total": -8691.100278,
+      "physical": -8691.100278,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 10.896255999999994,
+      "physical": 10.896255999999994,
+      "binding": 0.0
+    }
+  },
+  "D": {
+    "energy": {
+      "total": -8691.572557,
+      "physical": -8691.572557,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 10.423977000000377,
+      "physical": 10.423977000000377,
+      "binding": 0.0
+    }
+  },
+  "E": {
+    "energy": {
+      "total": -8692.245168,
+      "physical": -8692.245168,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 9.751366000000417,
+      "physical": 9.751366000000417,
+      "binding": 0.0
+    }
+  },
+  "F": {
+    "energy": {
+      "total": -8683.529203,
+      "physical": -8683.529203,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 18.46733099999983,
+      "physical": 18.46733099999983,
+      "binding": 0.0
+    }
+  },
+  "G": {
+    "energy": {
+      "total": -8690.806854,
+      "physical": -8690.806854,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 11.189679999999498,
+      "physical": 11.189679999999498,
+      "binding": 0.0
+    }
+  },
+  "H": {
+    "energy": {
+      "total": -8688.710701,
+      "physical": -8688.710701,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 13.285832999999911,
+      "physical": 13.285832999999911,
+      "binding": 0.0
+    }
+  },
+  "I": {
+    "energy": {
+      "total": -8682.400454,
+      "physical": -8682.400454,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 19.596079999999347,
+      "physical": 19.596079999999347,
+      "binding": 0.0
+    }
+  },
+  "K": {
+    "energy": {
+      "total": -8695.905777,
+      "physical": -8695.905777,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 6.09075699999994,
+      "physical": 6.09075699999994,
+      "binding": 0.0
+    }
+  },
+  "L": {
+    "energy": {
+      "total": -8698.37599,
+      "physical": -8698.37599,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 3.620543999999427,
+      "physical": 3.620543999999427,
+      "binding": 0.0
+    }
+  },
+  "M": {
+    "energy": {
+      "total": -8691.258837,
+      "physical": -8691.258837,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 10.73769700000048,
+      "physical": 10.73769700000048,
+      "binding": 0.0
+    }
+  },
+  "N": {
+    "energy": {
+      "total": -8695.506274,
+      "physical": -8695.506274,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 6.4902600000004895,
+      "physical": 6.4902600000004895,
+      "binding": 0.0
+    }
+  },
+  "P": {
+    "energy": {
+      "total": -8675.83942,
+      "physical": -8675.83942,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 26.157113999999638,
+      "physical": 26.157113999999638,
+      "binding": 0.0
+    }
+  },
+  "Q": {
+    "energy": {
+      "total": -8697.456049,
+      "physical": -8697.456049,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 4.540484999999535,
+      "physical": 4.540484999999535,
+      "binding": 0.0
+    }
+  },
+  "S": {
+    "energy": {
+      "total": -8695.241342,
+      "physical": -8695.241342,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 6.755192000000534,
+      "physical": 6.755192000000534,
+      "binding": 0.0
+    }
+  },
+  "T": {
+    "energy": {
+      "total": -8696.333927,
+      "physical": -8696.333927,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 5.662607000000207,
+      "physical": 5.662607000000207,
+      "binding": 0.0
+    }
+  },
+  "V": {
+    "energy": {
+      "total": -8687.012669,
+      "physical": -8687.012669,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 14.98386500000015,
+      "physical": 14.98386500000015,
+      "binding": 0.0
+    }
+  },
+  "W": {
+    "energy": {
+      "total": -8677.72398,
+      "physical": -8677.72398,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 24.272553999999218,
+      "physical": 24.272553999999218,
+      "binding": 0.0
+    }
+  },
+  "Y": {
+    "energy": {
+      "total": -8664.946425,
+      "physical": -8664.946425,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 37.05010899999979,
+      "physical": 37.05010899999979,
+      "binding": 0.0
+    }
+  }
+}

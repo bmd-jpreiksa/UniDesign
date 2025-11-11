@@ -154,6 +154,7 @@ python/unidesign/api/__init__.py
 python/unidesign/api/design.py
 python/unidesign/api/entities.py
 python/unidesign/api/ligand.py
+python/unidesign/api/minimize.py
 python/unidesign/api/__pycache__/__init__.cpython-311.pyc
 python/unidesign/api/__pycache__/__init__.cpython-314.pyc
 python/unidesign/api/__pycache__/design.cpython-311.pyc

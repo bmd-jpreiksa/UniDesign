@@ -1,0 +1,98 @@
+# --- Imports and initialization (reuse from above) ---
+import pyrosetta as pr
+import matplotlib.pyplot as plt
+import json
+from pathlib import Path
+from bmdairs.utilities.rosetta import movers as rst_mv
+from bmdairs.utilities.rosetta import scores as rst_sc
+from bmdairs.utilities.rosetta.init import rosetta_custom_init
+
+# --- Setup parameters and load pose ---
+params_dir = 'params/rosetta/'
+params_files = [f'{i.resolve()}' for i in Path(params_dir).glob('*.params')]
+rosetta_custom_init(residue_parameters=params_files, extra_options='-in:auto_setup_metals')
+
+ipose_file = 'complex/p801B7S6_met_MG_complex.pdb'
+ipose = pr.pose_from_file(ipose_file)
+
+# --- Define domain and score function ---
+scorefxn = rst_sc.get_rosetta_full_atom_score_function()
+
+# Define wild-type domain
+ddomain_wt = {(285, 'A'): 'R', (283, 'A'): 'E', (277, 'A'): 'K', (294, 'C'): 'R', (253, 'C'): 'E'}
+
+# Get residue indices in Rosetta pose numbering
+dposition = rst_mv.ids_to_index(pose=ipose, ids=[(r, c) for r, c in ddomain_wt.keys()])
+
+# Movemaps for relax/minimization
+mvmp = rst_mv.get_movemap(index=dposition, include_backbone=False)
+mvmp_bb = rst_mv.get_movemap(index=dposition, include_backbone=True)
+
+# --- Get wild-type reference pose ---
+wt_pose = pr.Pose()
+wt_pose.assign(ipose)
+
+# Create TaskFactory and Relax for wild type
+tf_wt = rst_mv.get_task_factory(ddomain=[(r, c, aa) for (r, c), aa in ddomain_wt.items()])
+ft_wt = rst_mv.get_fast_relax(task_factory=tf_wt, movemap=mvmp, score_fxn=scorefxn)
+min_wt = rst_mv.get_minimizer(movemap=mvmp_bb, score_fxn=scorefxn)
+
+# Apply relax/minimize to wild-type
+ft_wt.apply(wt_pose)
+min_wt.apply(wt_pose)
+
+wt_energy = rst_sc.get_total_energy(wt_pose, scorefxn)
+print(f"WT total energy: {wt_energy:.3f}")
+
+# --- Mutation scan setup ---
+amino_acids = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+               'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S',
+               'T', 'V', 'W', 'Y']
+
+mutation_site = (294, 'C')
+mutation_energies = {}
+
+# --- Mutation scan loop ---
+for aa in amino_acids:
+    print(f"\nTesting mutation {mutation_site} → {aa}")
+
+    # Copy initial pose
+    test_pose = pr.Pose()
+    test_pose.assign(ipose)
+
+    # Define mutated domain (only 277A changes)
+    ddomain_test = ddomain_wt.copy()
+    ddomain_test[mutation_site] = aa
+
+    # Create task and relax for this mutation
+    tf_test = rst_mv.get_task_factory(ddomain=[(r, c, a) for (r, c), a in ddomain_test.items()])
+    ft_test = rst_mv.get_fast_relax(task_factory=tf_test, movemap=mvmp, score_fxn=scorefxn)
+    min_test = rst_mv.get_minimizer(movemap=mvmp_bb, score_fxn=scorefxn)
+
+    # Run relaxation + minimization
+    ft_test.apply(test_pose)
+    min_test.apply(test_pose)
+
+    # Compute total energy difference
+    e_total = rst_sc.get_total_energy(test_pose, scorefxn)
+    delta_e = e_total - wt_energy
+
+    mutation_energies[aa] = delta_e
+    print(f"ΔE = {delta_e:.3f}")
+
+# --- Plot results ---
+plt.figure(figsize=(10, 5))
+plt.bar(mutation_energies.keys(), mutation_energies.values(), color='skyblue', edgecolor='black')
+plt.ylabel("ΔE (Rosetta Energy Units)")
+plt.xlabel("Amino Acid Mutation at 285A")
+plt.title("Mutation Scan at Residue 285A")
+plt.xticks(rotation=45)
+plt.axhline(0, color='black', linestyle='--', linewidth=0.8)
+plt.tight_layout()
+plt.show()
+
+# --- Save to file ---
+with open('mutation_scan_285A.json', 'w') as f:
+    json.dump(mutation_energies, f, indent=2)
+
+print("\nScan complete. Results saved to mutation_scan_277A.json")

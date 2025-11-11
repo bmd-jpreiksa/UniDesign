@@ -35,9 +35,11 @@ class DesignDomain:
         self,
         design_sites: Optional[Iterable[SiteSpec]] = None,
         repack_sites: Optional[Iterable[SiteSpec]] = None,
+        fixed_sites: Optional[Iterable[SiteSpec]] = None,
     ) -> None:
         self.design_sites: List[SiteSpec] = list(design_sites or [])
         self.repack_sites: List[SiteSpec] = list(repack_sites or [])
+        self.fixed_sites: List[SiteSpec] = list(fixed_sites or [])
 
     @staticmethod
     def _format_site(site: SiteSpec) -> str:
@@ -57,6 +59,11 @@ class DesignDomain:
             for site in self.repack_sites:
                 lines.append(self._format_site(site))
             lines.append("SITES_REPACK_END")
+        if self.fixed_sites:
+            lines.append("SITES_FIX_START")
+            for site in self.fixed_sites:
+                lines.append(self._format_site(site))
+            lines.append("SITES_FIX_END")
         if not lines:
             return ""
         return "\n".join(lines) + "\n"
@@ -66,6 +73,7 @@ class DesignDomain:
         path = Path(path)
         design: List[SiteSpec] = []
         repack: List[SiteSpec] = []
+        fixed: List[SiteSpec] = []
         section: Optional[str] = None
         with path.open("r", encoding="utf-8") as handle:
             for raw in handle:
@@ -84,6 +92,12 @@ class DesignDomain:
                 if line == "SITES_REPACK_END":
                     section = None
                     continue
+                if line == "SITES_FIX_START":
+                    section = "fix"
+                    continue
+                if line == "SITES_FIX_END":
+                    section = None
+                    continue
                 parts = line.split()
                 if len(parts) < 2:
                     continue
@@ -95,7 +109,9 @@ class DesignDomain:
                     design.append(spec)
                 elif section == "repack":
                     repack.append(spec)
-        return cls(design_sites=design, repack_sites=repack)
+                elif section == "fix":
+                    fixed.append(spec)
+        return cls(design_sites=design, repack_sites=repack, fixed_sites=fixed)
 
 
 class DesignProtein:
@@ -109,12 +125,14 @@ class DesignProtein:
         interface_only: bool = False,
         ligand: Optional[Ligand] = None,
         rotlib_file: Optional[str | Path] = None,
+        quiet: bool = True,
     ) -> None:
         self._structure = structure
         self._domain = domain
         self._interface_only = interface_only
         self._ligand = ligand
         self._rotlib_file = rotlib_file
+        self._quiet = quiet
 
         self.best_sequence: Dict[Tuple[str, int], str] | None = None
         self.best_sequence_string: str | None = None
@@ -122,6 +140,7 @@ class DesignProtein:
         self.best_structure: Optional[Structure] = None
         self.best_sites_structure: Optional[Structure] = None
         self.best_mutable_sites_structure: Optional[Structure] = None
+        self.best_residue_energies: Dict[Tuple[str, int], Dict[str, float]] | None = None
 
     def run(self, *, trajectories: int = 1) -> None:
         resfile_text = ""
@@ -164,6 +183,7 @@ class DesignProtein:
                 "rotate_hydroxyl": True,
                 "exclude_cys_rotamers": False,
                 "wildtype_only": False,
+                "quiet": self._quiet,
             }
             if self._ligand:
                 options["has_ligand"] = True
@@ -197,6 +217,19 @@ class DesignProtein:
             "unsatisfied_constraints": unsatisfied,
         }
         self.best_sequence = self._map_sequence(sequence_string)
+        residue_energy_payload = payload.get("residue_self_energies")
+        if residue_energy_payload is None:
+            self.best_residue_energies = None
+        else:
+            energies: Dict[Tuple[str, int], Dict[str, float]] = {}
+            for entry in residue_energy_payload:
+                chain = str(entry["chain"]).strip()
+                position = int(entry["position"])
+                energies[(chain, position)] = {
+                    "self_energy": float(entry["self_energy"]),
+                    "binding_energy": float(entry["binding_energy"]),
+                }
+            self.best_residue_energies = energies
 
         self.best_structure = self._wrap_structure(payload.get("best_structure"))
         self.best_sites_structure = self._wrap_structure(payload.get("best_sites_structure"))

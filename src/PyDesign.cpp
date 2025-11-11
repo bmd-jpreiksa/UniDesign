@@ -1,10 +1,12 @@
 #include "PyDesign.h"
 
 #include <cerrno>
+#include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <fstream>
+#include <limits>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -73,6 +75,130 @@ extern char FILE_LIG_POSES_OUT[MAX_LEN_FILE_NAME + 1];
 extern char DES_CHAINS[10];
 
 namespace {
+
+class ScopedOutputSilencer {
+ public:
+  explicit ScopedOutputSilencer(bool enable) : enabled_(enable) {
+    if (!enabled_) {
+      return;
+    }
+    fflush(stdout);
+    fflush(stderr);
+    stdout_fd_ = dup(fileno(stdout));
+    stderr_fd_ = dup(fileno(stderr));
+#if defined(_WIN32)
+    const char* null_path = "NUL";
+#else
+    const char* null_path = "/dev/null";
+#endif
+    null_out_ = fopen(null_path, "w");
+    null_err_ = fopen(null_path, "w");
+    if (null_out_ != nullptr) {
+      dup2(fileno(null_out_), fileno(stdout));
+    }
+    if (null_err_ != nullptr) {
+      dup2(fileno(null_err_), fileno(stderr));
+    }
+  }
+
+  ~ScopedOutputSilencer() {
+    if (!enabled_) {
+      return;
+    }
+    fflush(stdout);
+    fflush(stderr);
+    if (stdout_fd_ >= 0) {
+      dup2(stdout_fd_, fileno(stdout));
+      close(stdout_fd_);
+    }
+    if (stderr_fd_ >= 0) {
+      dup2(stderr_fd_, fileno(stderr));
+      close(stderr_fd_);
+    }
+    if (null_out_ != nullptr) {
+      fclose(null_out_);
+    }
+    if (null_err_ != nullptr) {
+      fclose(null_err_);
+    }
+  }
+
+ private:
+  bool enabled_;
+  int stdout_fd_{-1};
+  int stderr_fd_{-1};
+  FILE* null_out_{nullptr};
+  FILE* null_err_{nullptr};
+};
+
+static void CaptureResidueSelfEnergies(Structure* structure,
+                                       const std::string& filepath,
+                                       std::vector<PyResidueSelfEnergy>* output) {
+  if (structure == nullptr || output == nullptr) {
+    return;
+  }
+  output->clear();
+  std::ifstream input(filepath);
+  if (!input.is_open()) {
+    return;
+  }
+  const int site_count = StructureGetDesignSiteCount(structure);
+  if (site_count <= 0) {
+    return;
+  }
+  std::vector<double> best_self(site_count, std::numeric_limits<double>::infinity());
+  std::vector<double> best_binding(site_count, 0.0);
+  std::string line;
+  while (std::getline(input, line)) {
+    if (line.empty()) {
+      continue;
+    }
+    std::istringstream stream(line);
+    int site_index = -1;
+    int rotamer_index = -1;
+    double total_energy = 0.0;
+    double binding_energy = 0.0;
+    if (!(stream >> site_index >> rotamer_index >> total_energy)) {
+      continue;
+    }
+    if (!(stream >> binding_energy)) {
+      binding_energy = 0.0;
+    }
+    if (site_index < 0 || site_index >= site_count) {
+      continue;
+    }
+    if (total_energy < best_self[site_index]) {
+      best_self[site_index] = total_energy;
+      best_binding[site_index] = binding_energy;
+    }
+  }
+
+  output->reserve(site_count);
+  for (int i = 0; i < site_count; ++i) {
+    DesignSite* site = StructureGetDesignSite(structure, i);
+    if (site == nullptr) {
+      continue;
+    }
+    Chain* chain = StructureGetChain(structure, site->chnNdx);
+    if (chain == nullptr) {
+      continue;
+    }
+    Residue* residue = ChainGetResidue(chain, site->resNdx);
+    if (residue == nullptr) {
+      continue;
+    }
+    PyResidueSelfEnergy entry;
+    entry.chain_name = ChainGetName(chain);
+    entry.position = ResidueGetPosInChain(residue);
+    double total_energy = best_self[i];
+    if (!std::isfinite(total_energy)) {
+      total_energy = 0.0;
+    }
+    entry.self_energy = total_energy;
+    entry.binding_energy = best_binding[i];
+    output->push_back(entry);
+  }
+}
 
 struct GlobalDesignStateGuard {
   BOOL flag_monomer;
@@ -414,6 +540,14 @@ PyMonomerDesignResult::~PyMonomerDesignResult() {
   StructureDestroy(&best_mutable_sites_structure);
 }
 
+PyMinimizeResult::PyMinimizeResult() : has_structure(false) {
+  StructureCreate(&minimized_structure);
+}
+
+PyMinimizeResult::~PyMinimizeResult() {
+  StructureDestroy(&minimized_structure);
+}
+
 int RunMonomerDesignWorkflow(Structure* input_structure,
                              const PyMonomerDesignOptions& options,
                              PyMonomerDesignResult* result) {
@@ -421,6 +555,7 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
     return ValueError;
   }
 
+  ScopedOutputSilencer silencer(options.quiet_output);
   GlobalDesignStateGuard state_guard;
 
   Structure working_structure;
@@ -753,8 +888,12 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
   std::string rotlist_file = FILE_ROTLIST;
   std::string rotlist_sec_file = FILE_ROTLIST_SEC;
   RotamerListWrite(&rotamer_list, const_cast<char*>(rotlist_file.c_str()));
-  SelfEnergyReadAndCheck(&working_structure, &rotamer_list,
-                         const_cast<char*>(self_energy_file.c_str()));
+  code = SelfEnergyReadAndCheck(&working_structure, &rotamer_list,
+                                const_cast<char*>(self_energy_file.c_str()));
+  if (FAILED(code)) {
+    return cleanup(code);
+  }
+  CaptureResidueSelfEnergies(&working_structure, self_energy_file, &result->residue_self_energies);
   RotamerListWrite(&rotamer_list, const_cast<char*>(rotlist_sec_file.c_str()));
   RotamerListRead(&rotamer_list, const_cast<char*>(rotlist_sec_file.c_str()));
   StructureShowDesignSitesAfterRotamerDelete(&working_structure, &rotamer_list);
@@ -798,6 +937,172 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
       result->has_best_mutable_sites_structure = true;
     }
   }
+
+  return cleanup(Success);
+}
+
+int RunMinimizeWorkflow(Structure* input_structure,
+                        const PyMinimizeOptions& options,
+                        PyMinimizeResult* result) {
+  if (input_structure == nullptr || result == nullptr) {
+    return ValueError;
+  }
+
+  ScopedOutputSilencer silencer(options.quiet_output);
+  GlobalDesignStateGuard state_guard;
+
+  Structure working_structure;
+  StructureCreate(&working_structure);
+  StructureCopy(&working_structure, input_structure);
+  FixDesignSitePointers(&working_structure);
+
+  AtomParamsSet atom_params;
+  AtomParamsSetCreate(&atom_params);
+  ResiTopoSet resi_topos;
+  ResiTopoSetCreate(&resi_topos);
+  BBdepRotamerLib rotamer_lib;
+  bool rotamer_lib_created = false;
+
+  TempDirectory temp_dir(options.working_directory, "ud_");
+  const std::string temp_path = temp_dir.path();
+
+  std::string atom_param_path;
+  std::string topology_path;
+  std::string rotlib_path;
+  std::string weight_path;
+  std::string ligand_param_path;
+  std::string ligand_topology_path;
+
+  auto cleanup = [&](int status) {
+    RemoveIfExists(atom_param_path);
+    RemoveIfExists(topology_path);
+    RemoveIfExists(rotlib_path);
+    RemoveIfExists(weight_path);
+    RemoveIfExists(ligand_param_path);
+    RemoveIfExists(ligand_topology_path);
+    if (rotamer_lib_created) {
+      BBdepRotamerLibDestroy(&rotamer_lib);
+    }
+    AtomParamsSetDestroy(&atom_params);
+    ResiTopoSetDestroy(&resi_topos);
+    StructureDestroy(&working_structure);
+    return status;
+  };
+
+  atom_param_path = temp_path + "/atom_params.prm";
+  int code = CopyFileTo(options.atom_params_path, atom_param_path);
+  if (FAILED(code)) {
+    return cleanup(code);
+  }
+  topology_path = temp_path + "/topology.inp";
+  code = CopyFileTo(options.topology_path, topology_path);
+  if (FAILED(code)) {
+    return cleanup(code);
+  }
+  rotlib_path = temp_path + "/rotlib.bin";
+  code = CopyFileTo(options.rotlib_bin, rotlib_path);
+  if (FAILED(code)) {
+    return cleanup(code);
+  }
+  weight_path = temp_path + "/weights.wgt";
+  code = CopyFileTo(options.weight_file, weight_path);
+  if (FAILED(code)) {
+    return cleanup(code);
+  }
+
+  if (options.has_ligand) {
+    ligand_param_path = temp_path + "/ligand.prm";
+    code = CopyFileTo(options.ligand_parameters, ligand_param_path);
+    if (FAILED(code)) {
+      return cleanup(code);
+    }
+    ligand_topology_path = temp_path + "/ligand.top";
+    code = CopyFileTo(options.ligand_topology, ligand_topology_path);
+    if (FAILED(code)) {
+      return cleanup(code);
+    }
+  }
+
+  AssignPath(PROGRAM_PATH, sizeof(PROGRAM_PATH), temp_path);
+  AssignPath(FILE_ATOMPARAM, sizeof(FILE_ATOMPARAM), atom_param_path);
+  AssignPath(FILE_TOPO, sizeof(FILE_TOPO), topology_path);
+  AssignPath(FILE_WEIGHT_READ, sizeof(FILE_WEIGHT_READ), weight_path);
+  AssignPath(FILE_ROTLIB_BIN, sizeof(FILE_ROTLIB_BIN), rotlib_path);
+  AssignPath(FILE_ROTLIB, sizeof(FILE_ROTLIB), rotlib_path);
+
+  FLAG_PROT_LIG = options.has_ligand ? TRUE : FALSE;
+  FLAG_ENZYME = FALSE;
+  FLAG_PPI = FALSE;
+  FLAG_MONOMER = TRUE;
+  FLAG_BBDEP_ROTLIB = TRUE;
+  FLAG_USE_INPUT_SC = options.use_input_sc ? TRUE : FALSE;
+  FLAG_ROTATE_HYDROXYL = options.rotate_hydroxyl ? TRUE : FALSE;
+  FLAG_READ_HYDROGEN = TRUE;
+  FLAG_WRITE_HYDROGEN = TRUE;
+  FLAG_LIG_POSES = FALSE;
+
+  code = EnergyWeightRead(FILE_WEIGHT_READ);
+  if (FAILED(code)) {
+    code = Success;
+  }
+
+  code = AtomParameterRead(&atom_params, FILE_ATOMPARAM);
+  if (FAILED(code)) {
+    return cleanup(code);
+  }
+  if (options.has_ligand) {
+    code = AtomParameterRead(&atom_params, const_cast<char*>(ligand_param_path.c_str()));
+    if (FAILED(code)) {
+      return cleanup(code);
+    }
+  }
+
+  code = ResiTopoSetRead(&resi_topos, FILE_TOPO);
+  if (FAILED(code)) {
+    return cleanup(code);
+  }
+  if (options.has_ligand) {
+    code = ResiTopoSetRead(&resi_topos, const_cast<char*>(ligand_topology_path.c_str()));
+    if (FAILED(code)) {
+      return cleanup(code);
+    }
+  }
+
+  code = StructureCalcPhiPsi(&working_structure);
+  if (FAILED(code)) {
+    return cleanup(code);
+  }
+
+  code = BBdepRotamerLibCreate2(&rotamer_lib, FILE_ROTLIB_BIN);
+  if (FAILED(code)) {
+    return cleanup(code);
+  }
+  rotamer_lib_created = true;
+
+  code = StructureCalcAminoAcidDunbrackEnergy(&working_structure, &rotamer_lib);
+  if (FAILED(code)) {
+    return cleanup(code);
+  }
+
+  if (!options.design_sites.empty() || !options.repack_sites.empty()) {
+    code = ApplyExplicitSiteSpecs(&working_structure, options.design_sites, Type_DesType_Mutable);
+    if (FAILED(code)) {
+      return cleanup(code);
+    }
+    code = ApplyExplicitSiteSpecs(&working_structure, options.repack_sites, Type_DesType_Repackable);
+    if (FAILED(code)) {
+      return cleanup(code);
+    }
+  }
+
+  code = EnergyMinimizationByBBdepRotLib(&working_structure, &rotamer_lib, &atom_params, &resi_topos,
+                                         NULL, options.respect_design_types);
+  if (FAILED(code)) {
+    return cleanup(code);
+  }
+
+  result->has_structure = true;
+  StructureCopy(&result->minimized_structure, &working_structure);
 
   return cleanup(Success);
 }

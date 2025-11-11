@@ -1014,7 +1014,7 @@ int main(int argc, char* argv[])
       BBdepRotamerLib bbrotlib;
       BBdepRotamerLibCreate2(&bbrotlib, FILE_ROTLIB_BIN);
       StructureCalcAminoAcidDunbrackEnergy(&structure, &bbrotlib);
-      EnergyMinimizationByBBdepRotLib(&structure, &bbrotlib, &atomParam, &resiTopo, PDBID);
+      EnergyMinimizationByBBdepRotLib(&structure, &bbrotlib, &atomParam, &resiTopo, PDBID, false);
       BBdepRotamerLibDestroy(&bbrotlib);
     }
     else

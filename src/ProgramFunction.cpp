@@ -1136,7 +1136,12 @@ int RepairStructureByBBdepRotLib(Structure* pStructure, BBdepRotamerLib* pBBdepR
 }
 
 
-int EnergyMinimizationByBBdepRotLib(Structure* pStructure, BBdepRotamerLib* pBBdepRotLib, AtomParamsSet* atomParams, ResiTopoSet* resiTopos, char* pdbid)
+int EnergyMinimizationByBBdepRotLib(Structure* pStructure,
+                                    BBdepRotamerLib* pBBdepRotLib,
+                                    AtomParamsSet* atomParams,
+                                    ResiTopoSet* resiTopos,
+                                    char* pdbid,
+                                    bool respect_design_types)
 {
   for (int iter = 0; iter < MAX_NUM_OF_RUNS; iter++)
   {
@@ -1148,6 +1153,9 @@ int EnergyMinimizationByBBdepRotLib(Structure* pStructure, BBdepRotamerLib* pBBd
       for (int j = 0; j < ChainGetResidueCount(pChain); j++)
       {
         Residue* pResi = ChainGetResidue(pChain, j);
+        if (respect_design_types && ResidueGetDesignType(pResi) == Type_DesType_Fixed) {
+          continue;
+        }
         if (pResi->isSCIntact)
         {
           if (strcmp(ResidueGetName(pResi), "ALA") == 0 || strcmp(ResidueGetName(pResi), "GLY") == 0) continue;

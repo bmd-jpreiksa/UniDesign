@@ -5,7 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a4ed4c3-6f00-4ca1-85db-0c2d12ebd6f8" name="Changes" comment="some fixes for build mutant">
-      <change beforePath="$PROJECT_DIR$/python/tests/test_resfile.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/tests/test_resfile.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python_examples/gluc/run_mutation_scan_close_pocket.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/UniDesign.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UniDesign.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib.linux-x86_64-cpython-311/unidesign/_bindings/module.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib.linux-x86_64-cpython-311/unidesign/_bindings/module.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib.linux-x86_64-cpython-311/unidesign/_core.cpython-311-x86_64-linux-gnu.so" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib.linux-x86_64-cpython-311/unidesign/_core.cpython-311-x86_64-linux-gnu.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib.linux-x86_64-cpython-311/unidesign/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib.linux-x86_64-cpython-311/unidesign/api/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/python/unidesign/_bindings/module.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/python/unidesign/_bindings/module.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/src/Main.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/src/Main.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/src/ProgramFunction.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/src/ProgramFunction.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/src/PyDesign.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/src/PyDesign.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/unidesign-0.1.0-cp311-cp311-linux_x86_64.whl" beforeDir="false" afterPath="$PROJECT_DIR$/dist/unidesign-0.1.0-cp311-cp311-linux_x86_64.whl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/unpacked/unidesign-0.1.0.dist-info/RECORD" beforeDir="false" afterPath="$PROJECT_DIR$/dist/unpacked/unidesign-0.1.0.dist-info/RECORD" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/unpacked/unidesign/_bindings/module.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/dist/unpacked/unidesign/_bindings/module.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/unpacked/unidesign/_core.cpython-311-x86_64-linux-gnu.so" beforeDir="false" afterPath="$PROJECT_DIR$/dist/unpacked/unidesign/_core.cpython-311-x86_64-linux-gnu.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/unpacked/unidesign/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/dist/unpacked/unidesign/api/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/unidesign.egg-info/SOURCES.txt" beforeDir="false" afterPath="$PROJECT_DIR$/python/unidesign.egg-info/SOURCES.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/unidesign/_bindings/module.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/python/unidesign/_bindings/module.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/unidesign/_core.cpython-311-x86_64-linux-gnu.so" beforeDir="false" afterPath="$PROJECT_DIR$/python/unidesign/_core.cpython-311-x86_64-linux-gnu.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/unidesign/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/unidesign/api/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/unidesign/api/design.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/unidesign/api/design.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_examples/gluc/design_best_mutable_sites.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/python_examples/gluc/design_best_mutable_sites.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_examples/gluc/design_best_structure.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/python_examples/gluc/design_best_structure.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_examples/gluc/design_summary.txt" beforeDir="false" afterPath="$PROJECT_DIR$/python_examples/gluc/design_summary.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProgramFunction.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProgramFunction.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ProgramFunction.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProgramFunction.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PyDesign.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/PyDesign.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PyDesign.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/PyDesign.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,24 +85,41 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python tests.pytest for python.tests.test_resfile.test_resfile_to_text_round_trip.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest in test_jobs.py.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;Python.build_mutant.executor&quot;: &quot;Run&quot;,
-    &quot;Python.energy_scoring.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ligand_parameters.executor&quot;: &quot;Run&quot;,
-    &quot;Python.monomer_design.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;codex/create-resfile-handling-class-in-python&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.pytest for python.tests.test_resfile.test_resfile_to_text_round_trip.executor": "Run",
+    "Python tests.pytest in test_jobs.py.executor": "Run",
+    "Python.Unnamed.executor": "Run",
+    "Python.build_mutant.executor": "Run",
+    "Python.design.executor": "Run",
+    "Python.design_monomer.executor": "Run",
+    "Python.design_monomer_domain.executor": "Run",
+    "Python.energy_scoring.executor": "Run",
+    "Python.ligand_parameters.executor": "Run",
+    "Python.minimize_scan_structures.executor": "Run",
+    "Python.monomer_design.executor": "Run",
+    "Python.protein_ligand_design.executor": "Run",
+    "Python.run.executor": "Run",
+    "Python.run_example.executor": "Run",
+    "Python.run_example_lig_around.executor": "Run",
+    "Python.run_example_lig_residue_energy.executor": "Run",
+    "Python.run_mutation_scan.executor": "Run",
+    "Python.run_mutation_scan_close_pocket.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "ligand__bindings",
+    "last_opened_file_path": "/home/jpreiksa/workspace/UniDesign",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
-  <component name="RunManager" selected="Python tests.pytest for python.tests.test_resfile.test_resfile_to_text_round_trip">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/python_examples/gluc" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.run_mutation_scan_close_pocket">
     <configuration name="Unnamed" type="PythonConfigurationType" factoryName="Python">
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -99,33 +143,130 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest for python.tests.test_resfile.test_resfile_to_text_round_trip" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+    <configuration name="minimize_scan_structures" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UniDesign" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;python.tests.test_resfile.test_resfile_to_text_round_trip&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/minimize_scan_structures.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run_example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UniDesign" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/run_example.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run_example_lig_residue_energy" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UniDesign" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/run_example_lig_residue_energy.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run_mutation_scan" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UniDesign" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/run_mutation_scan.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="run_mutation_scan_close_pocket" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UniDesign" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/run_mutation_scan_close_pocket.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.pytest for python.tests.test_resfile.test_resfile_to_text_round_trip" />
+        <item itemvalue="Python.run_mutation_scan_close_pocket" />
+        <item itemvalue="Python.minimize_scan_structures" />
+        <item itemvalue="Python.run_mutation_scan" />
+        <item itemvalue="Python.run_example" />
+        <item itemvalue="Python.run_example_lig_residue_energy" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-b030e9c4a83c-d902c0275401-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-252.26199.168" />
+        <option value="bundled-python-sdk-f69e5c277ee4-cbfc7b97e6b2-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-252.27397.106" />
       </set>
     </attachedChunks>
   </component>
@@ -191,6 +332,11 @@
           <url>file://$PROJECT_DIR$/python/tests/test_resfile.py</url>
           <line>18</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/python_examples/protein_ligand_design.py</url>
+          <line>2</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

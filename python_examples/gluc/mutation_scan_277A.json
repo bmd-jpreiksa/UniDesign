@@ -1,0 +1,230 @@
+{
+  "A": {
+    "energy": {
+      "total": -8697.278681,
+      "physical": -8697.278681,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 4.717853000000105,
+      "physical": 4.717853000000105,
+      "binding": 0.0
+    }
+  },
+  "C": {
+    "energy": {
+      "total": -8695.395551,
+      "physical": -8695.395551,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 6.600983000000269,
+      "physical": 6.600983000000269,
+      "binding": 0.0
+    }
+  },
+  "D": {
+    "energy": {
+      "total": -8696.129469,
+      "physical": -8696.129469,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 5.867065000000366,
+      "physical": 5.867065000000366,
+      "binding": 0.0
+    }
+  },
+  "E": {
+    "energy": {
+      "total": -8696.572856,
+      "physical": -8696.572856,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 5.4236779999991995,
+      "physical": 5.4236779999991995,
+      "binding": 0.0
+    }
+  },
+  "F": {
+    "energy": {
+      "total": -8698.755005,
+      "physical": -8698.755005,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 3.241528999998991,
+      "physical": 3.241528999998991,
+      "binding": 0.0
+    }
+  },
+  "G": {
+    "energy": {
+      "total": -8694.800468,
+      "physical": -8694.800468,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 7.196066000000428,
+      "physical": 7.196066000000428,
+      "binding": 0.0
+    }
+  },
+  "H": {
+    "energy": {
+      "total": -8699.746218,
+      "physical": -8699.746218,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 2.250315999999657,
+      "physical": 2.250315999999657,
+      "binding": 0.0
+    }
+  },
+  "I": {
+    "energy": {
+      "total": -8692.5196,
+      "physical": -8692.5196,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 9.476934000000256,
+      "physical": 9.476934000000256,
+      "binding": 0.0
+    }
+  },
+  "L": {
+    "energy": {
+      "total": -8698.438587,
+      "physical": -8698.438587,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 3.5579469999993307,
+      "physical": 3.5579469999993307,
+      "binding": 0.0
+    }
+  },
+  "M": {
+    "energy": {
+      "total": -8697.171058,
+      "physical": -8697.171058,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 4.825475999999981,
+      "physical": 4.825475999999981,
+      "binding": 0.0
+    }
+  },
+  "N": {
+    "energy": {
+      "total": -8700.044997,
+      "physical": -8700.044997,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 1.951536999999007,
+      "physical": 1.951536999999007,
+      "binding": 0.0
+    }
+  },
+  "P": {
+    "energy": {
+      "total": -8663.721001,
+      "physical": -8663.721001,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 38.275532999999996,
+      "physical": 38.275532999999996,
+      "binding": 0.0
+    }
+  },
+  "Q": {
+    "energy": {
+      "total": -8698.869357,
+      "physical": -8698.869357,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 3.1271770000003016,
+      "physical": 3.1271770000003016,
+      "binding": 0.0
+    }
+  },
+  "R": {
+    "energy": {
+      "total": -8700.369776,
+      "physical": -8700.369776,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 1.6267580000003363,
+      "physical": 1.6267580000003363,
+      "binding": 0.0
+    }
+  },
+  "S": {
+    "energy": {
+      "total": -8698.198219,
+      "physical": -8698.198219,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 3.7983150000000023,
+      "physical": 3.7983150000000023,
+      "binding": 0.0
+    }
+  },
+  "T": {
+    "energy": {
+      "total": -8694.270179,
+      "physical": -8694.270179,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 7.726355000000694,
+      "physical": 7.726355000000694,
+      "binding": 0.0
+    }
+  },
+  "V": {
+    "energy": {
+      "total": -8691.68088,
+      "physical": -8691.68088,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 10.315653999999995,
+      "physical": 10.315653999999995,
+      "binding": 0.0
+    }
+  },
+  "W": {
+    "energy": {
+      "total": -8692.282231,
+      "physical": -8692.282231,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 9.714303000000655,
+      "physical": 9.714303000000655,
+      "binding": 0.0
+    }
+  },
+  "Y": {
+    "energy": {
+      "total": -8699.048993,
+      "physical": -8699.048993,
+      "binding": 0.0
+    },
+    "delta": {
+      "total": 2.9475409999995463,
+      "physical": 2.9475409999995463,
+      "binding": 0.0
+    }
+  }
+}
