@@ -116,6 +116,8 @@ def _run_design(domain: DesignDomain,
                 label: str | None = None) -> DesignProtein:
     working_structure = receptor.clone()
     _apply_domain_to_structure(working_structure, domain)
+
+    # This is how we can load multiple ligands. However just one of them can be designable:
     working_structure.handle.read_mol2(
         str(ligand.mol2_path),
         str(ligand.param_path),
