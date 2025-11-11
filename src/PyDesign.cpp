@@ -39,6 +39,7 @@ extern BOOL FLAG_USE_INPUT_SC;
 extern BOOL FLAG_ROTATE_HYDROXYL;
 extern BOOL FLAG_WILDTYPE_ONLY;
 extern BOOL FLAG_INTERFACE_ONLY;
+extern double CUT_EXCL_LOW_PROB_ROT;
 extern BOOL FLAG_EXCL_CYS_ROTS;
 extern BOOL FLAG_RESFILE;
 extern BOOL FLAG_DESIGN_FROM_NATAA;
@@ -558,6 +559,9 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
   ScopedOutputSilencer silencer(options.quiet_output);
   GlobalDesignStateGuard state_guard;
 
+  double original_rotamer_cutoff = CUT_EXCL_LOW_PROB_ROT;
+  CUT_EXCL_LOW_PROB_ROT = options.rotamer_probability_cutoff;
+
   Structure working_structure;
   StructureCreate(&working_structure);
   StructureCopy(&working_structure, input_structure);
@@ -591,6 +595,7 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
   std::string ligand_pose_out_path;
 
   auto cleanup = [&](int status) {
+    CUT_EXCL_LOW_PROB_ROT = original_rotamer_cutoff;
     RemoveIfExists(resfile_path);
     RemoveIfExists(atom_param_path);
     RemoveIfExists(topology_path);

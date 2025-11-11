@@ -125,6 +125,8 @@ class DesignProtein:
         interface_only: bool = False,
         ligand: Optional[Ligand] = None,
         rotlib_file: Optional[str | Path] = None,
+        weight_file: Optional[str | Path] = None,
+        rotamer_probability_cutoff: Optional[float] = None,
         quiet: bool = True,
     ) -> None:
         self._structure = structure
@@ -132,6 +134,8 @@ class DesignProtein:
         self._interface_only = interface_only
         self._ligand = ligand
         self._rotlib_file = rotlib_file
+        self._weight_file = weight_file
+        self._rotamer_probability_cutoff = rotamer_probability_cutoff
         self._quiet = quiet
 
         self.best_sequence: Dict[Tuple[str, int], str] | None = None
@@ -153,7 +157,7 @@ class DesignProtein:
             with ExitStack() as stack:
                 atom_params = _resolve_data_file(_ATOM_PARAM_RELATIVE, stack)
                 topology = _resolve_data_file(_TOPOLOGY_RELATIVE, stack)
-                weight_file = _resolve_data_file(_WEIGHT_RELATIVE, stack)
+                weight_file = _resolve_data_file(_WEIGHT_RELATIVE, stack, self._weight_file)
                 aapp_file = _resolve_data_file(_AAPP_RELATIVE, stack)
                 rama_file = _resolve_data_file(_RAMA_RELATIVE, stack)
                 rotlib_file = _resolve_rotlib_file(stack, explicit=self._rotlib_file)
@@ -192,6 +196,9 @@ class DesignProtein:
                 options["ligand_topology"] = str(self._ligand.topo_path)
                 if self._ligand.conformer_path:
                     options["ligand_conformers"] = str(self._ligand.conformer_path)
+
+            if self._rotamer_probability_cutoff is not None:
+                options["rotamer_probability_cutoff"] = float(self._rotamer_probability_cutoff)
 
             payload = self._structure.handle.run_monomer_design(options)
             self._ingest_design_payload(payload)

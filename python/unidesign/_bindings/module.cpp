@@ -124,6 +124,9 @@ PyMonomerDesignOptions parse_monomer_options(const py::dict& kwargs) {
       kwargs.contains("profile_weight") ? py::cast<double>(kwargs["profile_weight"]) : 1.0;
   opts.binding_weight =
       kwargs.contains("binding_weight") ? py::cast<double>(kwargs["binding_weight"]) : 1.0;
+  opts.rotamer_probability_cutoff = kwargs.contains("rotamer_probability_cutoff")
+                                       ? py::cast<double>(kwargs["rotamer_probability_cutoff"])
+                                       : 0.03;
   opts.trajectories =
       kwargs.contains("trajectories") ? py::cast<int>(kwargs["trajectories"]) : 1;
 

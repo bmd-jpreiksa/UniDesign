@@ -45,6 +45,7 @@ struct PyMonomerDesignOptions {
 
   double profile_weight;
   double binding_weight;
+  double rotamer_probability_cutoff;
 
   int trajectories;
 
