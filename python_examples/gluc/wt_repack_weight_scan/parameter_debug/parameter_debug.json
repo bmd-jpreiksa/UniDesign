@@ -1,0 +1,2870 @@
+{
+  "baseline": {
+    "before": {
+      "total": -6418.187919491108,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.55725646171675,
+      "intraR_vdwrep": 66.78038747695564,
+      "intraR_electr": -3.802410932714412,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.015195311981174,
+      "intraR_hbscbb_dis": -17.642769443636602,
+      "intraR_hbscbb_the": -1.6821379681072133,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10674.226984133786,
+      "interS_vdwrep": 1461.7155501810164,
+      "interS_electr": -785.4140965417017,
+      "interS_deslvP": 6116.114789694947,
+      "interS_deslvH": -3995.773014444913,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7195867119002,
+      "interS_hbbbbb_the": -686.5963674078888,
+      "interS_hbbbbb_phi": -967.857045408566,
+      "interS_hbscbb_dis": -164.9104764716239,
+      "interS_hbscbb_the": -124.47691380383215,
+      "interS_hbscbb_phi": -37.212998427903955,
+      "interS_hbscsc_dis": -111.85381998313238,
+      "interS_hbscsc_the": -37.942552407694755,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -829.2080060367782,
+      "interD_vdwrep": 334.601087820608,
+      "interD_electr": -110.87108843498046,
+      "interD_deslvP": 475.9053219643721,
+      "interD_deslvH": -362.23351748176617,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -23.472186376680042,
+      "interD_hbscbb_the": -12.574909059446988,
+      "interD_hbscbb_phi": -9.654448160769732,
+      "interD_hbscsc_dis": -46.02880595891136,
+      "interD_hbscsc_the": -21.96929689945202,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": -26.06127292996461,
+      "prolig_vdwrep": 20.588365396306074,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 19.972274499649064,
+      "prolig_deslvH": -5.238975115176445,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": -1.4255373098630932,
+      "prolig_hbscsc_the": -3.21590260803184,
+      "prolig_hbscsc_phi": -1.6458915029043129,
+      "aapropensity": -360.2386600000009,
+      "ramachandran": 5706.2048400000085,
+      "dunbrack": 449.5075872108504
+    },
+    "after": {
+      "total": -4708.865666048651,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.54387187424436,
+      "intraR_vdwrep": 66.41103777891193,
+      "intraR_electr": -3.8588175703159804,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.017553252309497,
+      "intraR_hbscbb_dis": -18.87582897076046,
+      "intraR_hbscbb_the": -1.6838527245686339,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10666.549650816109,
+      "interS_vdwrep": 1402.9420208251652,
+      "interS_electr": -785.0398112701006,
+      "interS_deslvP": 6116.003819057882,
+      "interS_deslvH": -3993.375284919024,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7339136972545,
+      "interS_hbbbbb_the": -686.5756327019174,
+      "interS_hbbbbb_phi": -967.8532027255469,
+      "interS_hbscbb_dis": -163.35609822923254,
+      "interS_hbscbb_the": -121.53436215595701,
+      "interS_hbscbb_phi": -36.66169337464896,
+      "interS_hbscsc_dis": -112.85359916964923,
+      "interS_hbscsc_the": -37.2159828580862,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -826.6513156016097,
+      "interD_vdwrep": 354.12556049359,
+      "interD_electr": -113.15414042546152,
+      "interD_deslvP": 474.61347049717335,
+      "interD_deslvH": -361.7058934247081,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -25.63335726920657,
+      "interD_hbscbb_the": -13.702003941595578,
+      "interD_hbscbb_phi": -10.60028687756447,
+      "interD_hbscsc_dis": -45.82229287065764,
+      "interD_hbscsc_the": -23.659924903679755,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": 0.0,
+      "prolig_vdwrep": 0.0,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 0.0,
+      "prolig_deslvH": 0.0,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": 0.0,
+      "prolig_hbscsc_the": 0.0,
+      "prolig_hbscsc_phi": 0.0,
+      "aapropensity": 197.00572000000054,
+      "ramachandran": 6886.24271999995,
+      "dunbrack": 456.50435692288335
+    },
+    "residue_energies": [
+      {
+        "chain": "A",
+        "position": 45,
+        "self_energy": -6.271623,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 47,
+        "self_energy": -4.257958,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 48,
+        "self_energy": -2.898789,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 54,
+        "self_energy": -6.523559,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 208,
+        "self_energy": -0.826076,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 282,
+        "self_energy": 0.935822,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 284,
+        "self_energy": 0.492622,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 316,
+        "self_energy": 1.050767,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 318,
+        "self_energy": 1.384,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 319,
+        "self_energy": -5.789083,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 45,
+        "self_energy": -6.155313,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 47,
+        "self_energy": -4.003486,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 48,
+        "self_energy": -2.320449,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 54,
+        "self_energy": -5.465039,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 208,
+        "self_energy": -4.497313,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 282,
+        "self_energy": -0.356372,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 284,
+        "self_energy": 0.466808,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 316,
+        "self_energy": -0.729303,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 318,
+        "self_energy": 1.365285,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 319,
+        "self_energy": -10.048472,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 39,
+        "self_energy": -6.563947,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 40,
+        "self_energy": -1.6622,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 78,
+        "self_energy": -2.408972,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 79,
+        "self_energy": -12.821831,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 80,
+        "self_energy": -1.344355,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 81,
+        "self_energy": -8.151882,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 113,
+        "self_energy": -7.065222,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 114,
+        "self_energy": -2.297141,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 115,
+        "self_energy": -5.098898,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 116,
+        "self_energy": -5.570657,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 117,
+        "self_energy": -3.879827,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 118,
+        "self_energy": -0.960764,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 159,
+        "self_energy": -1.68003,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 160,
+        "self_energy": -7.965707,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 161,
+        "self_energy": -0.106275,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 162,
+        "self_energy": -4.918709,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 203,
+        "self_energy": -1.004743,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 205,
+        "self_energy": -2.299781,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 206,
+        "self_energy": -8.042969,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 207,
+        "self_energy": 20.245563,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 209,
+        "self_energy": -0.544515,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 214,
+        "self_energy": 0.045708,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 241,
+        "self_energy": -1.408525,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 243,
+        "self_energy": -4.027852,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 246,
+        "self_energy": -2.869035,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 249,
+        "self_energy": -4.005052,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 270,
+        "self_energy": -1.048009,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 272,
+        "self_energy": -0.550626,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 274,
+        "self_energy": -2.404206,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 313,
+        "self_energy": -4.762149,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 314,
+        "self_energy": 1.434298,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 315,
+        "self_energy": -8.584173,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 49,
+        "self_energy": 1.035856,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "X",
+        "position": 1,
+        "self_energy": -0.733626,
+        "binding_energy": -0.733626
+      }
+    ]
+  },
+  "repel_d": {
+    "before": {
+      "total": -5874.179607460715,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.55725646171675,
+      "intraR_vdwrep": 66.78038747695564,
+      "intraR_electr": -3.802410932714412,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.015195311981174,
+      "intraR_hbscbb_dis": -17.642769443636602,
+      "intraR_hbscbb_the": -1.6821379681072133,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10674.226984133786,
+      "interS_vdwrep": 1712.9479103683786,
+      "interS_electr": -785.4140965417017,
+      "interS_deslvP": 6116.114789694947,
+      "interS_deslvH": -3995.773014444913,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7195867119002,
+      "interS_hbbbbb_the": -686.5963674078888,
+      "interS_hbbbbb_phi": -967.857045408566,
+      "interS_hbscbb_dis": -164.9104764716239,
+      "interS_hbscbb_the": -124.47691380383215,
+      "interS_hbscbb_phi": -37.212998427903955,
+      "interS_hbscsc_dis": -111.85381998313238,
+      "interS_hbscsc_the": -37.942552407694755,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -829.2080060367782,
+      "interD_vdwrep": 627.3770396636398,
+      "interD_electr": -110.87108843498046,
+      "interD_deslvP": 475.9053219643721,
+      "interD_deslvH": -362.23351748176617,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -23.472186376680042,
+      "interD_hbscbb_the": -12.574909059446988,
+      "interD_hbscbb_phi": -9.654448160769732,
+      "interD_hbscsc_dis": -46.02880595891136,
+      "interD_hbscsc_the": -21.96929689945202,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": -26.06127292996461,
+      "prolig_vdwrep": 20.588365396306074,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 19.972274499649064,
+      "prolig_deslvH": -5.238975115176445,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": -1.4255373098630932,
+      "prolig_hbscsc_the": -3.21590260803184,
+      "prolig_hbscsc_phi": -1.6458915029043129,
+      "aapropensity": -360.2386600000009,
+      "ramachandran": 5706.2048400000085,
+      "dunbrack": 449.5075872108504
+    },
+    "after": {
+      "total": -4158.952909176797,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.4712209720521,
+      "intraR_vdwrep": 66.39750876235891,
+      "intraR_electr": -3.851589757375017,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.014814842568445,
+      "intraR_hbscbb_dis": -18.87582897076046,
+      "intraR_hbscbb_the": -1.6838527245686339,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10669.08156156398,
+      "interS_vdwrep": 1658.4111170686563,
+      "interS_electr": -784.6668397261373,
+      "interS_deslvP": 6117.811221331225,
+      "interS_deslvH": -3994.245411439472,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7339136972545,
+      "interS_hbbbbb_the": -686.5756327019174,
+      "interS_hbbbbb_phi": -967.8532027255469,
+      "interS_hbscbb_dis": -163.35609822923254,
+      "interS_hbscbb_the": -121.53436215595701,
+      "interS_hbscbb_phi": -36.66169337464896,
+      "interS_hbscsc_dis": -112.85359916964923,
+      "interS_hbscsc_the": -37.2159828580862,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -825.5739926238458,
+      "interD_vdwrep": 648.9052089472467,
+      "interD_electr": -111.68625973507166,
+      "interD_deslvP": 473.9947994554889,
+      "interD_deslvH": -361.85037376325744,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -25.63335726920657,
+      "interD_hbscbb_the": -13.702003941595578,
+      "interD_hbscbb_phi": -10.60028687756447,
+      "interD_hbscsc_dis": -46.14499270447781,
+      "interD_hbscsc_the": -24.302689840382964,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": 0.0,
+      "prolig_vdwrep": 0.0,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 0.0,
+      "prolig_deslvH": 0.0,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": 0.0,
+      "prolig_hbscsc_the": 0.0,
+      "prolig_hbscsc_phi": 0.0,
+      "aapropensity": 197.00572000000054,
+      "ramachandran": 6886.24271999995,
+      "dunbrack": 456.50435692288335
+    },
+    "residue_energies": [
+      {
+        "chain": "A",
+        "position": 45,
+        "self_energy": -6.143722,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 47,
+        "self_energy": -4.030269,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 48,
+        "self_energy": -2.127156,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 54,
+        "self_energy": -6.306673,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 208,
+        "self_energy": -0.652015,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 282,
+        "self_energy": 0.935822,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 284,
+        "self_energy": 0.610619,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 316,
+        "self_energy": 1.078493,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 318,
+        "self_energy": 1.494106,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 319,
+        "self_energy": -0.159683,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 45,
+        "self_energy": -6.02941,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 47,
+        "self_energy": -3.911028,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 48,
+        "self_energy": -1.292827,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 54,
+        "self_energy": -5.252284,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 208,
+        "self_energy": -4.152368,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 282,
+        "self_energy": -0.163227,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 284,
+        "self_energy": 0.588365,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 316,
+        "self_energy": -0.700513,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 318,
+        "self_energy": 1.477341,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 319,
+        "self_energy": -8.218225,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 39,
+        "self_energy": -6.425218,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 40,
+        "self_energy": -1.661773,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 78,
+        "self_energy": -2.097554,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 79,
+        "self_energy": -12.767653,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 80,
+        "self_energy": -1.338576,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 81,
+        "self_energy": -8.151041,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 113,
+        "self_energy": -6.798384,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 114,
+        "self_energy": -2.287397,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 115,
+        "self_energy": -5.090412,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 116,
+        "self_energy": -5.543577,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 117,
+        "self_energy": -3.856646,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 118,
+        "self_energy": -0.857233,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 159,
+        "self_energy": -1.668115,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 160,
+        "self_energy": -7.961654,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 161,
+        "self_energy": -0.081748,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 162,
+        "self_energy": -4.872142,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 203,
+        "self_energy": -0.994736,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 205,
+        "self_energy": -2.221907,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 206,
+        "self_energy": -7.989205,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 207,
+        "self_energy": 36.568031,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 209,
+        "self_energy": -0.370817,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 214,
+        "self_energy": 0.369916,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 241,
+        "self_energy": -1.403231,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 243,
+        "self_energy": -4.02451,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 246,
+        "self_energy": -2.845443,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 249,
+        "self_energy": -4.003379,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 270,
+        "self_energy": -0.89315,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 272,
+        "self_energy": -0.438758,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 274,
+        "self_energy": -2.177173,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 313,
+        "self_energy": -4.712513,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 314,
+        "self_energy": 1.44498,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 315,
+        "self_energy": -8.560576,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 49,
+        "self_energy": 1.048137,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "X",
+        "position": 1,
+        "self_energy": -0.733626,
+        "binding_energy": -0.733626
+      }
+    ]
+  },
+  "repel_d_plus": {
+    "before": {
+      "total": -5550.857400214943,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.55725646171675,
+      "intraR_vdwrep": 66.78038747695564,
+      "intraR_electr": -3.802410932714412,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.015195311981174,
+      "intraR_hbscbb_dis": -17.642769443636602,
+      "intraR_hbscbb_the": -1.6821379681072133,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10674.226984133786,
+      "interS_vdwrep": 1827.1444377262706,
+      "interS_electr": -785.4140965417017,
+      "interS_deslvP": 6116.114789694947,
+      "interS_deslvH": -3995.773014444913,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7195867119002,
+      "interS_hbbbbb_the": -686.5963674078888,
+      "interS_hbbbbb_phi": -967.857045408566,
+      "interS_hbscbb_dis": -164.9104764716239,
+      "interS_hbscbb_the": -124.47691380383215,
+      "interS_hbscbb_phi": -37.212998427903955,
+      "interS_hbscsc_dis": -111.85381998313238,
+      "interS_hbscsc_the": -37.942552407694755,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -829.2080060367782,
+      "interD_vdwrep": 836.5027195515198,
+      "interD_electr": -110.87108843498046,
+      "interD_deslvP": 475.9053219643721,
+      "interD_deslvH": -362.23351748176617,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -23.472186376680042,
+      "interD_hbscbb_the": -12.574909059446988,
+      "interD_hbscbb_phi": -9.654448160769732,
+      "interD_hbscsc_dis": -46.02880595891136,
+      "interD_hbscsc_the": -21.96929689945202,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": -26.06127292996461,
+      "prolig_vdwrep": 20.588365396306074,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 19.972274499649064,
+      "prolig_deslvH": -5.238975115176445,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": -1.4255373098630932,
+      "prolig_hbscsc_the": -3.21590260803184,
+      "prolig_hbscsc_phi": -1.6458915029043129,
+      "aapropensity": -360.2386600000009,
+      "ramachandran": 5706.2048400000085,
+      "dunbrack": 449.5075872108504
+    },
+    "after": {
+      "total": -3689.054893680826,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.4182730273546,
+      "intraR_vdwrep": 66.48694622906368,
+      "intraR_electr": -3.858672931623704,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.013220651880356,
+      "intraR_hbscbb_dis": -18.87582897076046,
+      "intraR_hbscbb_the": -1.6838527245686339,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10671.075733601583,
+      "interS_vdwrep": 1778.3199434344697,
+      "interS_electr": -783.2163249539842,
+      "interS_deslvP": 6119.77467062164,
+      "interS_deslvH": -3994.71400914699,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7339136972545,
+      "interS_hbbbbb_the": -686.5756327019174,
+      "interS_hbbbbb_phi": -967.8532027255469,
+      "interS_hbscbb_dis": -163.35609822923254,
+      "interS_hbscbb_the": -121.53436215595701,
+      "interS_hbscbb_phi": -36.66169337464896,
+      "interS_hbscsc_dis": -113.27632706854628,
+      "interS_hbscsc_the": -37.226978935490756,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -825.6857582850498,
+      "interD_vdwrep": 995.9459247134386,
+      "interD_electr": -111.98054893128966,
+      "interD_deslvP": 474.58006363546764,
+      "interD_deslvH": -361.83961317843375,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -25.51417980724128,
+      "interD_hbscbb_the": -13.135926245595128,
+      "interD_hbscbb_phi": -10.422742976250358,
+      "interD_hbscsc_dis": -45.69942099761534,
+      "interD_hbscsc_the": -23.506923918925278,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": 0.0,
+      "prolig_vdwrep": 0.0,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 0.0,
+      "prolig_deslvH": 0.0,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": 0.0,
+      "prolig_hbscsc_the": 0.0,
+      "prolig_hbscsc_phi": 0.0,
+      "aapropensity": 197.00572000000054,
+      "ramachandran": 6886.24271999995,
+      "dunbrack": 456.50435692288335
+    },
+    "residue_energies": [
+      {
+        "chain": "A",
+        "position": 45,
+        "self_energy": -6.085584,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 47,
+        "self_energy": -3.931716,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 48,
+        "self_energy": -2.084534,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 54,
+        "self_energy": -6.202464,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 208,
+        "self_energy": -0.572896,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 282,
+        "self_energy": 0.935822,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 284,
+        "self_energy": 0.664253,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 316,
+        "self_energy": 1.091095,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 318,
+        "self_energy": 1.544155,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 319,
+        "self_energy": 3.853724,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 45,
+        "self_energy": -5.972182,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 47,
+        "self_energy": -3.869002,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 48,
+        "self_energy": -0.558811,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 54,
+        "self_energy": -5.147161,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 208,
+        "self_energy": -3.953543,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 282,
+        "self_energy": -0.075434,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 284,
+        "self_energy": 0.643619,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 316,
+        "self_energy": -0.687426,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 318,
+        "self_energy": 1.528275,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 319,
+        "self_energy": -6.9183,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 39,
+        "self_energy": -6.36216,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 40,
+        "self_energy": -1.661579,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 78,
+        "self_energy": -1.955999,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 79,
+        "self_energy": -12.743027,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 80,
+        "self_energy": -1.33595,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 81,
+        "self_energy": -8.150659,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 113,
+        "self_energy": -6.677093,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 114,
+        "self_energy": -2.282967,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 115,
+        "self_energy": -5.086554,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 116,
+        "self_energy": -5.531269,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 117,
+        "self_energy": -3.846109,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 118,
+        "self_energy": -0.810173,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 159,
+        "self_energy": -1.6627,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 160,
+        "self_energy": -7.959811,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 161,
+        "self_energy": -0.070599,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 162,
+        "self_energy": -4.850975,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 203,
+        "self_energy": -0.990188,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 205,
+        "self_energy": -2.186509,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 206,
+        "self_energy": -7.964768,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 207,
+        "self_energy": 43.426117,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 209,
+        "self_energy": -0.291864,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 214,
+        "self_energy": 0.517283,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 241,
+        "self_energy": -1.400825,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 243,
+        "self_energy": -4.022991,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 246,
+        "self_energy": -2.83472,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 249,
+        "self_energy": -4.002619,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 270,
+        "self_energy": -0.822759,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 272,
+        "self_energy": -0.387909,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 274,
+        "self_energy": -2.073977,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 313,
+        "self_energy": -4.689951,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 314,
+        "self_energy": 1.449836,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 315,
+        "self_energy": -8.54985,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 49,
+        "self_energy": 1.053719,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "X",
+        "position": 1,
+        "self_energy": -0.733626,
+        "binding_energy": -0.733626
+      }
+    ]
+  },
+  "repel_lower_S": {
+    "before": {
+      "total": -6445.162244250175,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.55725646171675,
+      "intraR_vdwrep": 66.78038747695564,
+      "intraR_electr": -3.802410932714412,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.015195311981174,
+      "intraR_hbscbb_dis": -17.642769443636602,
+      "intraR_hbscbb_the": -1.6821379681072133,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10674.226984133786,
+      "interS_vdwrep": 1141.965273578919,
+      "interS_electr": -785.4140965417017,
+      "interS_deslvP": 6116.114789694947,
+      "interS_deslvH": -3995.773014444913,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7195867119002,
+      "interS_hbbbbb_the": -686.5963674078888,
+      "interS_hbbbbb_phi": -967.857045408566,
+      "interS_hbscbb_dis": -164.9104764716239,
+      "interS_hbscbb_the": -124.47691380383215,
+      "interS_hbscbb_phi": -37.212998427903955,
+      "interS_hbscsc_dis": -111.85381998313238,
+      "interS_hbscsc_the": -37.942552407694755,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -829.2080060367782,
+      "interD_vdwrep": 627.3770396636398,
+      "interD_electr": -110.87108843498046,
+      "interD_deslvP": 475.9053219643721,
+      "interD_deslvH": -362.23351748176617,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -23.472186376680042,
+      "interD_hbscbb_the": -12.574909059446988,
+      "interD_hbscbb_phi": -9.654448160769732,
+      "interD_hbscsc_dis": -46.02880595891136,
+      "interD_hbscsc_the": -21.96929689945202,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": -26.06127292996461,
+      "prolig_vdwrep": 20.588365396306074,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 19.972274499649064,
+      "prolig_deslvH": -5.238975115176445,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": -1.4255373098630932,
+      "prolig_hbscsc_the": -3.21590260803184,
+      "prolig_hbscsc_phi": -1.6458915029043129,
+      "aapropensity": -360.2386600000009,
+      "ramachandran": 5706.2048400000085,
+      "dunbrack": 449.5075872108504
+    },
+    "after": {
+      "total": -4713.942900170098,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.49279250588904,
+      "intraR_vdwrep": 66.38319997296057,
+      "intraR_electr": -3.8719414619178565,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.012571936157965,
+      "intraR_hbscbb_dis": -18.87582897076046,
+      "intraR_hbscbb_the": -1.6838527245686339,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10670.918557914947,
+      "interS_vdwrep": 1111.924627849061,
+      "interS_electr": -783.772079122246,
+      "interS_deslvP": 6120.346239944687,
+      "interS_deslvH": -3994.539517038025,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7339136972545,
+      "interS_hbbbbb_the": -686.5756327019174,
+      "interS_hbbbbb_phi": -967.8532027255469,
+      "interS_hbscbb_dis": -163.35609822923254,
+      "interS_hbscbb_the": -121.53436215595701,
+      "interS_hbscbb_phi": -36.66169337464896,
+      "interS_hbscsc_dis": -113.27632706854628,
+      "interS_hbscsc_the": -37.226978935490756,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -824.7623803199087,
+      "interD_vdwrep": 639.9999822607498,
+      "interD_electr": -112.26071803149733,
+      "interD_deslvP": 473.1411548778562,
+      "interD_deslvH": -361.70726289926296,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -26.573332751369254,
+      "interD_hbscbb_the": -13.710413329820256,
+      "interD_hbscbb_phi": -10.891461006026114,
+      "interD_hbscsc_dis": -45.69171137805776,
+      "interD_hbscsc_the": -23.452271719200287,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": 0.0,
+      "prolig_vdwrep": 0.0,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 0.0,
+      "prolig_deslvH": 0.0,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": 0.0,
+      "prolig_hbscsc_the": 0.0,
+      "prolig_hbscsc_phi": 0.0,
+      "aapropensity": 197.00572000000054,
+      "ramachandran": 6886.24271999995,
+      "dunbrack": 456.50435692288335
+    },
+    "residue_energies": [
+      {
+        "chain": "A",
+        "position": 45,
+        "self_energy": -6.434407,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 47,
+        "self_energy": -4.547745,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 48,
+        "self_energy": -2.127156,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 54,
+        "self_energy": -6.750388,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 208,
+        "self_energy": -1.047609,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 282,
+        "self_energy": 0.935822,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 284,
+        "self_energy": 0.342445,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 316,
+        "self_energy": 0.981632,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 318,
+        "self_energy": 1.243865,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 319,
+        "self_energy": -0.226118,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 45,
+        "self_energy": -6.315553,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 47,
+        "self_energy": -4.121159,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 48,
+        "self_energy": -1.292827,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 54,
+        "self_energy": -5.66217,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 208,
+        "self_energy": -4.56856,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 282,
+        "self_energy": -0.602193,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 284,
+        "self_energy": 0.312098,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 316,
+        "self_energy": -0.765945,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 318,
+        "self_energy": 1.222668,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 319,
+        "self_energy": -8.282927,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 39,
+        "self_energy": -6.74051,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 40,
+        "self_energy": -1.662743,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 78,
+        "self_energy": -2.805324,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 79,
+        "self_energy": -12.890785,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 80,
+        "self_energy": -1.351709,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 81,
+        "self_energy": -8.152952,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 113,
+        "self_energy": -7.404835,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 114,
+        "self_energy": -2.309543,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 115,
+        "self_energy": -5.1097,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 116,
+        "self_energy": -5.605121,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 117,
+        "self_energy": -3.909331,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 118,
+        "self_energy": -1.09253,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 159,
+        "self_energy": -1.695193,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 160,
+        "self_energy": -7.970866,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 161,
+        "self_energy": -0.13749,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 162,
+        "self_energy": -4.977976,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 203,
+        "self_energy": -1.017478,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 205,
+        "self_energy": -2.398894,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 206,
+        "self_energy": -8.111394,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 207,
+        "self_energy": 28.870566,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 209,
+        "self_energy": -0.765585,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 214,
+        "self_energy": -0.451533,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 241,
+        "self_energy": -1.415263,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 243,
+        "self_energy": -4.032105,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 246,
+        "self_energy": -2.899061,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 249,
+        "self_energy": -4.007181,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 270,
+        "self_energy": -1.300877,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 272,
+        "self_energy": -0.693003,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 274,
+        "self_energy": -2.693156,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 313,
+        "self_energy": -4.825322,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 314,
+        "self_energy": 1.420702,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 315,
+        "self_energy": -8.614206,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 49,
+        "self_energy": 1.020225,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "X",
+        "position": 1,
+        "self_energy": -0.733626,
+        "binding_energy": -0.733626
+      }
+    ]
+  },
+  "repel_h_S": {
+    "before": {
+      "total": -5595.972922514286,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.55725646171675,
+      "intraR_vdwrep": 66.78038747695564,
+      "intraR_electr": -3.802410932714412,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.015195311981174,
+      "intraR_hbscbb_dis": -17.642769443636602,
+      "intraR_hbscbb_the": -1.6821379681072133,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10674.226984133786,
+      "interS_vdwrep": 2283.930547157838,
+      "interS_electr": -785.4140965417017,
+      "interS_deslvP": 6116.114789694947,
+      "interS_deslvH": -3995.773014444913,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7195867119002,
+      "interS_hbbbbb_the": -686.5963674078888,
+      "interS_hbbbbb_phi": -967.857045408566,
+      "interS_hbscbb_dis": -164.9104764716239,
+      "interS_hbscbb_the": -124.47691380383215,
+      "interS_hbscbb_phi": -37.212998427903955,
+      "interS_hbscsc_dis": -111.85381998313238,
+      "interS_hbscsc_the": -37.942552407694755,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -829.2080060367782,
+      "interD_vdwrep": 334.601087820608,
+      "interD_electr": -110.87108843498046,
+      "interD_deslvP": 475.9053219643721,
+      "interD_deslvH": -362.23351748176617,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -23.472186376680042,
+      "interD_hbscbb_the": -12.574909059446988,
+      "interD_hbscbb_phi": -9.654448160769732,
+      "interD_hbscsc_dis": -46.02880595891136,
+      "interD_hbscsc_the": -21.96929689945202,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": -26.06127292996461,
+      "prolig_vdwrep": 20.588365396306074,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 19.972274499649064,
+      "prolig_deslvH": -5.238975115176445,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": -1.4255373098630932,
+      "prolig_hbscsc_the": -3.21590260803184,
+      "prolig_hbscsc_phi": -1.6458915029043129,
+      "aapropensity": -360.2386600000009,
+      "ramachandran": 5706.2048400000085,
+      "dunbrack": 449.5075872108504
+    },
+    "after": {
+      "total": -3888.685226549225,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.76455998002274,
+      "intraR_vdwrep": 66.44663663982405,
+      "intraR_electr": -3.829564546731093,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.018915670031447,
+      "intraR_hbscbb_dis": -18.87582897076046,
+      "intraR_hbscbb_the": -1.6838527245686339,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10665.370279729554,
+      "interS_vdwrep": 2219.993084436372,
+      "interS_electr": -783.8052328572545,
+      "interS_deslvP": 6116.478499009027,
+      "interS_deslvH": -3992.573481910489,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7339136972545,
+      "interS_hbbbbb_the": -686.5756327019174,
+      "interS_hbbbbb_phi": -967.8532027255469,
+      "interS_hbscbb_dis": -163.73819275078736,
+      "interS_hbscbb_the": -121.74677405778048,
+      "interS_hbscbb_phi": -36.508893158066016,
+      "interS_hbscsc_dis": -112.72346022013055,
+      "interS_hbscsc_the": -37.30827353266661,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -826.6513156016097,
+      "interD_vdwrep": 354.12556049359,
+      "interD_electr": -113.15414042546152,
+      "interD_deslvP": 474.61347049717335,
+      "interD_deslvH": -361.7058934247081,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -25.63335726920657,
+      "interD_hbscbb_the": -13.702003941595578,
+      "interD_hbscbb_phi": -10.60028687756447,
+      "interD_hbscsc_dis": -45.82229287065764,
+      "interD_hbscsc_the": -23.659924903679755,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": 0.0,
+      "prolig_vdwrep": 0.0,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 0.0,
+      "prolig_deslvH": 0.0,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": 0.0,
+      "prolig_hbscsc_the": 0.0,
+      "prolig_hbscsc_phi": 0.0,
+      "aapropensity": 197.00572000000054,
+      "ramachandran": 6886.24271999995,
+      "dunbrack": 456.50435692288335
+    },
+    "residue_energies": [
+      {
+        "chain": "A",
+        "position": 45,
+        "self_energy": -5.853036,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 47,
+        "self_energy": -3.584532,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 48,
+        "self_energy": -2.898789,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 54,
+        "self_energy": -5.884609,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 208,
+        "self_energy": -0.25642,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 282,
+        "self_energy": 0.935822,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 284,
+        "self_energy": 0.878792,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 316,
+        "self_energy": 1.141506,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 318,
+        "self_energy": 1.744348,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 319,
+        "self_energy": -5.693417,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 45,
+        "self_energy": -5.767892,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 47,
+        "self_energy": -3.700897,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 48,
+        "self_energy": -2.320449,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 54,
+        "self_energy": -4.874803,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 208,
+        "self_energy": -3.897996,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 282,
+        "self_energy": 0.275739,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 284,
+        "self_energy": 0.864632,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 316,
+        "self_energy": -0.63508,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 318,
+        "self_energy": 1.732014,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 319,
+        "self_energy": -9.9553,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 39,
+        "self_energy": -6.109926,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 40,
+        "self_energy": -1.660803,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 78,
+        "self_energy": -1.389783,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 79,
+        "self_energy": -12.644521,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 80,
+        "self_energy": -1.325443,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 81,
+        "self_energy": -8.14913,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 113,
+        "self_energy": -6.191933,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 114,
+        "self_energy": -2.265251,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 115,
+        "self_energy": -5.071124,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 116,
+        "self_energy": -5.482034,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 117,
+        "self_energy": -3.803962,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 118,
+        "self_energy": -0.621935,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 159,
+        "self_energy": -1.641037,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 160,
+        "self_energy": -7.952442,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 161,
+        "self_energy": -0.026005,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 162,
+        "self_energy": -4.766308,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 203,
+        "self_energy": -0.971994,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 205,
+        "self_energy": -2.04492,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 206,
+        "self_energy": -7.867016,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 207,
+        "self_energy": 20.688993,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 209,
+        "self_energy": 0.017687,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 214,
+        "self_energy": 1.106752,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 241,
+        "self_energy": -1.3912,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 243,
+        "self_energy": -4.016915,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 246,
+        "self_energy": -2.818587,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 249,
+        "self_energy": -3.999577,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 270,
+        "self_energy": -0.541196,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 272,
+        "self_energy": -0.184513,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 274,
+        "self_energy": -1.66119,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 313,
+        "self_energy": -4.599704,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 314,
+        "self_energy": 1.469259,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 315,
+        "self_energy": -8.506945,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 49,
+        "self_energy": 1.076048,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "X",
+        "position": 1,
+        "self_energy": -0.733626,
+        "binding_energy": -0.733626
+      }
+    ]
+  },
+  "repel_ultra": {
+    "before": {
+      "total": 6921.550883302426,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.55725646171675,
+      "intraR_vdwrep": 6678.038747695564,
+      "intraR_electr": -3.802410932714412,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.015195311981174,
+      "intraR_hbscbb_dis": -17.642769443636602,
+      "intraR_hbscbb_the": -1.6821379681072133,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10674.226984133786,
+      "interS_vdwrep": 6851.791641473515,
+      "interS_electr": -785.4140965417017,
+      "interS_deslvP": 6116.114789694947,
+      "interS_deslvH": -3995.773014444913,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7195867119002,
+      "interS_hbbbbb_the": -686.5963674078888,
+      "interS_hbbbbb_phi": -967.857045408566,
+      "interS_hbscbb_dis": -164.9104764716239,
+      "interS_hbscbb_the": -124.47691380383215,
+      "interS_hbscbb_phi": -37.212998427903955,
+      "interS_hbscsc_dis": -111.85381998313238,
+      "interS_hbscsc_the": -37.942552407694755,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -829.2080060367782,
+      "interD_vdwrep": 1673.0054391030396,
+      "interD_electr": -110.87108843498046,
+      "interD_deslvP": 475.9053219643721,
+      "interD_deslvH": -362.23351748176617,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -23.472186376680042,
+      "interD_hbscbb_the": -12.574909059446988,
+      "interD_hbscbb_phi": -9.654448160769732,
+      "interD_hbscsc_dis": -46.02880595891136,
+      "interD_hbscsc_the": -21.96929689945202,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": -26.06127292996461,
+      "prolig_vdwrep": 20.588365396306074,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 19.972274499649064,
+      "prolig_deslvH": -5.238975115176445,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": -1.4255373098630932,
+      "prolig_hbscsc_the": -3.21590260803184,
+      "prolig_hbscsc_phi": -1.6458915029043129,
+      "aapropensity": -360.2386600000009,
+      "ramachandran": 5706.2048400000085,
+      "dunbrack": 449.5075872108504
+    },
+    "after": {
+      "total": 8419.268855876671,
+      "reference_ALA": -62.016,
+      "reference_CYS": -0.888,
+      "reference_ASP": -73.784,
+      "reference_GLU": -171.5,
+      "reference_PHE": 57.036,
+      "reference_GLY": -259.532,
+      "reference_HIS": -8.26,
+      "reference_ILE": 195.72,
+      "reference_LYS": -150.0,
+      "reference_LEU": 212.916,
+      "reference_MET": 33.396,
+      "reference_ASN": -94.82,
+      "reference_PRO": -23.292,
+      "reference_GLN": -69.696,
+      "reference_ARG": -105.76,
+      "reference_SER": -63.296,
+      "reference_THR": -26.624,
+      "reference_VAL": 156.4,
+      "reference_TRP": 72.144,
+      "reference_TYR": 44.8,
+      "intraR_vdwatt": -352.7823765932213,
+      "intraR_vdwrep": 6591.852168789954,
+      "intraR_electr": -3.7794455423056417,
+      "intraR_deslvP": 0.0,
+      "intraR_deslvH": -30.009197030421838,
+      "intraR_hbscbb_dis": -18.261861310712835,
+      "intraR_hbscbb_the": -1.6832290601937698,
+      "intraR_hbscbb_phi": -0.0,
+      "interS_vdwatt": -10659.549955128803,
+      "interS_vdwrep": 6679.961164080003,
+      "interS_electr": -780.4114215771735,
+      "interS_deslvP": 6113.395246037954,
+      "interS_deslvH": -3991.8592986664407,
+      "interS_ssbond": 0.0,
+      "interS_hbbbbb_dis": -926.7339136972545,
+      "interS_hbbbbb_the": -686.5756327019174,
+      "interS_hbbbbb_phi": -967.8532027255469,
+      "interS_hbscbb_dis": -160.8271891672535,
+      "interS_hbscbb_the": -120.03564776991725,
+      "interS_hbscbb_phi": -36.173304442254256,
+      "interS_hbscsc_dis": -109.87011873235531,
+      "interS_hbscsc_the": -36.23714969530832,
+      "interS_hbscsc_phi": -0.0,
+      "interD_vdwatt": -828.7828267351352,
+      "interD_vdwrep": 1663.0273128653525,
+      "interD_electr": -112.43047837310584,
+      "interD_deslvP": 476.5192686455423,
+      "interD_deslvH": -362.07348652488906,
+      "interD_ssbond": 0.0,
+      "interD_hbbbbb_dis": 0.0,
+      "interD_hbbbbb_the": 0.0,
+      "interD_hbbbbb_phi": 0.0,
+      "interD_hbscbb_dis": -25.987385482108994,
+      "interD_hbscbb_the": -13.74161221702984,
+      "interD_hbscbb_phi": -10.888608621167396,
+      "interD_hbscsc_dis": -47.96051253978962,
+      "interD_hbscsc_the": -23.675247130661926,
+      "interD_hbscsc_phi": -0.0,
+      "prolig_vdwatt": 0.0,
+      "prolig_vdwrep": 0.0,
+      "prolig_electr": 0.0,
+      "prolig_deslvP": 0.0,
+      "prolig_deslvH": 0.0,
+      "prolig_hbscbb_dis": 0.0,
+      "prolig_hbscbb_the": 0.0,
+      "prolig_hbscbb_phi": 0.0,
+      "prolig_hbscsc_dis": 0.0,
+      "prolig_hbscsc_the": 0.0,
+      "prolig_hbscsc_phi": 0.0,
+      "aapropensity": 197.00572000000054,
+      "ramachandran": 6886.24271999995,
+      "dunbrack": 456.50435692288335
+    },
+    "residue_energies": [
+      {
+        "chain": "A",
+        "position": 45,
+        "self_energy": -2.216616,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 47,
+        "self_energy": 3.696108,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 48,
+        "self_energy": 5.475796,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 54,
+        "self_energy": -0.801583,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 208,
+        "self_energy": 8.099937,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 282,
+        "self_energy": 7.619635,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 284,
+        "self_energy": 4.264336,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 316,
+        "self_energy": 3.508185,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 318,
+        "self_energy": 4.430477,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 319,
+        "self_energy": 25.242313,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 45,
+        "self_energy": -2.383929,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 47,
+        "self_energy": 1.452377,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 48,
+        "self_energy": 6.275481,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 54,
+        "self_energy": -0.096353,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 208,
+        "self_energy": 4.222431,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 282,
+        "self_energy": 13.02255,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 284,
+        "self_energy": 4.006046,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 316,
+        "self_energy": 1.777613,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 318,
+        "self_energy": 4.467381,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 319,
+        "self_energy": 3.354213,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 39,
+        "self_energy": 2.021984,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 40,
+        "self_energy": 2.86005,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 78,
+        "self_energy": 6.925111,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 79,
+        "self_energy": -9.747673,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 80,
+        "self_energy": -0.682712,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 81,
+        "self_energy": -2.060873,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 113,
+        "self_energy": 4.475249,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 114,
+        "self_energy": -1.532465,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 115,
+        "self_energy": 0.706261,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 116,
+        "self_energy": -0.763385,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 117,
+        "self_energy": -1.815304,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 118,
+        "self_energy": 6.713753,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 159,
+        "self_energy": -0.875335,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 160,
+        "self_energy": -1.142181,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 161,
+        "self_energy": 1.282609,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 162,
+        "self_energy": -1.676372,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 203,
+        "self_energy": 0.328466,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 205,
+        "self_energy": 1.532575,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 206,
+        "self_energy": -0.062108,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 207,
+        "self_energy": 108.174065,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 209,
+        "self_energy": 4.064161,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 214,
+        "self_energy": 7.193892,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 241,
+        "self_energy": 3.187332,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 243,
+        "self_energy": 2.801554,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 246,
+        "self_energy": -1.073428,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 249,
+        "self_energy": -2.253336,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 270,
+        "self_energy": 7.745082,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 272,
+        "self_energy": 4.481837,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 274,
+        "self_energy": 6.828195,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 313,
+        "self_energy": 1.760874,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 314,
+        "self_energy": 4.554118,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "A",
+        "position": 315,
+        "self_energy": -3.215494,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "B",
+        "position": 49,
+        "self_energy": 2.672874,
+        "binding_energy": 0.0
+      },
+      {
+        "chain": "X",
+        "position": 1,
+        "self_energy": -0.733626,
+        "binding_energy": -0.733626
+      }
+    ]
+  }
+}

@@ -45,6 +45,7 @@ struct PyMonomerDesignOptions {
 
   double profile_weight;
   double binding_weight;
+  bool debug_only;
   double rotamer_probability_cutoff;
 
   int trajectories;
@@ -87,6 +88,10 @@ struct PyMonomerDesignResult {
   bool has_best_structure;
   bool has_best_sites_structure;
   bool has_best_mutable_sites_structure;
+  bool has_energy_terms_initial;
+  bool has_energy_terms_final;
+  double energy_terms_initial[MAX_ENERGY_TERM];
+  double energy_terms_final[MAX_ENERGY_TERM];
 
   Structure best_structure;
   Structure best_sites_structure;

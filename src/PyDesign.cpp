@@ -1,5 +1,6 @@
 #include "PyDesign.h"
 
+#include <algorithm>
 #include <cerrno>
 #include <cmath>
 #include <cstdio>
@@ -529,7 +530,11 @@ PyMonomerDesignResult::PyMonomerDesignResult()
       unsatisfied_constraints(0),
       has_best_structure(false),
       has_best_sites_structure(false),
-      has_best_mutable_sites_structure(false) {
+      has_best_mutable_sites_structure(false),
+      has_energy_terms_initial(false),
+      has_energy_terms_final(false) {
+  std::fill(std::begin(energy_terms_initial), std::end(energy_terms_initial), 0.0);
+  std::fill(std::begin(energy_terms_final), std::end(energy_terms_final), 0.0);
   StructureCreate(&best_structure);
   StructureCreate(&best_sites_structure);
   StructureCreate(&best_mutable_sites_structure);
@@ -566,6 +571,9 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
   StructureCreate(&working_structure);
   StructureCopy(&working_structure, input_structure);
   FixDesignSitePointers(&working_structure);
+
+  double energy_terms_before[MAX_ENERGY_TERM] = {0};
+  double energy_terms_after[MAX_ENERGY_TERM] = {0};
 
   AtomParamsSet atom_params;
   AtomParamsSetCreate(&atom_params);
@@ -903,6 +911,21 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
   RotamerListRead(&rotamer_list, const_cast<char*>(rotlist_sec_file.c_str()));
   StructureShowDesignSitesAfterRotamerDelete(&working_structure, &rotamer_list);
 
+  memset(energy_terms_before, 0, sizeof(energy_terms_before));
+  if (!FAILED(ComputeStructureStabilityByBBdepRotLib2(&working_structure,
+                                                      &aapp_table,
+                                                      &rama_table,
+                                                      FILE_ROTLIB_BIN,
+                                                      energy_terms_before))) {
+    result->has_energy_terms_initial = true;
+    std::copy(std::begin(energy_terms_before), std::end(energy_terms_before),
+              std::begin(result->energy_terms_initial));
+  }
+
+  if (options.debug_only) {
+    return cleanup(Success);
+  }
+
   code = SimulatedAnnealing(&working_structure, &rotamer_list);
   RotamerListDestroy(&rotamer_list);
   if (FAILED(code)) {
@@ -941,6 +964,23 @@ int RunMonomerDesignWorkflow(Structure* input_structure,
     if (!FAILED(code)) {
       result->has_best_mutable_sites_structure = true;
     }
+  }
+
+  if (result->has_best_structure) {
+    Structure temp_struct;
+    StructureCreate(&temp_struct);
+    StructureCopy(&temp_struct, &result->best_structure);
+    memset(energy_terms_after, 0, sizeof(energy_terms_after));
+    if (!FAILED(ComputeStructureStabilityByBBdepRotLib2(&temp_struct,
+                                                        &aapp_table,
+                                                        &rama_table,
+                                                        FILE_ROTLIB_BIN,
+                                                        energy_terms_after))) {
+      result->has_energy_terms_final = true;
+      std::copy(std::begin(energy_terms_after), std::end(energy_terms_after),
+                std::begin(result->energy_terms_final));
+    }
+    StructureDestroy(&temp_struct);
   }
 
   return cleanup(Success);

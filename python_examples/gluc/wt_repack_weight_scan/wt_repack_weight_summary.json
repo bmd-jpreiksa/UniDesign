@@ -1,38 +1,38 @@
 {
   "baseline": {
-    "total": -8768.240135,
-    "physical": -8761.921171,
+    "total": -6229.027032,
+    "physical": -6222.708068,
     "binding": -6.318965,
     "trajectory": 0
   },
   "repel_d": {
-    "total": -8259.489691,
-    "physical": -8253.170727,
+    "total": -5729.820074,
+    "physical": -5723.501109,
     "binding": -6.318965,
     "trajectory": 0
   },
-  "repel_plus": {
-    "total": -8247.840113,
-    "physical": -8241.467302,
-    "binding": -6.37281,
+  "repel_d_plus": {
+    "total": -5441.265053,
+    "physical": -5434.946088,
+    "binding": -6.318965,
     "trajectory": 0
   },
-  "repel_heavy": {
-    "total": -3844.288102,
-    "physical": -3840.367557,
-    "binding": -3.920545,
+  "repel_lower_S": {
+    "total": -6284.966078,
+    "physical": -6278.647113,
+    "binding": -6.318965,
     "trajectory": 0
   },
-  "repel_extreme": {
-    "total": -1517.267998,
-    "physical": -1509.175181,
-    "binding": -8.092817,
+  "repel_h_S": {
+    "total": -5405.025409,
+    "physical": -5401.201658,
+    "binding": -3.823752,
     "trajectory": 0
   },
   "repel_ultra": {
-    "total": 4331.5998,
-    "physical": 4332.497216,
-    "binding": -0.897416,
+    "total": 6784.071051,
+    "physical": 6784.938082,
+    "binding": -0.86703,
     "trajectory": 0
   }
 }

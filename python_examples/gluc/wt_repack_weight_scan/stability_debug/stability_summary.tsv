@@ -1,0 +1,13 @@
+label	structure	total
+baseline	initial	nan
+baseline	best	nan
+repel_d	initial	nan
+repel_d	best	nan
+repel_d_plus	initial	nan
+repel_d_plus	best	nan
+repel_lower_S	initial	nan
+repel_lower_S	best	nan
+repel_h_S	initial	nan
+repel_h_S	best	nan
+repel_ultra	initial	nan
+repel_ultra	best	nan

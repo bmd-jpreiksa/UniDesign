@@ -15,6 +15,7 @@ WEIGHT_DIR = TEST_DIR / "weights"
 STRUCT_DIR = TEST_DIR / "structures"
 SUMMARY_JSON = TEST_DIR / "wt_repack_weight_summary.json"
 SUMMARY_TSV = TEST_DIR / "wt_repack_weight_summary.tsv"
+PARAM_DEBUG_DIR = TEST_DIR / "parameter_debug"
 
 PARAM_DIR = BASE_DIR / "ligand_params"
 ROT_LIB = REPO_ROOT / "library" / "rotlib" / "ALLbbdep.bin"
@@ -35,6 +36,12 @@ DDOMAIN_WT: Dict[Tuple[int, str], str] = {
     (48, "B"): "R",
     (54, "A"): "Y",
     (54, "B"): "Y",
+    (208, "A"): "E",
+    (208, "B"): "E",
+    (282, "A"): "D",
+    (282, "B"): "D",
+    (284, "A"): "D",
+    (284, "B"): "D",
     (316, "A"): "F",
     (316, "B"): "F",
     (318, "A"): "Y",
@@ -54,28 +61,28 @@ WEIGHT_VARIANTS: Dict[str, Dict[str, object]] = {
             "intraR_vdwrep": 0.060,
         },
     },
-    "repel_plus": {
+    "repel_d_plus": {
         "source": "weight_all1",
         "overrides": {
             "interS_vdwrep": 1.600,
-            "interD_vdwrep": 1.050,
-            "intraR_vdwrep": 0.120,
+            "interD_vdwrep": 2.000,
+            "intraR_vdwrep": 0.060,
         },
     },
-    "repel_heavy": {
+    "repel_lower_S": {
         "source": "weight_all1",
         "overrides": {
-            "interS_vdwrep": 3.200,
-            "interD_vdwrep": 2.100,
-            "intraR_vdwrep": 2.100,
+            "interS_vdwrep": 1.000,
+            "interD_vdwrep": 1.500,
+            "intraR_vdwrep": 0.060,
         },
     },
-    "repel_extreme": {
+    "repel_h_S": {
         "source": "weight_all1",
         "overrides": {
-            "interS_vdwrep": 3.200,
-            "interD_vdwrep": 2.100,
-            "intraR_vdwrep": 4.200,
+            "interS_vdwrep": 2.000,
+            "interD_vdwrep": 0.800,
+            "intraR_vdwrep": 0.060,
         },
     },
     "repel_ultra": {
@@ -187,6 +194,7 @@ def run_weight_scan() -> None:
 
     cached_bases: Dict[str, List[str]] = {}
     summary: Dict[str, Dict[str, float]] = {}
+    parameter_debug: Dict[str, Dict[str, object]] = {}
 
     for label, config in WEIGHT_VARIANTS.items():
         print(f"Running WT repack with weight variant '{label}'")
@@ -221,11 +229,32 @@ def run_weight_scan() -> None:
             out_path = STRUCT_DIR / f"best_structure_{label}.pdb"
             designer.best_structure.handle.write_pdb(str(out_path))
 
-        if designer.best_sequence_energy:
-            summary[label] = {
-                key: designer.best_sequence_energy[key]
-                for key in ("total", "physical", "binding", "trajectory")
-            }
+        best_energy = designer.best_sequence_energy or {}
+        if best_energy:
+            summary[label] = {key: best_energy[key] for key in ("total", "physical", "binding", "trajectory")}
+
+        def _normalize_terms(raw) -> Dict[str, float]:
+            data: Dict[str, float] = {}
+            if isinstance(raw, dict):
+                for key, value in raw.items():
+                    data[str(key)] = float(value)
+            return data
+
+        residue_payload = []
+        if designer.best_residue_energies:
+            for (chain, position), values in designer.best_residue_energies.items():
+                residue_payload.append({
+                    "chain": str(chain),
+                    "position": int(position),
+                    "self_energy": float(values["self_energy"]),
+                    "binding_energy": float(values["binding_energy"]),
+                })
+
+        parameter_debug[label] = {
+            "before": _normalize_terms(best_energy.get("energy_terms_initial")) if best_energy else {},
+            "after": _normalize_terms(best_energy.get("energy_terms_final")) if best_energy else {},
+            "residue_energies": residue_payload,
+        }
 
     if summary:
         SUMMARY_JSON.write_text(json.dumps(summary, indent=2))
@@ -239,6 +268,40 @@ def run_weight_scan() -> None:
                     f"{label}\t{data['total']:.6f}\t{data['physical']:.6f}"
                     f"\t{data['binding']:.6f}\t{int(data['trajectory'])}\n"
                 )
+
+    if parameter_debug:
+        PARAM_DEBUG_DIR.mkdir(exist_ok=True)
+        (PARAM_DEBUG_DIR / "parameter_debug.json").write_text(json.dumps(parameter_debug, indent=2))
+        for label in WEIGHT_VARIANTS:
+            entries = parameter_debug.get(label)
+            if not entries:
+                continue
+            before = dict(entries.get("before") or {})
+            after = dict(entries.get("after") or {})
+            terms = sorted(set(before) | set(after))
+            output = PARAM_DEBUG_DIR / f"parameter_terms_{label}.tsv"
+            with output.open("w", encoding="utf-8") as handle:
+                handle.write("term\tbefore\tafter\tdelta\n")
+                for term in terms:
+                    b = before.get(term)
+                    a = after.get(term)
+                    delta = (a - b) if (a is not None and b is not None) else None
+                    handle.write(
+                        f"{term}\t"
+                        f"{'' if b is None else f'{b:.6f}'}\t"
+                        f"{'' if a is None else f'{a:.6f}'}\t"
+                        f"{'' if delta is None else f'{delta:.6f}'}\n"
+                    )
+
+            residues = entries.get("residue_energies") or []
+            if residues:
+                res_out = PARAM_DEBUG_DIR / f"residue_energies_{label}.tsv"
+                with res_out.open("w", encoding="utf-8") as handle:
+                    handle.write("chain\tposition\tself_energy\tbinding_energy\n")
+                    for entry in sorted(residues, key=lambda e: (e["chain"], e["position"])):
+                        handle.write(
+                            f"{entry['chain']}\t{entry['position']}\t{entry['self_energy']:.6f}\t{entry['binding_energy']:.6f}\n"
+                        )
 
 
 if __name__ == "__main__":

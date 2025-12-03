@@ -5,7 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a4ed4c3-6f00-4ca1-85db-0c2d12ebd6f8" name="Changes" comment="some fixes for build mutant">
-      <change beforePath="$PROJECT_DIR$/python_examples/gluc/run_mutation_scan.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_examples/gluc/run_mutation_scan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/lib.linux-x86_64-cpython-311/unidesign/_core.cpython-311-x86_64-linux-gnu.so" beforeDir="false" afterPath="$PROJECT_DIR$/build/lib.linux-x86_64-cpython-311/unidesign/_core.cpython-311-x86_64-linux-gnu.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/python/unidesign/_bindings/module.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/python/unidesign/_bindings/module.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/src/PyDesign.o" beforeDir="false" afterPath="$PROJECT_DIR$/build/temp.linux-x86_64-cpython-311/src/PyDesign.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/unidesign.egg-info/SOURCES.txt" beforeDir="false" afterPath="$PROJECT_DIR$/python/unidesign.egg-info/SOURCES.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/unidesign/_bindings/module.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/python/unidesign/_bindings/module.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/unidesign/_core.cpython-311-x86_64-linux-gnu.so" beforeDir="false" afterPath="$PROJECT_DIR$/python/unidesign/_core.cpython-311-x86_64-linux-gnu.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/unidesign/api/design.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/unidesign/api/design.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python/unidesign/api/entities.py" beforeDir="false" afterPath="$PROJECT_DIR$/python/unidesign/api/entities.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/run_wt_repack_weight_scan.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/run_wt_repack_weight_scan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/structures/best_structure_baseline.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/structures/best_structure_baseline.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/structures/best_structure_repel_d.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/structures/best_structure_repel_d.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/structures/best_structure_repel_ultra.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/structures/best_structure_repel_ultra.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/wt_repack_weight_summary.json" beforeDir="false" afterPath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/wt_repack_weight_summary.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/wt_repack_weight_summary.tsv" beforeDir="false" afterPath="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/wt_repack_weight_summary.tsv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PyDesign.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/PyDesign.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PyDesign.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/PyDesign.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,42 +74,48 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python tests.pytest for python.tests.test_resfile.test_resfile_to_text_round_trip.executor": "Run",
-    "Python tests.pytest in test_jobs.py.executor": "Run",
-    "Python.Unnamed.executor": "Run",
-    "Python.build_mutant.executor": "Run",
-    "Python.design.executor": "Run",
-    "Python.design_monomer.executor": "Run",
-    "Python.design_monomer_domain.executor": "Run",
-    "Python.energy_scoring.executor": "Run",
-    "Python.ligand_parameters.executor": "Run",
-    "Python.minimize_scan_structures.executor": "Run",
-    "Python.monomer_design.executor": "Run",
-    "Python.protein_ligand_design.executor": "Run",
-    "Python.run.executor": "Run",
-    "Python.run_example.executor": "Run",
-    "Python.run_example_lig_around.executor": "Run",
-    "Python.run_example_lig_residue_energy.executor": "Run",
-    "Python.run_mutation_scan.executor": "Run",
-    "Python.run_mutation_scan_close_pocket.executor": "Run",
-    "Python.run_wt_repack_weight_scan.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "ligand__bindings",
-    "last_opened_file_path": "/home/jpreiksa/workspace/UniDesign",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python tests.pytest for python.tests.test_resfile.test_resfile_to_text_round_trip.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.pytest in test_jobs.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Python.build_mutant.executor&quot;: &quot;Run&quot;,
+    &quot;Python.design.executor&quot;: &quot;Run&quot;,
+    &quot;Python.design_monomer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.design_monomer_domain.executor&quot;: &quot;Run&quot;,
+    &quot;Python.energy_scoring.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ligand_parameters.executor&quot;: &quot;Run&quot;,
+    &quot;Python.minimize_scan_structures.executor&quot;: &quot;Run&quot;,
+    &quot;Python.monomer_design.executor&quot;: &quot;Run&quot;,
+    &quot;Python.protein_ligand_design.executor&quot;: &quot;Run&quot;,
+    &quot;Python.repack_ddomain_flow_uni.executor&quot;: &quot;Run&quot;,
+    &quot;Python.repack_ddomain_unidesign.executor&quot;: &quot;Run&quot;,
+    &quot;Python.repack_ddomain_unidesign_ala.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_example.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_example_lig_around.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_example_lig_residue_energy.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_mutation_scan.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_mutation_scan_close_pocket.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_stability_debug.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_wt_repack_weight_sca2.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run_wt_repack_weight_scan.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ligand__bindings&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/jpreiksa/workspace/UniDesign/python_examples/gluc/wt_repack_weight_scan&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan" />
       <recent name="$PROJECT_DIR$/python_examples/gluc" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.run_wt_repack_weight_scan">
+  <component name="RunManager" selected="Python.repack_ddomain_flow_uni">
     <configuration name="Unnamed" type="PythonConfigurationType" factoryName="Python">
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -117,7 +139,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="minimize_scan_structures" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="repack_ddomain_flow_uni" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UniDesign" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -126,11 +148,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc/packing_benchmark" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/minimize_scan_structures.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/packing_benchmark/repack_ddomain_flow_uni.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -139,7 +161,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="run_example" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="repack_ddomain_unidesign" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UniDesign" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -148,11 +170,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc/packing_benchmark" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/run_example.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/packing_benchmark/repack_ddomain_unidesign.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -161,7 +183,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="run_mutation_scan" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="repack_ddomain_unidesign_ala" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UniDesign" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -170,11 +192,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc/packing_benchmark" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/run_mutation_scan.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/packing_benchmark/repack_ddomain_unidesign_ala.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -183,7 +205,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="run_mutation_scan_close_pocket" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="run_stability_debug" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="UniDesign" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -192,11 +214,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/run_mutation_scan_close_pocket.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_examples/gluc/wt_repack_weight_scan/run_stability_debug.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -229,11 +251,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.repack_ddomain_flow_uni" />
+        <item itemvalue="Python.repack_ddomain_unidesign_ala" />
+        <item itemvalue="Python.repack_ddomain_unidesign" />
         <item itemvalue="Python.run_wt_repack_weight_scan" />
-        <item itemvalue="Python.run_mutation_scan_close_pocket" />
-        <item itemvalue="Python.minimize_scan_structures" />
-        <item itemvalue="Python.run_mutation_scan" />
-        <item itemvalue="Python.run_example" />
+        <item itemvalue="Python.run_stability_debug" />
       </list>
     </recent_temporary>
   </component>

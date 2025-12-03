@@ -5,7 +5,7 @@ from contextlib import ExitStack
 from dataclasses import dataclass
 import importlib.resources as pkg_resources
 from pathlib import Path
-from typing import Dict, Iterable, List
+from typing import Dict, Iterable, List, Sequence
 
 from .. import _core
 
@@ -91,6 +91,18 @@ ENERGY_TERM_NAMES: Dict[int, str] = {
     92: "ramachandran",
     93: "dunbrack",
 }
+
+
+def map_energy_terms(values: Sequence[float]) -> Dict[str, float]:
+    """Map indexed energy term list into a named dictionary."""
+    terms: Dict[str, float] = {}
+    for idx, name in ENERGY_TERM_NAMES.items():
+        try:
+            value = values[idx]  # type: ignore[index]
+        except (IndexError, TypeError):
+            continue
+        terms[name] = float(value)
+    return terms
 def _env_override(relative: Path) -> Path | None:
     env = os.environ.get("UNIDESIGN_LIBRARY_PATH")
     if not env:

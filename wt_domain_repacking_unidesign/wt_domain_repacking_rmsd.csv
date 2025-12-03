@@ -1,0 +1,2 @@
+site,residue_count,heavy_atom_count,heavy_atom_rmsd,structure_path,total_energy
+2A,14,125,0.4956177533653278,wt_domain_repacking_unidesign/wt_repacked_2A.pdb,-8265.382928

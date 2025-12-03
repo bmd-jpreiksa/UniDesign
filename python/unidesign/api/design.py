@@ -13,6 +13,7 @@ from .entities import (
     _RAMA_RELATIVE,
     _TOPOLOGY_RELATIVE,
     _WEIGHT_RELATIVE,
+    map_energy_terms,
     _resolve_data_file,
     _resolve_rotlib_file,
 )
@@ -223,6 +224,16 @@ class DesignProtein:
             "binding": energy_bind,
             "unsatisfied_constraints": unsatisfied,
         }
+
+        def _maybe_terms(key: str) -> None:
+            raw = payload.get(key)
+            if isinstance(raw, (list, tuple)):
+                self.best_sequence_energy[key] = map_energy_terms(raw)
+            else:
+                self.best_sequence_energy[key] = None
+
+        _maybe_terms("energy_terms_initial")
+        _maybe_terms("energy_terms_final")
         self.best_sequence = self._map_sequence(sequence_string)
         residue_energy_payload = payload.get("residue_self_energies")
         if residue_energy_payload is None:

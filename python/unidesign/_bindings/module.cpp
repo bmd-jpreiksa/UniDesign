@@ -124,6 +124,7 @@ PyMonomerDesignOptions parse_monomer_options(const py::dict& kwargs) {
       kwargs.contains("profile_weight") ? py::cast<double>(kwargs["profile_weight"]) : 1.0;
   opts.binding_weight =
       kwargs.contains("binding_weight") ? py::cast<double>(kwargs["binding_weight"]) : 1.0;
+  opts.debug_only = kwargs.contains("debug_only") ? py::cast<bool>(kwargs["debug_only"]) : false;
   opts.rotamer_probability_cutoff = kwargs.contains("rotamer_probability_cutoff")
                                        ? py::cast<double>(kwargs["rotamer_probability_cutoff"])
                                        : 0.03;
@@ -858,15 +859,35 @@ PYBIND11_MODULE(_core, m) {
                                          &native_result.best_mutable_sites_structure);
                   },
                   "StructureCopy(best_mutable_sites_structure)");
-              payload["best_mutable_sites_structure"] = best_mutable_sites;
-            } else {
-              payload["best_mutable_sites_structure"] = py::none();
-            }
+            payload["best_mutable_sites_structure"] = best_mutable_sites;
+          } else {
+            payload["best_mutable_sites_structure"] = py::none();
+          }
 
-            py::list residue_energy_list;
-            for (const auto& entry : native_result.residue_self_energies) {
-              py::dict row;
-              row["chain"] = entry.chain_name;
+          auto build_energy_list = [](const double* terms) {
+            py::list out;
+            for (int i = 0; i < MAX_ENERGY_TERM; ++i) {
+              out.append(terms[i]);
+            }
+            return out;
+          };
+
+          if (native_result.has_energy_terms_initial) {
+            payload["energy_terms_initial"] = build_energy_list(native_result.energy_terms_initial);
+          } else {
+            payload["energy_terms_initial"] = py::none();
+          }
+
+          if (native_result.has_energy_terms_final) {
+            payload["energy_terms_final"] = build_energy_list(native_result.energy_terms_final);
+          } else {
+            payload["energy_terms_final"] = py::none();
+          }
+
+          py::list residue_energy_list;
+          for (const auto& entry : native_result.residue_self_energies) {
+            py::dict row;
+            row["chain"] = entry.chain_name;
               row["position"] = entry.position;
               row["self_energy"] = entry.self_energy;
               row["binding_energy"] = entry.binding_energy;
